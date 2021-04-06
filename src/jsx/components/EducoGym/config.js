@@ -10,7 +10,7 @@ module.exports = {
       headers: {
         'Accept': 'application/json',
         'Content-Type': 'application/json',
-        'Authorization': 'Bearer ' + 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6NywiaWF0IjoxNjE3NDczMjkwLCJleHAiOjE2MTc1NTk2OTB9.Xl-jUCfu-FaQSGOftgMgFErY5RVZh5IkhH6hd7ZYUy4'
+        'Authorization': 'Bearer ' + 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6NywiaWF0IjoxNjE3NzM4NDg0LCJleHAiOjE2MTc4MjQ4ODR9.dtxush27S1Zbh4JkoagbROPmW7q2iJU6BF4bUdrkGXk'
       },
     },
   
