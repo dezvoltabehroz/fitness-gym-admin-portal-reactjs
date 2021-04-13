@@ -205,7 +205,7 @@ const AddTrainee = () => {
                                                 <div className="col-sm-9">
                                                     <div className="form-check">
                                                         <input className="form-check-input" type="radio" name="gridRadios" value="option1" checked />
-                                                        <label className="form-check-label"> Returning CLient </label>
+                                                        <label className="form-check-label"> Returning Client </label>
                                                     </div>
                                                     <div className="form-check">
                                                         <input className="form-check-input" type="radio" name="gridRadios" value="option2" />
