@@ -60,6 +60,7 @@ class TraineeDetails extends React.Component {
             }
          })
          .catch((error) => {
+         
             message.error(error)
          })
    }

@@ -10,7 +10,7 @@ module.exports = {
     headers: {
       'Accept': 'application/json',
       'Content-Type': 'application/json',
-      'Authorization': 'Bearer ' + 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6NywiaWF0IjoxNjE3OTUyODg0LCJleHAiOjE2MTgwMzkyODR9.fEowp_JJTU9ZuU4xSE9jsrcub0qia0jBL0ZPtXbMNi0'
+      'Authorization': 'Bearer ' + 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwiaWF0IjoxNjE4Mzk2ODg1LCJleHAiOjE2MTg0ODMyODV9.RfrzQ6_b72zfsIrQWVFgcAsva0bXBQxEtpkRCN0MySs'
     },
   },
   requestOptions: {
@@ -18,7 +18,7 @@ module.exports = {
     headers: {
       'Accept': 'application/json',
       'Content-Type': 'application/json',
-      'Authorization': 'Bearer ' + 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6NywiaWF0IjoxNjE3OTUyODg0LCJleHAiOjE2MTgwMzkyODR9.fEowp_JJTU9ZuU4xSE9jsrcub0qia0jBL0ZPtXbMNi0'
+      'Authorization': 'Bearer ' + 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwiaWF0IjoxNjE4Mzk2ODg1LCJleHAiOjE2MTg0ODMyODV9.RfrzQ6_b72zfsIrQWVFgcAsva0bXBQxEtpkRCN0MySs'
     }
   },
   api_base_url: 'http://18.204.20.183:3005/api/' // Development
