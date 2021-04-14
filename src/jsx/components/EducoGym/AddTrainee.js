@@ -101,17 +101,17 @@ class AddTrainee extends React.Component {
             .then((res) => {
                 if (res.success) {
                     console.log(res)
-                    message.success(res.message)
+                    // message.success(res.message)
                     this.completedStep4()
                 }
                 else {
                     console.log(res)
-                    message.error(res.message)
+                    alert((res.message)
                 }
             })
             .catch((error) => {
                 console.log(error)
-                message.error(error)
+                alert((error)
             })
     }
 
@@ -129,7 +129,7 @@ class AddTrainee extends React.Component {
         }
         else {
             console.log("Please fill all the fields")
-            message.error("Please fill all the fields")
+            alert(("Please fill all the fields")
         }
 
     }
@@ -155,7 +155,7 @@ class AddTrainee extends React.Component {
         }
         else {
             console.log("Please fill all the fields")
-            message.error("Please fill the fields");
+            alert(("Please fill the fields");
         }
 
 

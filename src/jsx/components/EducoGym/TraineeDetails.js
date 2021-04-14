@@ -43,7 +43,7 @@ class TraineeDetails extends React.Component {
          .then(response => response.json())
          .then((res) => {
             if (res.success) {
-               message.success(res.message)
+               // message.success(res.message)
                let array = [...res.data];
                array.map((item, index) => {
                   array[index] = {
@@ -55,11 +55,11 @@ class TraineeDetails extends React.Component {
                this.setState({ members: array, isLoading: false, viewProfileModal: false })
             }
             else {
-               message.error(res.message)
+               alert((res.message)
                this.setState({ members: [], isLoading: false })
             }
          })
-         .catch((error) => { message.error(error) })
+         .catch((error) => { alert((error) })
    }
 
    fetchMemberDetail = (id) => {
@@ -71,7 +71,7 @@ class TraineeDetails extends React.Component {
          .then(response => response.json())
          .then((res) => {
             if (res.success) {
-               message.success(res.message)
+               // message.success(res.message)
                let array = { ...res.data[0] };
                array = {
                   ...array,
@@ -82,12 +82,12 @@ class TraineeDetails extends React.Component {
                this.setState({ memberDetail: array, viewProfileModal: true, })
             }
             else {
-               message.error(res.message)
+               alert((res.message)
                this.setState({ memberDetail: {}, isLoading: false })
             }
          })
          .catch((error) => {
-            message.error(error)
+            alert((error)
          })
    }
 
@@ -116,16 +116,16 @@ class TraineeDetails extends React.Component {
          .then(response => response.json())
          .then(async (res) => {
             if (res.success) {
-               message.success(res.message)
+               // message.success(res.message)
                await this.fetchMemberList()
             }
             else {
-               message.error(res.message)
+               alert((res.message)
                // this.setState({ memberDetail: {}, isLoading: false })
             }
          })
          .catch((error) => {
-            message.error(error)
+            alert((error)
          })
    }
 
@@ -151,16 +151,16 @@ class TraineeDetails extends React.Component {
          .then(response => response.json())
          .then(async (res) => {
             if (res.success) {
-               message.success(res.message)
+               // message.success(res.message)
                this.setState({ viewPauseMembershipModal: false, isPauseLoading: false })
             }
             else {
-               message.error(res.message)
+               alert((res.message)
                this.setState({ isPauseLoading: false })
             }
          })
          .catch((error) => {
-            message.error(error)
+            alert((error)
          })
    }
 
@@ -173,16 +173,16 @@ class TraineeDetails extends React.Component {
          .then(response => response.json())
          .then((res) => {
             if (res.success) {
-               message.success(res.message)
+               // message.success(res.message)
                resolve()
                this.fetchMemberList()
             }
             else {
-               message.error(res.message)
+               alert((res.message)
             }
          })
          .catch((error) => {
-            message.error(error)
+            alert((error)
          })
    }
 

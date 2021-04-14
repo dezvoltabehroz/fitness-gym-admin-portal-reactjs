@@ -30,16 +30,16 @@ class AppProfile extends React.Component {
             .then(response => response.json())
             .then((res) => {
                 if (res.success) {
-                    message.success(res.message)
+                    // message.success(res.message)
                     this.setState({ profile_data: res.data, isLoading: false })
                 }
                 else {
-                    message.error(res.message)
+                    alert((res.message)
                     this.setState({ profile_data: {}, isLoading: false })
                 }
             })
             .catch((error) => {
-                message.error(error)
+                alert((error)
             })
     }
 

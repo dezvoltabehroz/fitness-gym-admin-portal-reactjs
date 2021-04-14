@@ -46,16 +46,16 @@ class Analytics extends React.Component {
             .then((res) => {
                 if (res.success) {
                     console.log("res.data : ", res.data)
-                    message.success(res.message)
+                    // message.success(res.message)
                     this.setState({ analytics_detail: res.data, isLoading: false })
                 }
                 else {
-                    message.error(res.message)
+                    alert((res.message)
                     this.setState({ analytics_detail: {}, isLoading: false })
                 }
             })
             .catch((error) => {
-                message.error(error)
+                alert((error)
             })
     }
 
