@@ -59,10 +59,7 @@ class TraineeDetails extends React.Component {
                this.setState({ members: [], isLoading: false })
             }
          })
-         .catch((error) => {
-         
-            message.error(error)
-         })
+         .catch((error) => { message.error(error) })
    }
 
    fetchMemberDetail = (id) => {
@@ -82,7 +79,6 @@ class TraineeDetails extends React.Component {
                   membership_start_date: moment(array.membership_start_date).format('YYYY-MM-DD'),
                   membership_end_date: moment(array.membership_end_date).format('YYYY-MM-DD')
                }
-               console.log(array)
                this.setState({ memberDetail: array, viewProfileModal: true, })
             }
             else {
@@ -176,7 +172,6 @@ class TraineeDetails extends React.Component {
       fetch(api_base_url + 'admin/deleteUser', options)
          .then(response => response.json())
          .then((res) => {
-            console.log("res :======================: ", res)
             if (res.success) {
                message.success(res.message)
                resolve()
@@ -315,10 +310,7 @@ class TraineeDetails extends React.Component {
                                     </div>
                                     <div className="form-group col-md-12">
                                        <input type="text" value={memberDetail.address}
-                                          onChange={(e) => {
-                                             console.log(e);
-                                             this.setState({ memberDetail: { ...memberDetail, address: e.target.value } })
-                                          }}
+                                          onChange={(e) => { this.setState({ memberDetail: { ...memberDetail, address: e.target.value } }) }}
                                           className="form-control" placeholder="Address" />
                                     </div>
                                  </div>
