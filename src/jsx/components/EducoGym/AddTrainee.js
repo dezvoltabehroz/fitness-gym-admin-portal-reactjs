@@ -3,7 +3,11 @@ import { Button } from "react-bootstrap";
 import PageTitle from "../../layouts/PageTitle";
 
 import uploadimage from "../../../images/uploadimage.png";
+import { api_base_url, requestOptions } from './config'
 
+import { message } from "antd";
+
+const moment = require('moment');
 
 class AddTrainee extends React.Component {
     constructor(props) {
@@ -61,14 +65,73 @@ class AddTrainee extends React.Component {
         }
     }
 
-    completedStep1 = () => {
-        this.setState({
-            step1: false,
-            step2: true,
-            step3: false,
-            step4: false,
-            isBack: false
+    handleAddTrainee = () => {
+        const { first_name, last_name, age, email, dob, contact_numner, emergency_number, address, memberShip_type, gender, answers_list } = this.state;
+        console.log({
+            "first_name": first_name,
+            "last_name": last_name,
+            "age": age,
+            "dob": moment(dob).format('YYYY-MM-DD'),
+            "phone": contact_numner,
+            "emergency_num": emergency_number,
+            "email": email,
+            "address": address,
+            "gender": gender,
+            "membership_type": memberShip_type,
+            "answers_list": answers_list
         })
+        const options = {
+            ...requestOptions,
+            body: JSON.stringify({
+                "first_name": first_name,
+                "last_name": last_name,
+                "age": age,
+                "dob": moment(dob).format('YYYY-MM-DD'),
+                "phone": contact_numner,
+                "emergency_num": emergency_number,
+                "email": email,
+                "address": address,
+                "gender": gender,
+                "membership_type": memberShip_type,
+                "answers_list": answers_list
+            })
+        };
+        fetch(api_base_url + 'admin/addUser', options)
+            .then(response => response.json())
+            .then((res) => {
+                if (res.success) {
+                    console.log(res)
+                    message.success(res.message)
+                    this.completedStep4()
+                }
+                else {
+                    console.log(res)
+                    message.error(res.message)
+                }
+            })
+            .catch((error) => {
+                console.log(error)
+                message.error(error)
+            })
+    }
+
+    completedStep1 = () => {
+        const { first_name, last_name, age, dob, contact_numner, emergency_number, memberShip_type, gender, address } = this.state;
+        if (first_name.length && last_name.length && age.length && dob.length && contact_numner.length && emergency_number.length && memberShip_type.length && gender.length && address.length) {
+            this.setState({
+                step1: false,
+                step2: true,
+                step3: false,
+                step4: false,
+                isBack: false,
+               
+            })
+        }
+        else {
+            console.log("Please fill all the fields")
+            message.error("Please fill all the fields")
+        }
+
     }
     completedStep2 = () => {
         this.setState({
@@ -80,13 +143,21 @@ class AddTrainee extends React.Component {
         })
     }
     completedStep3 = () => {
-        this.setState({
-            step1: false,
-            step2: false,
-            step3: false,
-            step4: true,
-            isBack: false
-        })
+        const { answers_list } = this.state;
+        if (answers_list[17].answer != "" && answers_list[18].answer != "" && answers_list[19].answer != "" && answers_list[20].answer != "" && answers_list[21].answer != "" && answers_list[22].answer != "") {
+            this.setState({
+                step1: false,
+                step2: false,
+                step3: false,
+                step4: true,
+                isBack: false
+            })
+        }
+        else {
+            console.log("Please fill all the fields")
+            message.error("Please fill the fields");
+        }
+
 
     }
     completedStep4 = () => {
@@ -95,7 +166,51 @@ class AddTrainee extends React.Component {
             step2: false,
             step3: false,
             step4: false,
-            isBack: true
+            isBack: true,
+            gender: 'Male',
+            answers_list: [
+                { "question_id": "1", "answer": "" },
+                { "question_id": "2", "answer": "Yes" },
+                { "question_id": "3", "answer": "Yes" },
+                { "question_id": "4", "answer": "Yes" },
+                { "question_id": "5", "answer": "Yes" },
+                { "question_id": "6", "answer": "Yes" },
+                { "question_id": "7", "answer": "Yes" },
+                { "question_id": "8", "answer": "Yes" },
+                { "question_id": "9", "answer": "Yes" },
+                { "question_id": "10", "answer": "Yes" },
+                { "question_id": "11", "answer": "Yes" },
+                { "question_id": "12", "answer": "Yes" },
+                { "question_id": "13", "answer": "Yes" },
+                { "question_id": "14", "answer": "Yes" },
+                { "question_id": "15", "answer": "Yes" },
+                { "question_id": "16", "answer": "Yes" },
+                { "question_id": "17", "answer": "Yes" },
+                { "question_id": "18", "answer": "" },
+                { "question_id": "19", "answer": "" },
+                { "question_id": "20", "answer": "" },
+                { "question_id": "21", "answer": "" },
+                { "question_id": "22", "answer": "" },
+                { "question_id": "23", "answer": "" },
+                { "question_id": "24", "answer": "yes" },
+                { "question_id": "25", "answer": "yes" },
+                { "question_id": "26", "answer": "" },
+                { "question_id": "27", "answer": "" },
+                { "question_id": "28", "answer": "" },
+                { "question_id": "29", "answer": "Yes" },
+                { "question_id": "30", "answer": "" },
+                { "question_id": "31", "answer": "" },
+                { "question_id": "32", "answer": "" }
+            ],
+            first_name: "",
+            last_name: "",
+            age: "",
+            dob: "",
+            contact_numner: "",
+            emergency_number: "",
+            email: "",
+            address: "",
+            memberShip_type: "Basic"
         })
     }
 
@@ -261,7 +376,7 @@ class AddTrainee extends React.Component {
                                                     <div className="col-sm-9">
                                                         <div className="form-check">
                                                             <input className="form-check-input" onChange={event => { this.addValueInArray("1", event.target.value) }} type="radio" name="gridRadios1" value="Returning Client" checked={answers_list[0].answer == "Returning Client" ? true : false} />
-                                                            <label className="form-check-label"> Returning CLient </label>
+                                                            <label className="form-check-label"> Returning Client </label>
                                                         </div>
                                                         <div className="form-check">
                                                             <input className="form-check-input" onChange={event => { this.addValueInArray("1", event.target.value) }} type="radio" name="gridRadios1" value="From a friend" checked={answers_list[0].answer == "From a friend" ? true : false} />
@@ -814,7 +929,7 @@ class AddTrainee extends React.Component {
                                         </div>
 
                                         <hr />
-                                        <Button variant="primary" className="float-right" onClick={() => this.completedStep4()} >Add Trainee</Button>
+                                        <Button variant="primary" className="float-right" onClick={() => this.handleAddTrainee()} >Add Trainee</Button>
                                         <Button variant="light" className="float-right mr-3" onClick={() => this.handleBack4()} >Back</Button>
                                     </div>
                                 </div>
