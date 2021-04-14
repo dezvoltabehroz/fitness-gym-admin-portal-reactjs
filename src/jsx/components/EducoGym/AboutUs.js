@@ -26,12 +26,12 @@ class AboutUs extends React.Component {
                     this.setState({ aboutus_data: res.data, isLoading: false })
                 }
                 else {
-                    alert((res.message)
+                    alert(res.message)
                     this.setState({ aboutus_data: {}, isLoading: false })
                 }
             })
             .catch((error) => {
-                alert((error)
+                alert(error)
             })
     }
 

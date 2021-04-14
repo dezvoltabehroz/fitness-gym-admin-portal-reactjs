@@ -50,12 +50,12 @@ class Analytics extends React.Component {
                     this.setState({ analytics_detail: res.data, isLoading: false })
                 }
                 else {
-                    alert((res.message)
+                    alert(res.message)
                     this.setState({ analytics_detail: {}, isLoading: false })
                 }
             })
             .catch((error) => {
-                alert((error)
+                alert(error)
             })
     }
 

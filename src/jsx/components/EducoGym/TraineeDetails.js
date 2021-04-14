@@ -55,11 +55,11 @@ class TraineeDetails extends React.Component {
                this.setState({ members: array, isLoading: false, viewProfileModal: false })
             }
             else {
-               alert((res.message)
+               alert(res.message)
                this.setState({ members: [], isLoading: false })
             }
          })
-         .catch((error) => { alert((error) })
+         .catch((error) => { alert(error) })
    }
 
    fetchMemberDetail = (id) => {
@@ -82,12 +82,12 @@ class TraineeDetails extends React.Component {
                this.setState({ memberDetail: array, viewProfileModal: true, })
             }
             else {
-               alert((res.message)
+               alert(res.message)
                this.setState({ memberDetail: {}, isLoading: false })
             }
          })
          .catch((error) => {
-            alert((error)
+            alert(error)
          })
    }
 
@@ -120,12 +120,12 @@ class TraineeDetails extends React.Component {
                await this.fetchMemberList()
             }
             else {
-               alert((res.message)
+               alert(res.message)
                // this.setState({ memberDetail: {}, isLoading: false })
             }
          })
          .catch((error) => {
-            alert((error)
+            alert(error)
          })
    }
 
@@ -155,12 +155,12 @@ class TraineeDetails extends React.Component {
                this.setState({ viewPauseMembershipModal: false, isPauseLoading: false })
             }
             else {
-               alert((res.message)
+               alert(res.message)
                this.setState({ isPauseLoading: false })
             }
          })
          .catch((error) => {
-            alert((error)
+            alert(error)
          })
    }
 
@@ -178,11 +178,11 @@ class TraineeDetails extends React.Component {
                this.fetchMemberList()
             }
             else {
-               alert((res.message)
+               alert(res.message)
             }
          })
          .catch((error) => {
-            alert((error)
+            alert(error)
          })
    }
 
