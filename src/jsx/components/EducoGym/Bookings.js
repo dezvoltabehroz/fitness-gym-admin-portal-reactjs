@@ -9,6 +9,7 @@ import { LoadingOutlined } from '@ant-design/icons';
 const moment = require('moment');
 
 class Bookings extends React.Component {
+
    constructor(props) {
       super(props);
       this.state = {
@@ -29,7 +30,7 @@ class Bookings extends React.Component {
 
    componentDidMount = () => {
       this.tokenRefresh();
-      console.log("moment(this.state.value).format('YYYY-MM-DD') : ", moment(this.state.value).format('YYYY-MM-DD'))
+      // console.log("moment(this.state.value).format('YYYY-MM-DD') : ", moment(this.state.value).format('YYYY-MM-DD'))
       this.fetchAllbookings(moment(this.state.value).format('YYYY-MM-DD'))
 
    }
@@ -43,13 +44,12 @@ class Bookings extends React.Component {
          .then(response => response.json())
          .then((res) => {
             if (res.success) {
-               console.log(res.data)
                localStorage.setItem("token", res.data.token);
             }
          })
          .catch((error) => {
             this.setState({ isLoading: false })
-            alert(error)
+            // alert(error)
          })
    }
 
@@ -62,7 +62,6 @@ class Bookings extends React.Component {
          .then(response => response.json())
          .then((res) => {
             if (res.success) {
-               console.log(res.data)
                this.setState({
                   all_slots: res.data.all_slots,
                   blocked_slots: res.data.blocked_slots,
@@ -72,7 +71,7 @@ class Bookings extends React.Component {
                this.fetchWeeklyPlan(moment(date).format('YYYY-MM-DD'))
             }
             else {
-               alert(res.message)
+               // alert(res.message)
                this.fetchWeeklyPlan(moment(date).format('YYYY-MM-DD'))
                this.setState({
                   all_slots: [],
@@ -84,7 +83,7 @@ class Bookings extends React.Component {
          })
          .catch((error) => {
             this.setState({ isLoading: false })
-            alert(error)
+            // alert(error)
          })
    }
 
@@ -113,21 +112,27 @@ class Bookings extends React.Component {
                this.setState({ weeklyPlan: res.data, isLoading: false })
             }
             else {
-               alert(res.message)
+               // alert(res.message)
                this.setState({ isLoading: false })
             }
          })
          .catch((error) => {
             this.setState({ isLoading: false })
-            alert(error)
+            // alert(error)
          })
    }
 
    render() {
       const { value, addPlan, isLoading, weeklyPlan, slots, availableSlots, blockedSlots, fullSlots, all_slots, full_slots, blocked_slots, available_slots } = this.state;
-      console.log("===> ",weeklyPlan)
-      console.log("===> ",weeklyPlan.length)
       const antIcon = <LoadingOutlined style={{ fontSize: 24 }} spin />
+
+      // console.log("===============")
+      // console.log(weeklyPlan[0].user_count)
+      // console.log(weeklyPlan[0].exercise_name)
+      // console.log(weeklyPlan[0].exercise_duration)
+      // console.log(weeklyPlan[0].exercise_details)
+      // console.log("===============")
+
       return (
          <React.Fragment>
             {
@@ -144,55 +149,25 @@ class Bookings extends React.Component {
                                  <div className="card-body border-bottom pb-4 p-2 event-calender col-md-6 col-lg-6 col-lg-12">
                                     <Calendar onChange={(val) => this.handleDate(val)} value={value} />
                                  </div>
-                                 {
-                                    weeklyPlan.length == 0 ?
-                                       <div className="card-body col-md-6 col-lg-6 col-lg-12">
-                                          <h6 className="fs-16 text-black mb-4">
-                                             No record Found
-                                          </h6>
-                                       </div>
-                                       :
-                                       <div className="card-body col-md-6 col-lg-6 col-lg-12">
-                                          <h6 className="fs-16 text-black mb-4">
-                                             Next week plan
-                                          </h6>
-                                          <div className="d-flex mb-4 align-items-center">
-                                             <span className="date-icon mr-3">{weeklyPlan[0].user_count}</span>
-                                             <div>
-                                                <h6 className="fs-16">
-                                                   <Link to="/workout-statistic" className="text-black">
-                                                      {weeklyPlan[0].exercise_name}
-                                                   </Link>
-                                                </h6>
-                                                <span>{weeklyPlan[0].exercise_duration != null ? `${weeklyPlan[0].exercise_details} | ${weeklyPlan[0].exercise_duration}` : weeklyPlan[0].exercise_details}</span>
+                                 <div className="card-body col-md-6 col-lg-6 col-lg-12">
+                                    {weeklyPlan.length == 0 ?
+                                       <h6 className="fs-16 text-black mb-4"> No record Found </h6> :
+                                       <>
+                                          <h6 className="fs-16 text-black mb-4"> Next week plan </h6>
+                                          {weeklyPlan.forEach((data, index) => {
+                                             <div className="d-flex mb-4 align-items-center">
+                                                <span className="date-icon mr-3"> {data.user_count} </span>
+                                                <div>
+                                                   <h6 className="fs-16">
+                                                      <Link to="/workout-statistic" className="text-black"> {data.exercise_name} </Link>
+                                                   </h6>
+                                                   <span>{data.exercise_duration != null ? data.exercise_duration : null} | {data.exercise_details}</span>
+                                                </div>
                                              </div>
-                                          </div>
-                                          <div className="d-flex mb-4 align-items-center">
-                                             <span className="date-icon mr-3">{weeklyPlan[1].user_count}</span>
-                                             <div>
-                                                <h6 className="fs-16">
-                                                   <Link to="/workout-statistic" className="text-black">
-                                                      {weeklyPlan[1].exercise_name}
-                                                   </Link>
-                                                </h6>
-                                                <span>{weeklyPlan[1].exercise_duration != null ? `${weeklyPlan[1].exercise_details} | ${weeklyPlan[1].exercise_duration}` : weeklyPlan[1].exercise_details}</span>
-                                             </div>
-                                          </div>
-                                          <div className="d-flex mb-4 align-items-center">
-                                             <span className="date-icon mr-3">{weeklyPlan[2].user_count}</span>
-                                             <div>
-                                                <h6 className="fs-16">
-                                                   <Link to="/workout-statistic" className="text-black">
-                                                      {weeklyPlan[2].exercise_name}
-                                                   </Link>
-                                                </h6>
-                                                <span>{weeklyPlan[2].exercise_duration != null ? `${weeklyPlan[2].exercise_details} | ${weeklyPlan[2].exercise_duration}` : weeklyPlan[2].exercise_details}</span>
-                                             </div>
-                                          </div>
-
-                                       </div>
-                                 }
-
+                                          })}
+                                       </>
+                                    }
+                                 </div>
                               </div>
                            </div>
                         </div>

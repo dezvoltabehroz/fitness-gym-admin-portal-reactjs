@@ -32,7 +32,7 @@ class Analytics extends React.Component {
     }
 
     componentDidMount() {
-        console.log("moment(this.state.value).format('YYYY-MM-DD') : ", moment(this.state.value).format('YYYY-MM-DD'))
+        // console.log("moment(this.state.value).format('YYYY-MM-DD') : ", moment(this.state.value).format('YYYY-MM-DD'))
         this.fetchAnalytics(moment(this.state.value).format('YYYY-MM-DD'))
     }
 
@@ -45,17 +45,17 @@ class Analytics extends React.Component {
             .then(response => response.json())
             .then((res) => {
                 if (res.success) {
-                    console.log("res.data : ", res.data)
+                    // console.log("res.data : ", res.data)
                     // message.success(res.message)
                     this.setState({ analytics_detail: res.data, isLoading: false })
                 }
                 else {
-                    alert(res.message)
+                    // alert(res.message)
                     this.setState({ analytics_detail: {}, isLoading: false })
                 }
             })
             .catch((error) => {
-                alert(error)
+                // alert(error)
             })
     }
 
