@@ -29,7 +29,7 @@ class Bookings extends React.Component {
             user_id: '1',
          },
          {
-            user_id: '1',
+            user_id: '2',
          },
          {
             booked: false,
@@ -219,9 +219,9 @@ class Bookings extends React.Component {
                                  <div className="right-block">
                                     {this.state.userAdded.map((data, index) => {
                                        return (
-                                          data.booked ?
+                                          data.user_id ?
                                              <div className="d-flex mb-1 align-items-center">
-                                                <Button variant="primary light btn-xs w-100">{`Trainee ${index}`}</Button>
+                                                <Button variant="primary light btn-xs w-100">{`Trainee ${data.user_id}`}</Button>
                                              </div>
                                              :
                                              <div className="d-flex mb-1 align-items-center">
