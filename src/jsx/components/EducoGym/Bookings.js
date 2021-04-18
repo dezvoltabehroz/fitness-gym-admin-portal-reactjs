@@ -126,12 +126,15 @@ class Bookings extends React.Component {
       const { value, addPlan, isLoading, weeklyPlan, slots, availableSlots, blockedSlots, fullSlots, all_slots, full_slots, blocked_slots, available_slots } = this.state;
       const antIcon = <LoadingOutlined style={{ fontSize: 24 }} spin />
 
-      // console.log("===============")
-      // console.log(weeklyPlan[0].user_count)
-      // console.log(weeklyPlan[0].exercise_name)
-      // console.log(weeklyPlan[0].exercise_duration)
-      // console.log(weeklyPlan[0].exercise_details)
-      // console.log("===============")
+      console.log("=============== weeklyPlan[0] ===============")
+      // console.log(weeklyPlan[0])
+      weeklyPlan.map((data, index) => {
+         console.log(data.user_count)
+         console.log(data.exercise_name)
+         console.log(data.exercise_duration)
+         console.log(data.exercise_details)
+      })
+      console.log("===============")
 
       return (
          <React.Fragment>
@@ -154,14 +157,18 @@ class Bookings extends React.Component {
                                        <h6 className="fs-16 text-black mb-4"> No record Found </h6> :
                                        <>
                                           <h6 className="fs-16 text-black mb-4"> Next week plan </h6>
-                                          {weeklyPlan.forEach((data, index) => {
+                                          {weeklyPlan.map((data, index) => {
                                              <div className="d-flex mb-4 align-items-center">
                                                 <span className="date-icon mr-3"> {data.user_count} </span>
                                                 <div>
                                                    <h6 className="fs-16">
                                                       <Link to="/workout-statistic" className="text-black"> {data.exercise_name} </Link>
                                                    </h6>
-                                                   <span>{data.exercise_duration != null ? data.exercise_duration : null} | {data.exercise_details}</span>
+                                                   {data.exercise_duration == null ?
+                                                      <span> {data.exercise_details} </span>
+                                                      :
+                                                      <span>{data.exercise_duration} | {data.exercise_details}</span>
+                                                   }
                                                 </div>
                                              </div>
                                           })}
