@@ -26,10 +26,10 @@ class Bookings extends React.Component {
          fullSlots: false,
          blockedSlots: false,
          userAdded: [{
-            booked: true,
+            user_id: '1',
          },
          {
-            booked: true,
+            user_id: '1',
          },
          {
             booked: false,
@@ -229,16 +229,6 @@ class Bookings extends React.Component {
                                              </div>
                                        )
                                     })}
-
-                                    {/* <div className="d-flex mb-1 align-items-center">
-                                       <Button variant="primary light btn-xs w-100">Trainee 2</Button>
-                                    </div>
-                                    <div className="d-flex mb-1 align-items-center">
-                                       <Button variant="outline-light btn-xs w-100">Empty</Button>
-                                    </div>
-                                    <div className="d-flex mb-1 align-items-center">
-                                       <Button variant="outline-light btn-xs w-100">Empty</Button>
-                                    </div> */}
                                  </div>
                               </div>
                            </div>
@@ -252,16 +242,6 @@ class Bookings extends React.Component {
    render() {
       const { value, addPlan, isLoading, weeklyPlan, slots, availableSlots, blockedSlots, fullSlots, all_slots, full_slots, blocked_slots, available_slots } = this.state;
       const antIcon = <LoadingOutlined style={{ fontSize: 24 }} spin />
-
-      // console.log("=============== weeklyPlan[0] ===============")
-      // // console.log(weeklyPlan[0])
-      // weeklyPlan.map((data, index) => {
-      //    console.log(data.user_count)
-      //    console.log(data.exercise_name)
-      //    console.log(data.exercise_duration)
-      //    console.log(data.exercise_details)
-      // })
-      // console.log("===============")
 
       return (
          <React.Fragment>
