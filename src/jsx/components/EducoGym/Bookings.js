@@ -158,19 +158,21 @@ class Bookings extends React.Component {
                                        <>
                                           <h6 className="fs-16 text-black mb-4"> Next week plan </h6>
                                           {weeklyPlan.map((data, index) => {
-                                             <div className="d-flex mb-4 align-items-center">
-                                                <span className="date-icon mr-3"> {data.user_count} </span>
-                                                <div>
-                                                   <h6 className="fs-16">
-                                                      <Link to="/workout-statistic" className="text-black"> {data.exercise_name} </Link>
-                                                   </h6>
-                                                   {data.exercise_duration == null ?
-                                                      <span> {data.exercise_details} </span>
-                                                      :
-                                                      <span>{data.exercise_duration} | {data.exercise_details}</span>
-                                                   }
+                                             return (
+                                                <div className="d-flex mb-4 align-items-center">
+                                                   <span className="date-icon mr-3"> {data.user_count} </span>
+                                                   <div>
+                                                      <h6 className="fs-16">
+                                                         <Link to="/workout-statistic" className="text-black"> {data.exercise_name} </Link>
+                                                      </h6>
+                                                      {data.exercise_duration == null ?
+                                                         <span> {data.exercise_details} </span>
+                                                         :
+                                                         <span>{data.exercise_duration} | {data.exercise_details}</span>
+                                                      }
+                                                   </div>
                                                 </div>
-                                             </div>
+                                             )
                                           })}
                                        </>
                                     }
