@@ -28,9 +28,29 @@ class Bookings extends React.Component {
    }
 
    componentDidMount = () => {
+      this.tokenRefresh();
       console.log("moment(this.state.value).format('YYYY-MM-DD') : ", moment(this.state.value).format('YYYY-MM-DD'))
       this.fetchAllbookings(moment(this.state.value).format('YYYY-MM-DD'))
 
+   }
+
+   tokenRefresh = () => {
+      const options = {
+         ...requestOptions,
+         body: JSON.stringify({ id: "1" })
+      };
+      fetch(api_base_url + 'registration/refreshToken', options)
+         .then(response => response.json())
+         .then((res) => {
+            if (res.success) {
+               console.log(res.data)
+               localStorage.setItem("token", res.data.token);
+            }
+         })
+         .catch((error) => {
+            this.setState({ isLoading: false })
+            alert(error)
+         })
    }
 
    fetchAllbookings = (date) => {
@@ -78,10 +98,11 @@ class Bookings extends React.Component {
       this.setState({ isLoading: true })
       const options = {
          ...requestOptions,
-         body: JSON.stringify({ date: 
-            // "2021-04-30"
-            moment(date).format('YYYY-MM-DD')
-          })
+         body: JSON.stringify({
+            date:
+               // "2021-04-30"
+               moment(date).format('YYYY-MM-DD')
+         })
       };
       fetch(api_base_url + 'admin/exercisePlan', options)
          .then(response => response.json())
@@ -104,6 +125,8 @@ class Bookings extends React.Component {
 
    render() {
       const { value, addPlan, isLoading, weeklyPlan, slots, availableSlots, blockedSlots, fullSlots, all_slots, full_slots, blocked_slots, available_slots } = this.state;
+      console.log("===> ",weeklyPlan)
+      console.log("===> ",weeklyPlan.length)
       const antIcon = <LoadingOutlined style={{ fontSize: 24 }} spin />
       return (
          <React.Fragment>

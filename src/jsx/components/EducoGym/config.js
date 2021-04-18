@@ -10,7 +10,7 @@ module.exports = {
     headers: {
       'Accept': 'application/json',
       'Content-Type': 'application/json',
-      'Authorization': 'Bearer ' + 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwiaWF0IjoxNjE4Mzk2ODg1LCJleHAiOjE2MTg0ODMyODV9.RfrzQ6_b72zfsIrQWVFgcAsva0bXBQxEtpkRCN0MySs'
+      'Authorization': 'Bearer ' + localStorage.getItem("token")
     },
   },
   requestOptions: {
@@ -18,8 +18,8 @@ module.exports = {
     headers: {
       'Accept': 'application/json',
       'Content-Type': 'application/json',
-      'Authorization': 'Bearer ' + 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwiaWF0IjoxNjE4Mzk2ODg1LCJleHAiOjE2MTg0ODMyODV9.RfrzQ6_b72zfsIrQWVFgcAsva0bXBQxEtpkRCN0MySs'
+      'Authorization': 'Bearer ' + localStorage.getItem("token")
     }
   },
-  api_base_url: 'http://18.204.20.183:3005/api/' // Development
+  api_base_url: 'http://165.227.227.1:3005/api/' // Development
 }

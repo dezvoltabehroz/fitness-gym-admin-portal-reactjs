@@ -1,6 +1,6 @@
 {
    "name": "fito",
-   "homepage": "http://18.204.20.183:3005/",
+   "homepage": "http://165.227.227.1:3005/",
    "version": "0.1.0",
    "private": true,
    "dependencies": {
