@@ -20,7 +20,7 @@ class AddTrainee extends React.Component {
             isBack: false,
             gender: 'Male',
             answers_list: [
-                { "question_id": "1", "answer": "Returning Client" },
+                { "question_id": "1", "answer": "" },
                 { "question_id": "2", "answer": "Yes" },
                 { "question_id": "3", "answer": "Yes" },
                 { "question_id": "4", "answer": "Yes" },
