@@ -34,12 +34,12 @@ class AppProfile extends React.Component {
                     this.setState({ profile_data: res.data, isLoading: false })
                 }
                 else {
-                    alert(res.message)
+                    // alert(res.message)
                     this.setState({ profile_data: {}, isLoading: false })
                 }
             })
             .catch((error) => {
-                alert(error)
+                // alert(error)
             })
     }
 
