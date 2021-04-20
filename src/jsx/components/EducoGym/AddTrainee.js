@@ -129,7 +129,7 @@ class AddTrainee extends React.Component {
         }
         else {
             console.log("Please fill all the fields")
-            // alert("Please fill all the fields")
+            alert("Please fill all the fields")
         }
 
     }

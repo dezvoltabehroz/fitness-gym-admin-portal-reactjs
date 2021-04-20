@@ -235,13 +235,13 @@ class TraineeDetails extends React.Component {
                                     search: true,
                                     actionsColumnIndex: -1
                                  }}
-                                 editable={{
-                                    onRowUpdate: (newData, oldData) =>
-                                       new Promise(resolve => { }),
+                                 // editable={{
+                                 //    onRowUpdate: (newData, oldData) =>
+                                 //       new Promise(resolve => { }),
 
-                                    onRowDelete: oldData =>
-                                       new Promise(resolve => { this.handleDeleteUser(oldData.user_id, resolve) }),
-                                 }}
+                                 //    onRowDelete: oldData =>
+                                 //       new Promise(resolve => { this.handleDeleteUser(oldData.user_id, resolve) }),
+                                 // }}
                                  actions={[
                                     {
                                        icon: 'remove_red_eye',
