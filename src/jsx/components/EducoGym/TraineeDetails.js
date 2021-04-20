@@ -49,7 +49,8 @@ class TraineeDetails extends React.Component {
                   array[index] = {
                      ...array[index],
                      membership_start_date: moment(item.membership_start_date).format('YYYY-MM-DD'),
-                     membership_end_date: moment(item.membership_end_date).format('YYYY-MM-DD')
+                     membership_end_date: moment(item.membership_end_date).format('YYYY-MM-DD'),
+                     key : (index + 1)
                   }
                })
                this.setState({ members: array, isLoading: false, viewProfileModal: false })
@@ -235,13 +236,13 @@ class TraineeDetails extends React.Component {
                                     search: true,
                                     actionsColumnIndex: -1
                                  }}
-                                 // editable={{
-                                 //    onRowUpdate: (newData, oldData) =>
-                                 //       new Promise(resolve => { }),
+                                 editable={{
+                                    // onRowUpdate: (newData, oldData) =>
+                                    //    new Promise(resolve => { }),
 
-                                 //    onRowDelete: oldData =>
-                                 //       new Promise(resolve => { this.handleDeleteUser(oldData.user_id, resolve) }),
-                                 // }}
+                                    onRowDelete: oldData =>
+                                       new Promise(resolve => { this.handleDeleteUser(oldData.user_id, resolve) }),
+                                 }}
                                  actions={[
                                     {
                                        icon: 'remove_red_eye',
@@ -252,7 +253,7 @@ class TraineeDetails extends React.Component {
                                        icon: "add_box",
                                        tooltip: "Add Trainee",
                                        position: "toolbar",
-                                       onClick: () => { history.push("/add-trainee"); }
+                                       onClick: () => { this.props.history.push("/add-trainee"); }
                                     }
                                  ]}
                               />

@@ -102,7 +102,7 @@ class AddTrainee extends React.Component {
                 if (res.success) {
                     console.log(res)
                     // message.success(res.message)
-                    this.completedStep4()
+                    this.props.history.push("/trainee-details");
                 }
                 else {
                     console.log(res)
@@ -334,11 +334,11 @@ class AddTrainee extends React.Component {
                                             <label>Type of membership?</label>
                                             <div className="col-sm-9">
                                                 <div className="form-check">
-                                                    <input className="form-check-input" type="radio" name="memberShip_type" value="Basic" checked={memberShip_type == 'Basic' ? true : false} />
+                                                    <input className="form-check-input" onChange={event => { this.setState({ memberShip_type: event.target.value }) }} type="radio" name="memberShip_type" value="Basic" checked={memberShip_type == 'Basic' ? true : false} />
                                                     <label className="form-check-label"> Basic </label>
                                                 </div>
                                                 <div className="form-check">
-                                                    <input className="form-check-input" type="radio" name="memberShip_type" value="Standard" checked={memberShip_type == 'Standard' ? true : false} />
+                                                    <input className="form-check-input" onChange={event => { this.setState({ memberShip_type: event.target.value }) }} type="radio" name="memberShip_type" value="Standard" checked={memberShip_type == 'Standard' ? true : false} />
                                                     <label className="form-check-label"> Standard</label>
                                                 </div>
                                             </div>

@@ -58,7 +58,7 @@ class AboutUs extends React.Component {
                                             <h2 className="text-primary mb-0" style={new_style.top_margin}> Contact Us </h2>
                                             <p style={new_style.top_margin}>
                                                 <ul>
-                                                    <li> <i className="fa fa-globe fa-2x" style={new_style.icons_margin}></i> {aboutus_data.website} </li>
+                                                    <li> <i className="fa fa-globe fa-2x" style={new_style.icons_margin}></i><a href={aboutus_data.website}> {aboutus_data.website} </a></li>
                                                     <li> <i className="fa fa-phone fa-2x" style={new_style.icons_margin}></i> {aboutus_data.phone} </li>
                                                     <li> <i className="fa fa-map-marker fa-2x" style={new_style.icons_margin}></i> {aboutus_data.city_country} </li>
                                                 </ul>
@@ -67,8 +67,8 @@ class AboutUs extends React.Component {
                                             <p style={new_style.top_margin}>
                                                 <ul>
                                                     <li> <i className="fa fa-whatsapp fa-2x" style={new_style.icons_margin}></i> {aboutus_data.whatsapp} </li>
-                                                    <li> <i className="fa fa-instagram fa-2x" style={new_style.icons_margin}></i> {aboutus_data.instagram} </li>
-                                                    <li> <i className="fa fa-facebook-official fa-2x" style={new_style.icons_margin}></i> {aboutus_data.facebook} </li>
+                                                    <li> <i className="fa fa-instagram fa-2x" style={new_style.icons_margin}></i><a href = {aboutus_data.instagram}> Instagram </a> </li>
+                                                    <li> <i className="fa fa-facebook-official fa-2x" style={new_style.icons_margin}></i><a href={aboutus_data.facebook}>Facebook</a>  </li>
                                                 </ul>
                                             </p>
                                             <h2 className="text-primary mb-0" style={new_style.top_margin}> Developed By </h2>
