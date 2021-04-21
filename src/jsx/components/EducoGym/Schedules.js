@@ -122,7 +122,6 @@ class Schedules extends React.Component {
             start_time: start_time,
             end_time: end_time
         }
-        console.log("====> : ", obj_body)
         const options = {
             ...requestOptions,
             body: JSON.stringify(obj_body)
