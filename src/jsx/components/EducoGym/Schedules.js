@@ -1,7 +1,7 @@
 import React, { Fragment } from "react";
 import { useHistory } from "react-router-dom";
 import MaterialTable from 'material-table';
-import { Row, Card, Col, Button, Modal, Container } from "react-bootstrap";
+import { Row, Card, Col, Button, Modal } from "react-bootstrap";
 
 import PageTitle from "../../layouts/PageTitle";
 import data from "./data";
@@ -20,6 +20,11 @@ class Schedules extends React.Component {
         this.state = {
             schedules: [],
             isLoading: true,
+            viewAddModal: false,
+            day: "Select Day",
+            schedule_date: moment(new Date()).format('YYYY-MM-DD'),
+            start_time: "08:00",
+            end_time: "18:00"
         }
     }
 
@@ -102,6 +107,39 @@ class Schedules extends React.Component {
         }
     }
 
+    handleDayAndDateChange = (e) => {
+        var d = new Date(e.target.value);
+        var days = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"];
+        this.setState({ day: days[d.getDay()], schedule_date: e.target.value })
+    }
+
+    handleAddSchedule = () => {
+        this.setState({ viewAddModal: false })
+        const { day, schedule_date, start_time, end_time } = this.state;
+        let obj_body = {
+            day: day,
+            schedule_date: schedule_date,
+            start_time: start_time,
+            end_time: end_time
+        }
+        console.log("====> : ", obj_body)
+        const options = {
+            ...requestOptions,
+            body: JSON.stringify(obj_body)
+        };
+        fetch(api_base_url + 'admin/addSchedules', options)
+            .then(response => response.json())
+            .then((res) => {
+                if (res.success) {
+                    this.fetchScheduleList()
+                }
+                else {
+                    console.log(res)
+                }
+            })
+            .catch((error) => { })
+    }
+
     render() {
 
         const columns = [
@@ -122,7 +160,7 @@ class Schedules extends React.Component {
             header_heading: { color: "#FFF", display: "block", marginLeft: "auto", marginRight: "auto" }
         };
         const antIcon = <LoadingOutlined style={{ fontSize: 24 }} spin />
-        const { schedules, isLoading } = this.state;
+        const { schedules, isLoading, viewAddModal, schedule_date } = this.state;
         return (
             <Fragment>
                 {
@@ -156,7 +194,7 @@ class Schedules extends React.Component {
                                                     icon: "add_box",
                                                     tooltip: "Add Schedule",
                                                     position: "toolbar",
-                                                    onClick: () => { alert("Under Development") }
+                                                    onClick: () => { this.setState({ viewAddModal: true }) }
                                                 }
                                             ]}
                                         />
@@ -166,6 +204,40 @@ class Schedules extends React.Component {
                             </Col>
                         </Row>
                 }
+
+                {/* Add New Schedule */}
+                <Modal show={viewAddModal} size="lg">
+                    <Modal.Header closeButton>
+                        <Modal.Title>Add New Schedule</Modal.Title>
+                    </Modal.Header>
+
+                    <Modal.Body>
+                        <div className="form-group col-md-6">
+                            <input type="date" value={schedule_date}
+                                onChange={this.handleDayAndDateChange}
+                                className="form-control" placeholder="Select Date" />
+                        </div>
+
+                        <div className="form-group col-md-6">
+                            <input type="time"
+                                onChange={(time) => this.setState({ start_time: time.target.value })}
+                                className="form-control" placeholder="Start Time" />
+                        </div>
+
+                        <div className="form-group col-md-6">
+                            <input type="time"
+                                onChange={(time) => this.setState({ end_time: time.target.value })}
+                                className="form-control" placeholder="End Time" />
+                        </div>
+
+                    </Modal.Body>
+
+                    <Modal.Footer>
+                        <Button variant="danger" onClick={() => this.setState({ viewAddModal: false })}>Close</Button>
+                        <Button onClick={this.handleAddSchedule}>Add</Button>
+                    </Modal.Footer>
+                </Modal>
+
             </Fragment>
         );
     }
