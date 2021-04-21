@@ -29,6 +29,7 @@ import AddTrainee from "./components/EducoGym/AddTrainee";
 import Analytics from "./components/EducoGym/Analytics";
 import Educo_AppProfile from "./components/EducoGym/AppProfile";
 import AboutUs from "./components/EducoGym/AboutUs";
+import Schedules from "./components/EducoGym/Schedules";
 
 const Markup = () => {
    const routes = [
@@ -38,6 +39,7 @@ const Markup = () => {
       { url: "add-trainee", component: AddTrainee },
       { url: "analytics", component: Analytics },
       { url: "user-profile", component: Educo_AppProfile },
+      { url: "Schedules", component: Schedules },
       { url: "about", component: AboutUs },
 
       // { url: "page-register", component: Registration },

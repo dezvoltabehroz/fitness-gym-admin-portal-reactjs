@@ -52,6 +52,7 @@ class SideBar extends Component {
          trainee = ["edicogym/trainee-details", "edicogym/add-trainee"],
          analytics = ["edicogym/analytics"],
          user_profile = ["edicogym/user-profile"],
+         schedules = ["edicogym/schedules"],
          about = ["edicogym/about"];
 
       return (
@@ -79,6 +80,11 @@ class SideBar extends Component {
                   <li className={`${user_profile.includes(path.slice(1)) ? "mm-active" : ""}`} >
                      <Link to="user-profile" className="ai-icon" aria-expanded="false" >
                         <i className="fa fa-user-o"></i> <span className="nav-text">User Profile</span>
+                     </Link>
+                  </li>
+                  <li className={`${schedules.includes(path.slice(1)) ? "mm-active" : ""}`} >
+                     <Link to="schedules" className="ai-icon" aria-expanded="false" >
+                        <i className="fa fa-calendar-o"></i> <span className="nav-text">Schedules</span>
                      </Link>
                   </li>
                   <li className={`${about.includes(path.slice(1)) ? "mm-active" : ""}`} >

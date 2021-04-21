@@ -1,6 +1,3 @@
-
-console.log(`localStorage.getItem("token") : `, localStorage.getItem("token"))
-
 module.exports = {
   method_post: { "method": "POST" },
   method_get: { "method": "GET" },

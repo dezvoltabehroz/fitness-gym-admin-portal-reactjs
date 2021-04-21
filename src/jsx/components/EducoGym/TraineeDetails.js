@@ -123,12 +123,12 @@ class TraineeDetails extends React.Component {
                await this.fetchMemberList()
             }
             else {
-               alert(res.message)
-               // this.setState({ memberDetail: {}, isLoading: false })
+               // alert(res.message)
+               this.setState({ memberDetail: {}, isLoading: false })
             }
          })
          .catch((error) => {
-            alert(error)
+            // alert(error)
          })
    }
 
@@ -158,12 +158,12 @@ class TraineeDetails extends React.Component {
                this.setState({ viewPauseMembershipModal: false, isPauseLoading: false })
             }
             else {
-               alert(res.message)
+               // alert(res.message)
                this.setState({ isPauseLoading: false })
             }
          })
          .catch((error) => {
-            alert(error)
+            // alert(error)
          })
    }
 
@@ -181,11 +181,11 @@ class TraineeDetails extends React.Component {
                this.fetchMemberList()
             }
             else {
-               alert(res.message)
+               // alert(res.message)
             }
          })
          .catch((error) => {
-            alert(error)
+            // alert(error)
          })
    }
 
@@ -343,7 +343,7 @@ class TraineeDetails extends React.Component {
                                                 className="form-control" placeholder="Emergency Number" />
                                           </div>
                                           <div className="form-group col-md-6">
-                                             <input type="text" value={memberDetail.is_pause}
+                                             <input type="text" value={memberDetail.is_pause == 0 ? "Availed is 0" : `Availed is ${memberDetail.is_pause}`}
                                                 disabled={true}
                                                 onChange={(e) => this.setState({ memberDetail: { ...memberDetail, is_pause: e.target.value } })}
                                                 className="form-control" placeholder="Pauses Availed" />
