@@ -50,7 +50,9 @@ class Schedules extends React.Component {
                             day: item.day,
                             schedule_date: moment(item.schedule_date).format('YYYY-MM-DD'),
                             start_time: item.start_time,
-                            end_time: item.end_time
+                            end_time: item.end_time,
+                            break_start_time: item.break_start_time,
+                            break_end_time: item.break_end_time
                         }
                         array.push(obj)
                     })
@@ -83,7 +85,7 @@ class Schedules extends React.Component {
     }
 
     handleEditSchedule = (newData, resolve) => {
-        if (newData.id == '' || newData.day == '' || newData.schedule_date == '' || newData.start_time == '' || newData.end_time == '') {
+        if (newData.id == '' || newData.day == '' || newData.schedule_date == '' || newData.start_time == '' || newData.end_time == '' || newData.break_start_time == '' || newData.break_end_time == '') {
             alert("All Fields should be fill properly")
             this.fetchScheduleList()
         }
@@ -115,12 +117,18 @@ class Schedules extends React.Component {
 
     handleAddSchedule = () => {
         this.setState({ viewAddModal: false })
-        const { day, schedule_date, start_time, end_time } = this.state;
+        const { day, schedule_date, start_time, end_time, break_start_time, break_end_time } = this.state;
+
+        var d = new Date(schedule_date);
+        var days = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"];
+
         let obj_body = {
-            day: day,
+            day: days[d.getDay()],
             schedule_date: schedule_date,
             start_time: start_time,
-            end_time: end_time
+            end_time: end_time,
+            break_start_time: break_start_time,
+            break_end_time: break_end_time
         }
         const options = {
             ...requestOptions,
@@ -146,7 +154,9 @@ class Schedules extends React.Component {
             { title: "Day", field: 'day' },
             { title: "Date", field: 'schedule_date' },
             { title: "Start Time", field: 'start_time' },
-            { title: "End Time", field: 'end_time' }
+            { title: "End Time", field: 'end_time' },
+            { title: "Break Start Time", field: 'break_start_time' },
+            { title: "Break End Time", field: 'break_end_time' }
         ];
 
         const new_style = {
@@ -211,24 +221,45 @@ class Schedules extends React.Component {
                     </Modal.Header>
 
                     <Modal.Body>
-                        <div className="form-group col-md-6">
-                            <input type="date" value={schedule_date}
-                                onChange={this.handleDayAndDateChange}
-                                className="form-control" placeholder="Select Date" />
-                        </div>
+                        <div className="row">
+                            <div className="col-md-6">
+                                <div className="form-group col-md-12">
+                                    <label> Date </label>
+                                    <input type="date" value={schedule_date}
+                                        onChange={this.handleDayAndDateChange}
+                                        className="form-control" placeholder="Select Date" />
+                                </div>
 
-                        <div className="form-group col-md-6">
-                            <input type="time"
-                                onChange={(time) => this.setState({ start_time: time.target.value })}
-                                className="form-control" placeholder="Start Time" />
-                        </div>
+                                <div className="form-group col-md-12">
+                                    <label> Day Start Time </label>
+                                    <input type="time"
+                                        onChange={(time) => this.setState({ start_time: time.target.value })}
+                                        className="form-control" placeholder="Start Time" />
+                                </div>
 
-                        <div className="form-group col-md-6">
-                            <input type="time"
-                                onChange={(time) => this.setState({ end_time: time.target.value })}
-                                className="form-control" placeholder="End Time" />
-                        </div>
+                                <div className="form-group col-md-12">
+                                    <label> Day End Time </label>
+                                    <input type="time"
+                                        onChange={(time) => this.setState({ end_time: time.target.value })}
+                                        className="form-control" placeholder="End Time" />
+                                </div>
+                            </div>
+                            <div className="col-md-6">
+                                <div className="form-group col-md-12">
+                                    <label> Break Start Time </label>
+                                    <input type="time"
+                                        onChange={(time) => this.setState({ break_start_time: time.target.value })}
+                                        className="form-control" placeholder="Start Time" />
+                                </div>
 
+                                <div className="form-group col-md-12">
+                                    <label> Break End Time </label>
+                                    <input type="time"
+                                        onChange={(time) => this.setState({ break_end_time: time.target.value })}
+                                        className="form-control" placeholder="End Time" />
+                                </div>
+                            </div>
+                        </div>
                     </Modal.Body>
 
                     <Modal.Footer>
