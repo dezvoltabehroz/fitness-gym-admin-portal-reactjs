@@ -66,7 +66,7 @@ const Header = ({ onNote, toggle, onProfile, onNotification, onBox }) => {
                            }`}
                         >
                            <Link
-                              to="/app-profile"
+                              to="/user-profile"
                               className="dropdown-item ai-icon"
                            >
                               <svg
@@ -87,7 +87,7 @@ const Header = ({ onNote, toggle, onProfile, onNotification, onBox }) => {
                               </svg>
                               <span className="ml-2">Profile </span>
                            </Link>
-                           <Link
+                           {/* <Link
                               to="/email-inbox"
                               className="dropdown-item ai-icon"
                            >
@@ -108,10 +108,11 @@ const Header = ({ onNote, toggle, onProfile, onNotification, onBox }) => {
                                  <polyline points="22,6 12,13 2,6" />
                               </svg>
                               <span className="ml-2">Inbox </span>
-                           </Link>
+                           </Link> */}
                            <Link
-                              to="/"
+                              to="/auth"
                               className="dropdown-item ai-icon"
+                              onClick={localStorage.clear()}
                            >
                               <svg
                                  id="icon-logout"

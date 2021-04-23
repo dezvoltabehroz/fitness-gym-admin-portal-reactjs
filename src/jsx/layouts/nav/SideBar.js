@@ -48,7 +48,7 @@ class SideBar extends Component {
       const path = window.location.pathname;
 
       /// Active menu
-      let booking = ["educogym/bookings"],
+      let booking = ["educogym/"],
          trainee = ["educogym/trainee-details", "educogym/add-trainee"],
          analytics = ["educogym/analytics"],
          user_profile = ["educogym/user-profile"],
@@ -60,7 +60,7 @@ class SideBar extends Component {
             <PerfectScrollbar className="deznav-scroll">
                <MM className="metismenu" id="menu">
                   <li className={`${booking.includes(path.slice(1)) ? "mm-active" : ""}`} >
-                     <Link to="/bookings" className="ai-icon" aria-expanded="false" >
+                     <Link to="/" className="ai-icon" aria-expanded="false" >
                         <i className="fa fa-calendar"></i> <span className="nav-text">Booking</span>
                      </Link>
                   </li>

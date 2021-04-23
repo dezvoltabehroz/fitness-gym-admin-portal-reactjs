@@ -7,8 +7,8 @@ class Login extends React.Component {
    constructor(props) {
       super(props);
       this.state = {
-         email: '',
-         password: ''
+         email: 'admin@educogym.com',
+         password: 'Admin@123@!!'
       }
    }
 
@@ -39,7 +39,7 @@ class Login extends React.Component {
          .then((res) => {
             if (res.success) {
                localStorage.setItem("token", res.data.token);
-               this.props.history.push("/bookings");
+               this.props.history.push("/educogym");
             }
          })
          .catch((error) => {
