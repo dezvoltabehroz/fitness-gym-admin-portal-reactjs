@@ -35,28 +35,8 @@ class Bookings extends React.Component {
    }
 
    componentDidMount = () => {
-      this.tokenRefresh();
-      // console.log("moment(this.state.value).format('YYYY-MM-DD') : ", moment(this.state.value).format('YYYY-MM-DD'))
       this.fetchAllbookings(moment(this.state.value).format('YYYY-MM-DD'))
 
-   }
-
-   tokenRefresh = () => {
-      const options = {
-         ...requestOptions,
-         body: JSON.stringify({ id: "1" })
-      };
-      fetch(api_base_url + 'registration/refreshToken', options)
-         .then(response => response.json())
-         .then((res) => {
-            if (res.success) {
-               localStorage.setItem("token", res.data.token);
-            }
-         })
-         .catch((error) => {
-            this.setState({ isLoading: false })
-            // alert(error)
-         })
    }
 
    fetchAllbookings = (date) => {
