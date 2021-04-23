@@ -26,6 +26,7 @@ import Schedules from "./components/EducoGym/Schedules";
 const Markup = () => {
    const routes = [
       // Main Dashboard
+      { url: "", component: Login },
       { url: "bookings", component: Bookings },
       { url: "trainee-details", component: TraineeDetails },
       { url: "add-trainee", component: AddTrainee },
@@ -35,41 +36,31 @@ const Markup = () => {
       { url: "about", component: AboutUs },
    ];
 
+   localStorage.clear();
    let isLogin = localStorage.getItem("token");
+   console.log("isLogin : ", isLogin)
 
    return (
-      <>
-         {
-            isLogin == null ?
-               <Router basename="/educogym">
+      <Router basename="/educogym">
+         <div id="main-wrapper" className="show">
+            {isLogin != null ? <Nav /> : null}
+            <div className="content-body">
+               <div className="container-fluid">
                   <Switch>
-                        <Route exact path={''} component={Login} />
+                     {routes.map((data, i) => (
+                        <Route
+                           key={i}
+                           exact
+                           path={`/${data.url}`}
+                           component={data.component}
+                        />
+                     ))}
                   </Switch>
-               </Router>
-               :
-               <Router basename="/educogym">
-                  <div id="main-wrapper" className="show">
-                     <Nav />
-                     <div className="content-body">
-                        <div className="container-fluid">
-                           <Switch>
-                              {routes.map((data, i) => (
-                                 <Route
-                                    key={i}
-                                    exact
-                                    path={`/${data.url}`}
-                                    component={data.component}
-                                 />
-                              ))}
-                           </Switch>
-                        </div>
-                     </div>
-
-                     <Footer />
-                  </div>
-               </Router>
-         }
-      </>
+               </div>
+            </div>
+            {isLogin != null ? <Footer /> : null}
+         </div>
+      </Router>
    );
 };
 
