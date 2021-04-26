@@ -112,7 +112,7 @@ const Header = ({ onNote, toggle, onProfile, onNotification, onBox }) => {
                            <Link
                               to="/auth"
                               className="dropdown-item ai-icon"
-                              onClick={localStorage.clear()}
+                              onClick={()=>localStorage.clear()}
                            >
                               <svg
                                  id="icon-logout"
