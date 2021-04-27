@@ -49,7 +49,7 @@ class Home extends React.Component {
                         <div className="container-fluid">
                             <Switch>
                                 <Route path='/auth' component={() => {
-                                    window.location.href = 'http://localhost:3000/';
+                                    window.location.href = 'http://165.227.227.1:3005/';
                                     return null;
                                 }} />
                                 {routes.map((data, i) => (
