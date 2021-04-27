@@ -193,7 +193,6 @@ class Bookings extends React.Component {
       fetch(api_base_url + 'admin/makeBookingForUser', options)
          .then(response => response.json())
          .then((res) => {
-            console.log("========> ", res)
             if (res.success) {
                this.fetchAllbookings(moment(this.state.value).format('YYYY-MM-DD'))
                this.setState({ showCustomerList: false })
