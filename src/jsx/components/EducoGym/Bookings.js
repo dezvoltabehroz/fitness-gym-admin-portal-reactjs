@@ -193,6 +193,7 @@ class Bookings extends React.Component {
       fetch(api_base_url + 'admin/makeBookingForUser', options)
          .then(response => response.json())
          .then((res) => {
+            console.log("========> ", res)
             if (res.success) {
                this.fetchAllbookings(moment(this.state.value).format('YYYY-MM-DD'))
                this.setState({ showCustomerList: false })
@@ -207,7 +208,7 @@ class Bookings extends React.Component {
          })
    }
 
-   viewHandlerOfAssignSlots = (userAdded) => {
+   viewHandlerOfAssignSlots = (userAdded,item) => {
       let caseVal = userAdded == undefined ? 0 : userAdded.length;
       switch (caseVal) {
          case 1:
@@ -217,13 +218,13 @@ class Bookings extends React.Component {
                      <Button variant="primary light btn-xs w-100">{`${userAdded[0].full_name}`}</Button>
                   </div>
                   <div className="d-flex mb-1 align-items-center">
-                     <Button onClick={() => this.setState({ showCustomerList: true })} variant="outline-light btn-xs w-100">Empty</Button>
+                     <Button onClick={() => this.setState({ showCustomerList: true, assignItem: item })} variant="outline-light btn-xs w-100">Empty</Button>
                   </div>
                   <div className="d-flex mb-1 align-items-center">
-                     <Button onClick={() => this.setState({ showCustomerList: true })} variant="outline-light btn-xs w-100">Empty</Button>
+                     <Button onClick={() => this.setState({ showCustomerList: true, assignItem: item })} variant="outline-light btn-xs w-100">Empty</Button>
                   </div>
                   <div className="d-flex mb-1 align-items-center">
-                     <Button onClick={() => this.setState({ showCustomerList: true })} variant="outline-light btn-xs w-100">Empty</Button>
+                     <Button onClick={() => this.setState({ showCustomerList: true, assignItem: item })} variant="outline-light btn-xs w-100">Empty</Button>
                   </div>
                </>
             )
@@ -239,10 +240,10 @@ class Bookings extends React.Component {
                      <Button variant="primary light btn-xs w-100">{`${userAdded[1].full_name}`}</Button>
                   </div>
                   <div className="d-flex mb-1 align-items-center">
-                     <Button onClick={() => this.setState({ showCustomerList: true })} variant="outline-light btn-xs w-100">Empty</Button>
+                     <Button onClick={() => this.setState({ showCustomerList: true, assignItem: item })} variant="outline-light btn-xs w-100">Empty</Button>
                   </div>
                   <div className="d-flex mb-1 align-items-center">
-                     <Button onClick={() => this.setState({ showCustomerList: true })} variant="outline-light btn-xs w-100">Empty</Button>
+                     <Button onClick={() => this.setState({ showCustomerList: true, assignItem: item })} variant="outline-light btn-xs w-100">Empty</Button>
                   </div>
                </>
             )
@@ -261,7 +262,7 @@ class Bookings extends React.Component {
                      <Button variant="primary light btn-xs w-100">{`${userAdded[2].full_name}`}</Button>
                   </div>
                   <div className="d-flex mb-1 align-items-center">
-                     <Button onClick={() => this.setState({ showCustomerList: true })} variant="outline-light btn-xs w-100">Empty</Button>
+                     <Button onClick={() => this.setState({ showCustomerList: true, assignItem: item })} variant="outline-light btn-xs w-100">Empty</Button>
                   </div>
                </>
             )
@@ -290,16 +291,16 @@ class Bookings extends React.Component {
             return (
                <>
                   <div className="d-flex mb-1 align-items-center">
-                     <Button onClick={() => this.setState({ showCustomerList: true })} variant="outline-light btn-xs w-100">Empty</Button>
+                     <Button onClick={() => this.setState({ showCustomerList: true, assignItem: item })} variant="outline-light btn-xs w-100">Empty</Button>
                   </div>
                   <div className="d-flex mb-1 align-items-center">
-                     <Button onClick={() => this.setState({ showCustomerList: true })} variant="outline-light btn-xs w-100">Empty</Button>
+                     <Button onClick={() => this.setState({ showCustomerList: true, assignItem: item })} variant="outline-light btn-xs w-100">Empty</Button>
                   </div>
                   <div className="d-flex mb-1 align-items-center">
-                     <Button onClick={() => this.setState({ showCustomerList: true })} variant="outline-light btn-xs w-100">Empty</Button>
+                     <Button onClick={() => this.setState({ showCustomerList: true, assignItem: item })} variant="outline-light btn-xs w-100">Empty</Button>
                   </div>
                   <div className="d-flex mb-1 align-items-center">
-                     <Button onClick={() => this.setState({ showCustomerList: true })} variant="outline-light btn-xs w-100">Empty</Button>
+                     <Button onClick={() => this.setState({ showCustomerList: true, assignItem: item })} variant="outline-light btn-xs w-100">Empty</Button>
                   </div>
                </>
             )
@@ -389,7 +390,7 @@ class Bookings extends React.Component {
                                     </div>
                                  </div>
                                  <div className="right-block">
-                                    {this.viewHandlerOfAssignSlots(item.userAdded)}
+                                    {this.viewHandlerOfAssignSlots(item.userAdded, item)}
                                  </div>
                               </div>
                            </div>
