@@ -25,12 +25,6 @@ class Bookings extends React.Component {
          availableSlots: false,
          fullSlots: false,
          blockedSlots: false,
-         userAdded: [
-            { user_id: '1' },
-            { user_id: 0 },
-            { user_id: '2' },
-            { user_id: 0 },
-         ],
          showCustomerList: false,
          users: [],
          checkedUser: "",
@@ -43,7 +37,6 @@ class Bookings extends React.Component {
    componentDidMount = () => {
       this.fetchAllbookings(moment(this.state.value).format('YYYY-MM-DD'))
       this.fetchCustomerList()
-
    }
 
    fetchCustomerList = () => {
@@ -214,60 +207,104 @@ class Bookings extends React.Component {
          })
    }
 
-   createElements1 = (item) => {
-      console.log("Ite")
-      var elements = [];
-      for (let i = 0; i < 4; i++) {
-         elements.push(<div className="d-flex mb-1 align-items-center">
-            <Button onClick={() => this.setState({ showCustomerList: true, assignItem: item })} variant="outline-light btn-xs w-100">Empty</Button>
-         </div>
-         );
+   viewHandlerOfAssignSlots = (userAdded) => {
+      let caseVal = userAdded == undefined ? 0 : userAdded.length;
+      switch (caseVal) {
+         case 1:
+            return (
+               <>
+                  <div className="d-flex mb-1 align-items-center">
+                     <Button variant="primary light btn-xs w-100">{`${userAdded[0].full_name}`}</Button>
+                  </div>
+                  <div className="d-flex mb-1 align-items-center">
+                     <Button onClick={() => this.setState({ showCustomerList: true })} variant="outline-light btn-xs w-100">Empty</Button>
+                  </div>
+                  <div className="d-flex mb-1 align-items-center">
+                     <Button onClick={() => this.setState({ showCustomerList: true })} variant="outline-light btn-xs w-100">Empty</Button>
+                  </div>
+                  <div className="d-flex mb-1 align-items-center">
+                     <Button onClick={() => this.setState({ showCustomerList: true })} variant="outline-light btn-xs w-100">Empty</Button>
+                  </div>
+               </>
+            )
+            break;
+
+         case 2:
+            return (
+               <>
+                  <div className="d-flex mb-1 align-items-center">
+                     <Button variant="primary light btn-xs w-100">{`${userAdded[0].full_name}`}</Button>
+                  </div>
+                  <div className="d-flex mb-1 align-items-center">
+                     <Button variant="primary light btn-xs w-100">{`${userAdded[1].full_name}`}</Button>
+                  </div>
+                  <div className="d-flex mb-1 align-items-center">
+                     <Button onClick={() => this.setState({ showCustomerList: true })} variant="outline-light btn-xs w-100">Empty</Button>
+                  </div>
+                  <div className="d-flex mb-1 align-items-center">
+                     <Button onClick={() => this.setState({ showCustomerList: true })} variant="outline-light btn-xs w-100">Empty</Button>
+                  </div>
+               </>
+            )
+            break;
+
+         case 3:
+            return (
+               <>
+                  <div className="d-flex mb-1 align-items-center">
+                     <Button variant="primary light btn-xs w-100">{`${userAdded[0].full_name}`}</Button>
+                  </div>
+                  <div className="d-flex mb-1 align-items-center">
+                     <Button variant="primary light btn-xs w-100">{`${userAdded[1].full_name}`}</Button>
+                  </div>
+                  <div className="d-flex mb-1 align-items-center">
+                     <Button variant="primary light btn-xs w-100">{`${userAdded[2].full_name}`}</Button>
+                  </div>
+                  <div className="d-flex mb-1 align-items-center">
+                     <Button onClick={() => this.setState({ showCustomerList: true })} variant="outline-light btn-xs w-100">Empty</Button>
+                  </div>
+               </>
+            )
+            break;
+
+         case 4:
+            return (
+               <>
+                  <div className="d-flex mb-1 align-items-center">
+                     <Button variant="primary light btn-xs w-100">{`${userAdded[0].full_name}`}</Button>
+                  </div>
+                  <div className="d-flex mb-1 align-items-center">
+                     <Button variant="primary light btn-xs w-100">{`${userAdded[1].full_name}`}</Button>
+                  </div>
+                  <div className="d-flex mb-1 align-items-center">
+                     <Button variant="primary light btn-xs w-100">{`${userAdded[2].full_name}`}</Button>
+                  </div>
+                  <div className="d-flex mb-1 align-items-center">
+                     <Button variant="primary light btn-xs w-100">{`${userAdded[3].full_name}`}</Button>
+                  </div>
+               </>
+            )
+            break;
+
+         default:
+            return (
+               <>
+                  <div className="d-flex mb-1 align-items-center">
+                     <Button onClick={() => this.setState({ showCustomerList: true })} variant="outline-light btn-xs w-100">Empty</Button>
+                  </div>
+                  <div className="d-flex mb-1 align-items-center">
+                     <Button onClick={() => this.setState({ showCustomerList: true })} variant="outline-light btn-xs w-100">Empty</Button>
+                  </div>
+                  <div className="d-flex mb-1 align-items-center">
+                     <Button onClick={() => this.setState({ showCustomerList: true })} variant="outline-light btn-xs w-100">Empty</Button>
+                  </div>
+                  <div className="d-flex mb-1 align-items-center">
+                     <Button onClick={() => this.setState({ showCustomerList: true })} variant="outline-light btn-xs w-100">Empty</Button>
+                  </div>
+               </>
+            )
+            break;
       }
-      return elements;
-   }
-
-   handleElementData = (item) => {
-      var elements = [];
-      for (let i = 0; i <= 3; i++) {
-         if (item[i] == "undefined") {
-            elements.push(<div className="d-flex mb-1 align-items-center">
-               <Button onClick={() => this.setState({ showCustomerList: true })} variant="outline-light btn-xs w-100">Empty</Button>
-            </div>)
-         }
-         else {
-            elements.push(<div className="d-flex mb-1 align-items-center">
-               <Button variant="primary light btn-xs w-100">{`${item.userAdded[i].full_name}`}</Button>
-            </div>)
-         }
-      }
-      return elements;
-   }
-
-   createElements = (data) => {
-      var elements = [];
-      let i = 0;
-      while (i < 4) {
-         if (data.userAdded != undefined) {
-            if (data.userAdded[i].user_id != undefined)
-               return (<div className="d-flex mb-1 align-items-center">
-                  <Button variant="primary light btn-xs w-100">{`${data.userAdded[i].full_name}`}</Button>
-               </div>)
-            else
-               return (<div className="d-flex mb-1 align-items-center">
-                  <Button onClick={() => this.setState({ showCustomerList: true, assignItem: data })} variant="outline-light btn-xs w-100">Empty</Button>
-               </div>
-               );
-         }
-         else {
-            return (<div className="d-flex mb-1 align-items-center">
-               <Button onClick={() => this.setState({ showCustomerList: true, assignItem: data })} variant="outline-light btn-xs w-100">Empty</Button>
-            </div>
-            );
-
-         }
-
-      }
-      return elements;
    }
 
    renderItems = (array) => {
@@ -287,8 +324,7 @@ class Bookings extends React.Component {
                   :
                   array.map((item, index) => {
                      const time = moment().format("YYYY-MM-DD");
-                     // let userAdded = item.userAdded != "undefined" ? item.userAdded : [];
-                     // const dataArr = this.handleElementData(item);
+
                      let i = 0;
                      return (
                         item.is_blocked == '1' ?
@@ -353,48 +389,7 @@ class Bookings extends React.Component {
                                     </div>
                                  </div>
                                  <div className="right-block">
-                                    {/* {dataArr} */}
-
-                                    {/* {this.createElements(item.userAdded)} */}
-
-
-
-                                    {/* {
-                                       item.userAdded != "undefined" ?
-                                          this.createElements1(item)
-                                          :
-                                          <>
-                                          </>
-                                       // this.createElements1(item)
-
-                                    } */}
-
-                                    {/* {itemuserAdded.map((data, index) => {
-                                       return (
-                                          data.user_id != 0 ?
-                                             <div className="d-flex mb-1 align-items-center">
-                                                <Button variant="primary light btn-xs w-100">{`Trainee ${data.user_id}`}</Button>
-                                             </div>
-                                             :
-                                             <div className="d-flex mb-1 align-items-center">
-                                                <Button onClick={() => this.setState({ showCustomerList: true, assignItem: item })} variant="outline-light btn-xs w-100">Empty</Button>
-                                             </div>
-                                       )
-                                    })} */}
-
-
-                                    {this.state.userAdded.map((data, index) => {
-                                       return (
-                                          data.user_id != 0 ?
-                                             <div className="d-flex mb-1 align-items-center">
-                                                <Button variant="primary light btn-xs w-100">{`Trainee ${data.user_id}`}</Button>
-                                             </div>
-                                             :
-                                             <div className="d-flex mb-1 align-items-center">
-                                                <Button onClick={() => this.setState({ showCustomerList: true, assignItem: item })} variant="outline-light btn-xs w-100">Empty</Button>
-                                             </div>
-                                       )
-                                    })}
+                                    {this.viewHandlerOfAssignSlots(item.userAdded)}
                                  </div>
                               </div>
                            </div>

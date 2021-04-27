@@ -23,5 +23,6 @@ module.exports = {
       // 'Authorization': 'Bearer ' + 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwiaWF0IjoxNjE4NzY0MTM0LCJleHAiOjE2MTg4NTA1MzR9.qPcFj5C5239BtwPyXGG7Qdpo9K363gqjKNdgI4_9Bt0'
     }
   },
-  api_base_url: 'http://165.227.227.1:3005/api/' // Development
+  api_base_url: 'http://165.227.227.1:3005/api/' // Production
+  // api_base_url: '127.0.0.1:3005/api/' // Development
 }
