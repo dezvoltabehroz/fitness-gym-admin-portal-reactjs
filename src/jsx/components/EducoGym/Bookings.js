@@ -2,7 +2,7 @@ import React from "react";
 import { Link } from "react-router-dom";
 import Calendar from "react-calendar";
 import "react-calendar/dist/Calendar.css";
-import { Button, Modal, Dropdown } from "react-bootstrap";
+import { Button, Modal, Dropdown, Card, Container } from "react-bootstrap";
 import { api_base_url, requestOptions } from './config';
 import { Col as Column, message, Spin } from "antd";
 import { LoadingOutlined } from '@ant-design/icons';
@@ -30,13 +30,36 @@ class Bookings extends React.Component {
             { user_id: 0 },
             { user_id: '2' },
             { user_id: 0 },
-         ]
+         ],
+         showCustomerList: false,
+         users: [],
+         checkedUser: "",
+         val: "",
+         assignItem: {}
       }
+      this.arrayHolder = [];
    }
 
    componentDidMount = () => {
       this.fetchAllbookings(moment(this.state.value).format('YYYY-MM-DD'))
+      this.fetchCustomerList()
 
+   }
+
+   fetchCustomerList = () => {
+      const options = {
+         ...requestOptions,
+         body: JSON.stringify({})
+      };
+      fetch(api_base_url + 'admin/listAllCustomer', options)
+         .then(response => response.json())
+         .then((res) => {
+            if (res.success) {
+               this.arrayHolder = res.data;
+               this.setState({ users: res.data })
+            }
+         })
+         .catch((error) => { })
    }
 
    fetchAllbookings = (date) => {
@@ -111,6 +134,142 @@ class Bookings extends React.Component {
          })
    }
 
+   handleBlockSlots = (item) => {
+      let userData = {
+         booking_date: moment(this.state.value).format('YYYY-MM-DD'),
+         booking_start_time: item.booking_start_time,
+         booking_end_time: item.booking_end_time
+      }
+      const options = {
+         ...requestOptions,
+         body: JSON.stringify(userData)
+      };
+      fetch(api_base_url + 'admin/blockSlots', options)
+         .then(response => response.json())
+         .then((res) => {
+            if (res.success) {
+               console.log(res)
+               this.fetchAllbookings(moment(this.state.value).format('YYYY-MM-DD'))
+            }
+            else {
+               this.fetchAllbookings(moment(this.state.value).format('YYYY-MM-DD'))
+            }
+         })
+         .catch((error) => {
+            this.setState({ isLoading: false })
+         })
+   }
+
+   handleUnBlockSlots = (item) => {
+      let userData = {
+         booking_date: moment(this.state.value).format('YYYY-MM-DD'),
+         booking_start_time: item.booking_start_time,
+         booking_end_time: item.booking_end_time
+      }
+      const options = {
+         ...requestOptions,
+         body: JSON.stringify(userData)
+      };
+      fetch(api_base_url + 'admin/unBlockSlots', options)
+         .then(response => response.json())
+         .then((res) => {
+            if (res.success) {
+               this.fetchAllbookings(moment(this.state.value).format('YYYY-MM-DD'))
+            }
+            else {
+               this.fetchAllbookings(moment(this.state.value).format('YYYY-MM-DD'))
+            }
+         })
+         .catch((error) => {
+            this.setState({ isLoading: false })
+         })
+   }
+
+   handleAssignSlots = () => {
+      const { checkedUser, assignItem } = this.state;
+      let userData = {
+         booking_date: moment(this.state.value).format('YYYY-MM-DD'),
+         booking_start_time: assignItem.booking_start_time,
+         booking_end_time: assignItem.booking_end_time,
+         customer_id: checkedUser
+      }
+      const options = {
+         ...requestOptions,
+         body: JSON.stringify(userData)
+      };
+      fetch(api_base_url + 'admin/makeBookingForUser', options)
+         .then(response => response.json())
+         .then((res) => {
+            if (res.success) {
+               this.fetchAllbookings(moment(this.state.value).format('YYYY-MM-DD'))
+               this.setState({ showCustomerList: false })
+            }
+            else {
+               this.fetchAllbookings(moment(this.state.value).format('YYYY-MM-DD'))
+               this.setState({ showCustomerList: false })
+            }
+         })
+         .catch((error) => {
+            this.setState({ isLoading: false, showCustomerList: false })
+         })
+   }
+
+   createElements1 = (item) => {
+      console.log("Ite")
+      var elements = [];
+      for (let i = 0; i < 4; i++) {
+         elements.push(<div className="d-flex mb-1 align-items-center">
+            <Button onClick={() => this.setState({ showCustomerList: true, assignItem: item })} variant="outline-light btn-xs w-100">Empty</Button>
+         </div>
+         );
+      }
+      return elements;
+   }
+
+   handleElementData = (item) => {
+      var elements = [];
+      for (let i = 0; i <= 3; i++) {
+         if (item[i] == "undefined") {
+            elements.push(<div className="d-flex mb-1 align-items-center">
+               <Button onClick={() => this.setState({ showCustomerList: true })} variant="outline-light btn-xs w-100">Empty</Button>
+            </div>)
+         }
+         else {
+            elements.push(<div className="d-flex mb-1 align-items-center">
+               <Button variant="primary light btn-xs w-100">{`${item.userAdded[i].full_name}`}</Button>
+            </div>)
+         }
+      }
+      return elements;
+   }
+
+   createElements = (data) => {
+      var elements = [];
+      let i = 0;
+      while (i < 4) {
+         if (data.userAdded != undefined) {
+            if (data.userAdded[i].user_id != undefined)
+               return (<div className="d-flex mb-1 align-items-center">
+                  <Button variant="primary light btn-xs w-100">{`${data.userAdded[i].full_name}`}</Button>
+               </div>)
+            else
+               return (<div className="d-flex mb-1 align-items-center">
+                  <Button onClick={() => this.setState({ showCustomerList: true, assignItem: data })} variant="outline-light btn-xs w-100">Empty</Button>
+               </div>
+               );
+         }
+         else {
+            return (<div className="d-flex mb-1 align-items-center">
+               <Button onClick={() => this.setState({ showCustomerList: true, assignItem: data })} variant="outline-light btn-xs w-100">Empty</Button>
+            </div>
+            );
+
+         }
+
+      }
+      return elements;
+   }
+
    renderItems = (array) => {
       return (
          <>
@@ -127,7 +286,10 @@ class Bookings extends React.Component {
                   </div>
                   :
                   array.map((item, index) => {
-                     const time = moment().format("YYYY-MM-DD")
+                     const time = moment().format("YYYY-MM-DD");
+                     // let userAdded = item.userAdded != "undefined" ? item.userAdded : [];
+                     // const dataArr = this.handleElementData(item);
+                     let i = 0;
                      return (
                         item.is_blocked == '1' ?
                            <div className="card-body pt-0">
@@ -149,7 +311,7 @@ class Bookings extends React.Component {
                                        </div>
                                     </div>
                                     <div className="d-flex align-items-center mt-3">
-                                       <button type="button" class="float-right btn btn-primary">Unblock Slot</button>
+                                       <button onClick={() => this.handleUnBlockSlots(item)} type="button" class="float-right btn btn-primary">Unblock Slot</button>
                                        <Link className="slot-edit-icon ml-3" to='#'>
                                           <svg width="26" height="26" viewBox="0 0 26 26" fill="none" xmlns="http://www.w3.org/2000/svg">
                                              <path fill-rule="evenodd" clip-rule="evenodd" d="M18.9456 0.146079C18.2698 0.373506 16.0624 2.37559 15.8908 2.91683C15.7981 3.20896 16.3907 3.88586 19.2184 6.71907C21.1107 8.61463 22.7647 10.1657 22.894 10.1657C23.0233 10.1657 23.6646 9.64837 24.3189 9.01606C25.2201 8.14521 25.5786 7.65583 25.7968 6.99836C26.129 5.99671 26.0489 4.77493 25.5928 3.88656C25.2073 3.1361 22.8268 0.759489 22.0707 0.370383C21.3376 -0.00692619 19.7406 -0.12142 18.9456 0.146079ZM22.6845 3.29102C24.126 4.73399 24.1353 4.74908 24.1353 5.63259C24.1353 6.41306 24.0575 6.60787 23.4985 7.227L22.8619 7.93253L20.4594 5.53614L18.0568 3.13992L18.7496 2.48939C19.3654 1.91102 19.5417 1.83885 20.3379 1.83885C21.2296 1.83885 21.2397 1.8451 22.6845 3.29102ZM7.52538 11.0938L1.04529 17.5731L0.52256 21.4322L0 25.2914L0.354093 25.6456L0.708185 26L4.49228 25.5101L8.27655 25.0202L15.0794 18.2465C18.821 14.521 21.8822 11.3496 21.8822 11.1992C21.8822 10.7205 21.4383 10.2958 20.9379 10.2958C20.5325 10.2958 19.4059 11.3446 13.9907 16.7631L7.52746 23.2305L5.21554 23.5452C3.9439 23.7181 2.70414 23.8621 2.46028 23.865L2.01675 23.8702L2.40325 21.0658L2.78958 18.2614L8.95613 12.0876C13.3046 7.73407 15.1227 5.8019 15.1227 5.53423C15.1227 5.17323 14.5493 4.61446 14.179 4.61446C14.0836 4.61446 11.0895 7.53024 7.52538 11.0938ZM10.5784 14.1091C4.02276 20.6618 3.7834 20.9517 4.41151 21.5804C5.03962 22.209 5.32924 21.9695 11.8761 15.4079C15.3776 11.8985 18.2424 8.91041 18.2424 8.76764C18.2424 8.32458 17.7211 7.73702 17.3282 7.73702C17.0666 7.73702 15.0284 9.66121 10.5784 14.1091Z" />
@@ -182,7 +344,7 @@ class Bookings extends React.Component {
                                        </div>
                                     </div>
                                     <div className="d-flex align-items-center mt-3">
-                                       <button type="button" class="float-right btn btn-primary">Block Slot</button>
+                                       <button type="button" onClick={() => this.handleBlockSlots(item)} class="float-right btn btn-primary">Block Slot</button>
                                        <Link className="slot-edit-icon ml-3" to='#'>
                                           <svg width="26" height="26" viewBox="0 0 26 26" fill="none" xmlns="http://www.w3.org/2000/svg">
                                              <path fill-rule="evenodd" clip-rule="evenodd" d="M18.9456 0.146079C18.2698 0.373506 16.0624 2.37559 15.8908 2.91683C15.7981 3.20896 16.3907 3.88586 19.2184 6.71907C21.1107 8.61463 22.7647 10.1657 22.894 10.1657C23.0233 10.1657 23.6646 9.64837 24.3189 9.01606C25.2201 8.14521 25.5786 7.65583 25.7968 6.99836C26.129 5.99671 26.0489 4.77493 25.5928 3.88656C25.2073 3.1361 22.8268 0.759489 22.0707 0.370383C21.3376 -0.00692619 19.7406 -0.12142 18.9456 0.146079ZM22.6845 3.29102C24.126 4.73399 24.1353 4.74908 24.1353 5.63259C24.1353 6.41306 24.0575 6.60787 23.4985 7.227L22.8619 7.93253L20.4594 5.53614L18.0568 3.13992L18.7496 2.48939C19.3654 1.91102 19.5417 1.83885 20.3379 1.83885C21.2296 1.83885 21.2397 1.8451 22.6845 3.29102ZM7.52538 11.0938L1.04529 17.5731L0.52256 21.4322L0 25.2914L0.354093 25.6456L0.708185 26L4.49228 25.5101L8.27655 25.0202L15.0794 18.2465C18.821 14.521 21.8822 11.3496 21.8822 11.1992C21.8822 10.7205 21.4383 10.2958 20.9379 10.2958C20.5325 10.2958 19.4059 11.3446 13.9907 16.7631L7.52746 23.2305L5.21554 23.5452C3.9439 23.7181 2.70414 23.8621 2.46028 23.865L2.01675 23.8702L2.40325 21.0658L2.78958 18.2614L8.95613 12.0876C13.3046 7.73407 15.1227 5.8019 15.1227 5.53423C15.1227 5.17323 14.5493 4.61446 14.179 4.61446C14.0836 4.61446 11.0895 7.53024 7.52538 11.0938ZM10.5784 14.1091C4.02276 20.6618 3.7834 20.9517 4.41151 21.5804C5.03962 22.209 5.32924 21.9695 11.8761 15.4079C15.3776 11.8985 18.2424 8.91041 18.2424 8.76764C18.2424 8.32458 17.7211 7.73702 17.3282 7.73702C17.0666 7.73702 15.0284 9.66121 10.5784 14.1091Z" />
@@ -191,6 +353,36 @@ class Bookings extends React.Component {
                                     </div>
                                  </div>
                                  <div className="right-block">
+                                    {/* {dataArr} */}
+
+                                    {/* {this.createElements(item.userAdded)} */}
+
+
+
+                                    {/* {
+                                       item.userAdded != "undefined" ?
+                                          this.createElements1(item)
+                                          :
+                                          <>
+                                          </>
+                                       // this.createElements1(item)
+
+                                    } */}
+
+                                    {/* {itemuserAdded.map((data, index) => {
+                                       return (
+                                          data.user_id != 0 ?
+                                             <div className="d-flex mb-1 align-items-center">
+                                                <Button variant="primary light btn-xs w-100">{`Trainee ${data.user_id}`}</Button>
+                                             </div>
+                                             :
+                                             <div className="d-flex mb-1 align-items-center">
+                                                <Button onClick={() => this.setState({ showCustomerList: true, assignItem: item })} variant="outline-light btn-xs w-100">Empty</Button>
+                                             </div>
+                                       )
+                                    })} */}
+
+
                                     {this.state.userAdded.map((data, index) => {
                                        return (
                                           data.user_id != 0 ?
@@ -199,7 +391,7 @@ class Bookings extends React.Component {
                                              </div>
                                              :
                                              <div className="d-flex mb-1 align-items-center">
-                                                <Button variant="outline-light btn-xs w-100">Empty</Button>
+                                                <Button onClick={() => this.setState({ showCustomerList: true, assignItem: item })} variant="outline-light btn-xs w-100">Empty</Button>
                                              </div>
                                        )
                                     })}
@@ -213,8 +405,23 @@ class Bookings extends React.Component {
       )
    }
 
+   searchFilterCustomer = text => {
+      console.log("text : ", text)
+      this.setState({ val: text });
+      const newData = this.arrayHolder.filter(item => {
+         const itemData = `${item.first_name.toUpperCase()} ${item.first_name.toUpperCase()} ${item.first_name.toUpperCase()} ${item.last_name.toUpperCase()} ${item.last_name.toUpperCase()} ${item.last_name.toUpperCase()} `;
+         const textData = text.toUpperCase();
+         return itemData.indexOf(textData) > -1;
+      });
+      console.log(newData)
+      if (newData.length != 0) {
+         console.log(newData)
+         this.setState({ users: newData });
+      }
+   };
+
    render() {
-      const { value, addPlan, isLoading, weeklyPlan, slots, availableSlots, blockedSlots, fullSlots, all_slots, full_slots, blocked_slots, available_slots } = this.state;
+      const { value, addPlan, showCustomerList, val, users, isLoading, weeklyPlan, checkedUser, slots, availableSlots, blockedSlots, fullSlots, all_slots, full_slots, blocked_slots, available_slots } = this.state;
       const antIcon = <LoadingOutlined style={{ fontSize: 24 }} spin />
 
       return (
@@ -307,8 +514,68 @@ class Bookings extends React.Component {
                      </div>
                   </div>
             }
+            <Modal show={showCustomerList} size="md">
+               <Modal.Header>
+                  <Button variant="" className="close" onClick={() => this.setState({ showCustomerList: false })} > <span>&times;</span> </Button>
+                  <br />
+               </Modal.Header>
+               <Modal.Body>
+                  <Container>
+                     <Card>
+                        <Card.Header style={new_style.card_header_color}>
+                           <Card.Title style={{ margin: "auto" }}>
+                              {/* <img src={pause_image} width="58" height="50" style={new_style.center_align} /> */}
+                              <h4 style={new_style.header_heading}>Customer List</h4>
+                           </Card.Title>
+                        </Card.Header>
+                        <Card.Body>
+                           <div className="form-group col-md-12">
+                              <input type="text" value={val}
+                                 // disabled={true}
+                                 onChangeCapture={(e) => this.searchFilterCustomer(e.target.value)}
+                                 className="form-control" placeholder="Search" />
+                           </div>
+                           <div style={{ height: 300, overflow: "scroll" }}>
+                              {users.map((item, index) => {
+                                 return (
+                                    index <= 20 ?
+                                       <div className="form-group col-md-12">
+                                          <div className="col-sm-12">
+                                             <div className="form-check">
+                                                <input className="form-check-input" onClick={() => { console.log(item); this.setState({ checkedUser: item.id }) }} type="radio" name={`gridRadiosCustomer${item.index}`} value={item.id} checked={checkedUser == item.id ? true : false} />
+                                                <label className="form-check-label"> {item.first_name} {item.last_name} </label>
+                                             </div>
+                                          </div>
+                                       </div>
+                                       : null
+                                 )
+                              })}
+                           </div>
+
+                        </Card.Body>
+                     </Card>
+
+
+                     <div className="row justify-content-md-center">
+                        <Button variant="light" onClick={() => this.handleAssignSlots()} className="align-self-center mr-3 btn-md"> Assign Slot </Button>
+                     </div>
+
+                  </Container>
+               </Modal.Body>
+            </Modal>
          </React.Fragment>
       );
    };
 }
+
+const new_style = {
+   top_margin: { marginTop: '1%', marginLeft: '1%' },
+   icons_margin: { marginTop: '1%', marginRight: '1%' },
+   label_top_margin: { marginTop: '3%', },
+   form_field: { marginLeft: '1%' },
+   card_header_color: { backgroundColor: "#00B4E5" },
+   center_align: { display: "block", marginLeft: "auto", marginRight: "auto" },
+   header_heading: { color: "#FFF", display: "block", marginLeft: "auto", marginRight: "auto" }
+};
+
 export default Bookings;
