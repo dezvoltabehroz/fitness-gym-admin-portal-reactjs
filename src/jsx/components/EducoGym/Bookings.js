@@ -203,6 +203,7 @@ class Bookings extends React.Component {
                this.setState({ showCustomerList: false })
             }
             else {
+               alert("Cannot assign more than 1 slot to a trainee in a Day")
                this.fetchAllbookings(moment(this.state.value).format('YYYY-MM-DD'))
                this.setState({ showCustomerList: false })
             }

@@ -90,22 +90,6 @@ class AppProfile extends React.Component {
                                                                             <h4 className="text-muted mb-0">{profile_data.email} </h4>
                                                                             <p>Email</p>
                                                                         </div>
-                                                                        <Dropdown className="dropdown ml-auto">
-                                                                            <Dropdown.Toggle variant="primary" className="btn btn-primary light sharp icon-false" data-toggle="dropdown" aria-expanded="true"                                        >
-                                                                                <svg xmlns="http://www.w3.org/2000/svg" width="18px" height="18px" viewBox="0 0 24 24" version="1.1" >
-                                                                                    <g stroke="none" strokeWidth="1" fill="none" fillRule="evenodd" >
-                                                                                        <rect x="0" y="0" width="24" height="24" ></rect>
-                                                                                        <circle fill="#000000" cx="5" cy="12" r="2" ></circle>
-                                                                                        <circle fill="#000000" cx="12" cy="12" r="2" ></circle>
-                                                                                        <circle fill="#000000" cx="19" cy="12" r="2" ></circle>
-                                                                                    </g>
-                                                                                </svg>
-                                                                            </Dropdown.Toggle>
-                                                                            <Dropdown.Menu className="dropdown-menu dropdown-menu-right">
-                                                                                <Dropdown.Item className="dropdown-item"> Edit </Dropdown.Item>
-                                                                                <Dropdown.Item className="dropdown-item"> Sign Out </Dropdown.Item>
-                                                                            </Dropdown.Menu>
-                                                                        </Dropdown>
                                                                     </div>
                                                                 </div>
                                                             </div>

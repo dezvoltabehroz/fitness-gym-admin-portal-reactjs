@@ -168,7 +168,7 @@ class Analytics extends React.Component {
                                                                         as="button"
                                                                         className="btn rounded border text-black border-light dropdown-toggle">
                                                                         Today
-                                    </Dropdown.Toggle>
+                                                                    </Dropdown.Toggle>
                                                                     <Dropdown.Menu className="dropdown-menu-right">
                                                                         <Dropdown.Item>Today</Dropdown.Item>
                                                                         <Dropdown.Item>Weekly</Dropdown.Item>
