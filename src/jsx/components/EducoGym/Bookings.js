@@ -2,11 +2,6 @@ import React from "react";
 import { Link } from "react-router-dom";
 import Calendar from "react-calendar";
 import "react-calendar/dist/Calendar.css";
-
-/// Layout
-import Nav from "../../layouts/nav";
-import Footer from "../../layouts/Footer";
-
 import { Button, Modal, Dropdown, Card, Container } from "react-bootstrap";
 import { api_base_url, requestOptions } from './config';
 import { Col as Column, message, Spin } from "antd";
@@ -212,7 +207,7 @@ class Bookings extends React.Component {
          })
    }
 
-   viewHandlerOfAssignSlots = (userAdded, item) => {
+   viewHandlerOfAssignSlots = (userAdded,item) => {
       let caseVal = userAdded == undefined ? 0 : userAdded.length;
       switch (caseVal) {
          case 1:
@@ -425,153 +420,145 @@ class Bookings extends React.Component {
       const antIcon = <LoadingOutlined style={{ fontSize: 24 }} spin />
 
       return (
-         <div id="main-wrapper" className="show">
-            <Nav />
-            <div className="content-body">
-               <div className="container-fluid">
-                  <React.Fragment>
-                     {
-                        isLoading ?
-                           <Column span={24}>
-                              <Spin indicator={antIcon} />
-                           </Column>
-                           :
-                           <div className="row">
-                              <div className="col-xl-3 col-xxl-4">
-                                 <div className="row">
-                                    <div className="col-xl-12">
-                                       <div className="card flex-xl-column flex-sm-row flex-column">
-                                          <div className="card-body border-bottom pb-4 p-2 event-calender col-md-6 col-lg-6 col-lg-12">
-                                             <Calendar onChange={(val) => this.handleDate(val)} value={value} />
-                                          </div>
-                                          <div className="card-body col-md-6 col-lg-6 col-lg-12">
-                                             {weeklyPlan.length == 0 ?
-                                                <h6 className="fs-16 text-black mb-4"> No record Found </h6> :
-                                                <>
-                                                   <h6 className="fs-16 text-black mb-4"> Next week plan </h6>
-                                                   {weeklyPlan.map((data, index) => {
-                                                      return (
-                                                         <div className="d-flex mb-4 align-items-center">
-                                                            <span className="date-icon mr-3"> {data.user_count} </span>
-                                                            <div>
-                                                               <h6 className="fs-16">
-                                                                  <Link to="/workout-statistic" className="text-black"> {data.exercise_name} </Link>
-                                                               </h6>
-                                                               {data.exercise_duration == null ?
-                                                                  <span> {data.exercise_details} </span>
-                                                                  :
-                                                                  <span>{data.exercise_duration} | {data.exercise_details}</span>
-                                                               }
-                                                            </div>
-                                                         </div>
-                                                      )
-                                                   })}
-                                                </>
-                                             }
-                                          </div>
-                                       </div>
-                                    </div>
+         <React.Fragment>
+            {
+               isLoading ?
+                  <Column span={24}>
+                     <Spin indicator={antIcon} />
+                  </Column>
+                  :
+                  <div className="row">
+                     <div className="col-xl-3 col-xxl-4">
+                        <div className="row">
+                           <div className="col-xl-12">
+                              <div className="card flex-xl-column flex-sm-row flex-column">
+                                 <div className="card-body border-bottom pb-4 p-2 event-calender col-md-6 col-lg-6 col-lg-12">
+                                    <Calendar onChange={(val) => this.handleDate(val)} value={value} />
                                  </div>
-                              </div>
-                              <div className="col-xl-9 col-xxl-8">
-                                 <div className="row">
-                                    <div className="col-xl-12">
-                                       <div className="card plan-list">
-                                          <div className="card-header slot-card-header d-sm-flex d-block pb-0 border-0">
-                                             <div className="mr-auto pr-3">
-                                                <h4 className="text-black fs-20 mb-0">Booking Slots</h4>
-                                             </div>
-                                             <Dropdown className="mt-sm-0 mt-3">
-                                                <Dropdown.Toggle
-                                                   variant=""
-                                                   as="button"
-                                                   className="btn rounded border text-black border-light dropdown-toggle"
-                                                >
-                                                   {availableSlots ? "Available Slots" : fullSlots ? "Full Slots" : blockedSlots ? "Blocked Slots" : "All Slots"}
-                                                </Dropdown.Toggle>
-                                                <Dropdown.Menu className="dropdown-menu-right">
-                                                   <Dropdown.Item onSelect={() => this.setState({ slots: true, availableSlots: false, fullSlots: false, blockedSlots: false })} >All Slots</Dropdown.Item>
-                                                   <Dropdown.Item onSelect={() => this.setState({ availableSlots: true, slots: false, fullSlots: false, blockedSlots: false })} >Available Slots</Dropdown.Item>
-                                                   <Dropdown.Item onSelect={() => this.setState({ fullSlots: true, availableSlots: false, slots: false, blockedSlots: false })}>Full Slots</Dropdown.Item>
-                                                   <Dropdown.Item onSelect={() => this.setState({ blockedSlots: true, slots: false, availableSlots: false, fullSlots: false, })}>Blocked Slots</Dropdown.Item>
-                                                </Dropdown.Menu>
-                                             </Dropdown>
-                                          </div>
-                                          {
-                                             slots ?
-                                                this.renderItems(all_slots)
-                                                :
-                                                availableSlots ?
-                                                   this.renderItems(available_slots)
-                                                   :
-                                                   fullSlots ?
-                                                      this.renderItems(full_slots)
-                                                      :
-                                                      blockedSlots ?
-                                                         this.renderItems(blocked_slots)
+                                 <div className="card-body col-md-6 col-lg-6 col-lg-12">
+                                    {weeklyPlan.length == 0 ?
+                                       <h6 className="fs-16 text-black mb-4"> No record Found </h6> :
+                                       <>
+                                          <h6 className="fs-16 text-black mb-4"> Next week plan </h6>
+                                          {weeklyPlan.map((data, index) => {
+                                             return (
+                                                <div className="d-flex mb-4 align-items-center">
+                                                   <span className="date-icon mr-3"> {data.user_count} </span>
+                                                   <div>
+                                                      <h6 className="fs-16">
+                                                         <Link to="/workout-statistic" className="text-black"> {data.exercise_name} </Link>
+                                                      </h6>
+                                                      {data.exercise_duration == null ?
+                                                         <span> {data.exercise_details} </span>
                                                          :
-                                                         null
-                                          }
-                                       </div>
-                                    </div>
+                                                         <span>{data.exercise_duration} | {data.exercise_details}</span>
+                                                      }
+                                                   </div>
+                                                </div>
+                                             )
+                                          })}
+                                       </>
+                                    }
                                  </div>
                               </div>
                            </div>
-                     }
-                     <Modal show={showCustomerList} size="md">
-                        <Modal.Header>
-                           <Button variant="" className="close" onClick={() => this.setState({ showCustomerList: false })} > <span>&times;</span> </Button>
-                           <br />
-                        </Modal.Header>
-                        <Modal.Body>
-                           <Container>
-                              <Card>
-                                 <Card.Header style={new_style.card_header_color}>
-                                    <Card.Title style={{ margin: "auto" }}>
-                                       {/* <img src={pause_image} width="58" height="50" style={new_style.center_align} /> */}
-                                       <h4 style={new_style.header_heading}>Customer List</h4>
-                                    </Card.Title>
-                                 </Card.Header>
-                                 <Card.Body>
-                                    <div className="form-group col-md-12">
-                                       <input type="text" value={val}
-                                          // disabled={true}
-                                          onChangeCapture={(e) => this.searchFilterCustomer(e.target.value)}
-                                          className="form-control" placeholder="Search" />
+                        </div>
+                     </div>
+                     <div className="col-xl-9 col-xxl-8">
+                        <div className="row">
+                           <div className="col-xl-12">
+                              <div className="card plan-list">
+                                 <div className="card-header slot-card-header d-sm-flex d-block pb-0 border-0">
+                                    <div className="mr-auto pr-3">
+                                       <h4 className="text-black fs-20 mb-0">Booking Slots</h4>
                                     </div>
-                                    <div style={{ height: 300, overflow: "scroll" }}>
-                                       {users.map((item, index) => {
-                                          return (
-                                             index <= 20 ?
-                                                <div className="form-group col-md-12">
-                                                   <div className="col-sm-12">
-                                                      <div className="form-check">
-                                                         <input className="form-check-input" onClick={() => { console.log(item); this.setState({ checkedUser: item.id }) }} type="radio" name={`gridRadiosCustomer${item.index}`} value={item.id} checked={checkedUser == item.id ? true : false} />
-                                                         <label className="form-check-label"> {item.first_name} {item.last_name} </label>
-                                                      </div>
-                                                   </div>
-                                                </div>
-                                                : null
-                                          )
-                                       })}
-                                    </div>
-
-                                 </Card.Body>
-                              </Card>
-
-
-                              <div className="row justify-content-md-center">
-                                 <Button variant="light" onClick={() => this.handleAssignSlots()} className="align-self-center mr-3 btn-md"> Assign Slot </Button>
+                                    <Dropdown className="mt-sm-0 mt-3">
+                                       <Dropdown.Toggle
+                                          variant=""
+                                          as="button"
+                                          className="btn rounded border text-black border-light dropdown-toggle"
+                                       >
+                                          {availableSlots ? "Available Slots" : fullSlots ? "Full Slots" : blockedSlots ? "Blocked Slots" : "All Slots"}
+                                       </Dropdown.Toggle>
+                                       <Dropdown.Menu className="dropdown-menu-right">
+                                          <Dropdown.Item onSelect={() => this.setState({ slots: true, availableSlots: false, fullSlots: false, blockedSlots: false })} >All Slots</Dropdown.Item>
+                                          <Dropdown.Item onSelect={() => this.setState({ availableSlots: true, slots: false, fullSlots: false, blockedSlots: false })} >Available Slots</Dropdown.Item>
+                                          <Dropdown.Item onSelect={() => this.setState({ fullSlots: true, availableSlots: false, slots: false, blockedSlots: false })}>Full Slots</Dropdown.Item>
+                                          <Dropdown.Item onSelect={() => this.setState({ blockedSlots: true, slots: false, availableSlots: false, fullSlots: false, })}>Blocked Slots</Dropdown.Item>
+                                       </Dropdown.Menu>
+                                    </Dropdown>
+                                 </div>
+                                 {
+                                    slots ?
+                                       this.renderItems(all_slots)
+                                       :
+                                       availableSlots ?
+                                          this.renderItems(available_slots)
+                                          :
+                                          fullSlots ?
+                                             this.renderItems(full_slots)
+                                             :
+                                             blockedSlots ?
+                                                this.renderItems(blocked_slots)
+                                                :
+                                                null
+                                 }
                               </div>
+                           </div>
+                        </div>
+                     </div>
+                  </div>
+            }
+            <Modal show={showCustomerList} size="md">
+               <Modal.Header>
+                  <Button variant="" className="close" onClick={() => this.setState({ showCustomerList: false })} > <span>&times;</span> </Button>
+                  <br />
+               </Modal.Header>
+               <Modal.Body>
+                  <Container>
+                     <Card>
+                        <Card.Header style={new_style.card_header_color}>
+                           <Card.Title style={{ margin: "auto" }}>
+                              {/* <img src={pause_image} width="58" height="50" style={new_style.center_align} /> */}
+                              <h4 style={new_style.header_heading}>Customer List</h4>
+                           </Card.Title>
+                        </Card.Header>
+                        <Card.Body>
+                           <div className="form-group col-md-12">
+                              <input type="text" value={val}
+                                 // disabled={true}
+                                 onChangeCapture={(e) => this.searchFilterCustomer(e.target.value)}
+                                 className="form-control" placeholder="Search" />
+                           </div>
+                           <div style={{ height: 300, overflow: "scroll" }}>
+                              {users.map((item, index) => {
+                                 return (
+                                    index <= 20 ?
+                                       <div className="form-group col-md-12">
+                                          <div className="col-sm-12">
+                                             <div className="form-check">
+                                                <input className="form-check-input" onClick={() => { console.log(item); this.setState({ checkedUser: item.id }) }} type="radio" name={`gridRadiosCustomer${item.index}`} value={item.id} checked={checkedUser == item.id ? true : false} />
+                                                <label className="form-check-label"> {item.first_name} {item.last_name} </label>
+                                             </div>
+                                          </div>
+                                       </div>
+                                       : null
+                                 )
+                              })}
+                           </div>
 
-                           </Container>
-                        </Modal.Body>
-                     </Modal>
-                  </React.Fragment>
-               </div>
-            </div>
-            <Footer />
-         </div>
+                        </Card.Body>
+                     </Card>
+
+
+                     <div className="row justify-content-md-center">
+                        <Button variant="light" onClick={() => this.handleAssignSlots()} className="align-self-center mr-3 btn-md"> Assign Slot </Button>
+                     </div>
+
+                  </Container>
+               </Modal.Body>
+            </Modal>
+         </React.Fragment>
       );
    };
 }
