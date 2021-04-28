@@ -7,8 +7,8 @@ class Login extends React.Component {
    constructor(props) {
       super(props);
       this.state = {
-         email: '',
-         password: '',
+         email: 'admin@educogym.com',
+         password: 'Admin@123@!!',
          token: localStorage.getItem("token")
       }
    }
@@ -20,20 +20,25 @@ class Login extends React.Component {
    }
 
    submitHandler = () => {
-      let obj_body = {
-         email: this.state.email,
-         password: this.state.password
+      const { email, password } = this.state;
+      if (email !== '' && password !== '') {
+         let obj_body = {
+            email: email,
+            password: password
+         }
+         const options = {
+            ...requestOptions,
+            body: JSON.stringify(obj_body)
+         };
+         fetch(api_base_url + 'admin/loginAdmin', options)
+            .then(response => response.json())
+            .then((res) => {
+               res.success == true ? this.tokenRefresh(res.data.id) : alert("Email/Password is not correct")
+            })
+            .catch((error) => { })
+      }else{
+         alert("Email/Password should not be null")
       }
-      const options = {
-         ...requestOptions,
-         body: JSON.stringify(obj_body)
-      };
-      fetch(api_base_url + 'admin/loginAdmin', options)
-         .then(response => response.json())
-         .then((res) => {
-            res.success == true ? this.tokenRefresh(res.data.id) : alert("Email/Password is not correct")
-         })
-         .catch((error) => { })
    }
 
    tokenRefresh = (id) => {
@@ -88,15 +93,8 @@ class Login extends React.Component {
                                     />
                                  </div>
 
-                                 {/* <div className="form-group">
-                                    <div className="custom-control custom-checkbox ml-1">
-                                       <input type="checkbox" className="custom-control-input" id="basic_checkbox_1" />
-                                       <label className="custom-control-label" htmlFor="basic_checkbox_1" > Remember me </label>
-                                    </div>
-                                 </div> */}
-
                                  <div className="text-center">
-                                    <button type="submit" className="btn btn-primary btn-block" onClick={this.submitHandler}> Sign Me In</button>
+                                    <button type="submit" className="btn btn-primary btn-block" onClick={this.submitHandler}> Sign In</button>
                                  </div>
 
                               </div>
