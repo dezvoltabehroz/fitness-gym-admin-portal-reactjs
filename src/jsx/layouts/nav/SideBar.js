@@ -48,12 +48,12 @@ class SideBar extends Component {
       const path = window.location.pathname;
 
       /// Active menu
-      let booking = ["booking"],
-         trainee = ["trainee-details", "add-trainee"],
-         analytics = ["analytics"],
-         user_profile = ["user-profile"],
-         schedules = ["schedules"],
-         about = ["about"];
+      let booking = ["educogym/booking"],
+         trainee = ["educogym/trainee-details", "educogym/add-trainee"],
+         analytics = ["educogym/analytics"],
+         user_profile = ["educogym/user-profile"],
+         schedules = ["educogym/schedules"],
+         about = ["educogym/about"];
 
       return (
          <div className="deznav">

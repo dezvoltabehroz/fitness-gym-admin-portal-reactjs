@@ -34,7 +34,7 @@ class Markup extends React.Component {
          { url: "add-trainee", component: AddTrainee },
          { url: "analytics", component: Analytics },
          { url: "user-profile", component: Educo_AppProfile },
-         { url: "schedules", component: Schedules },
+         { url: "Schedules", component: Schedules },
          { url: "about", component: AboutUs },
       ];
 
