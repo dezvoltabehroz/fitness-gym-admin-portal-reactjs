@@ -110,7 +110,7 @@ const Header = ({ onNote, toggle, onProfile, onNotification, onBox }) => {
                               <span className="ml-2">Inbox </span>
                            </Link> */}
                            <Link
-                              to="/auth"
+                              to="/"
                               className="dropdown-item ai-icon"
                               onClick={()=>localStorage.clear()}
                            >
