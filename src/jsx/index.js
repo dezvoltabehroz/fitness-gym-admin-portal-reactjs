@@ -19,6 +19,7 @@ import Analytics from "./components/EducoGym/Analytics";
 import Educo_AppProfile from "./components/EducoGym/AppProfile";
 import AboutUs from "./components/EducoGym/AboutUs";
 import Schedules from "./components/EducoGym/Schedules";
+import Pause from "./components/EducoGym/Pause";
 
 class Markup extends React.Component {
    constructor(props) {
@@ -35,6 +36,7 @@ class Markup extends React.Component {
          { url: "analytics", component: Analytics },
          { url: "user-profile", component: Educo_AppProfile },
          { url: "schedules", component: Schedules },
+         { url: "pause", component: Pause },
          { url: "about", component: AboutUs },
       ];
 

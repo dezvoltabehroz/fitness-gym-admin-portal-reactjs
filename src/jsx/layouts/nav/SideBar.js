@@ -18,6 +18,7 @@ class SideBar extends Component {
          analytics = ["analytics"],
          user_profile = ["user-profile"],
          schedules = ["schedules"],
+         pause = ["pause"],
          about = ["about"];
 
       return (
@@ -50,6 +51,11 @@ class SideBar extends Component {
                   <li className={`${schedules.includes(path.slice(1)) ? "mm-active" : ""}`} >
                      <Link to="schedules" className="ai-icon" aria-expanded="false" >
                         <i className="fa fa-calendar-o"></i> <span className="nav-text">Schedules</span>
+                     </Link>
+                  </li>
+                  <li className={`${pause.includes(path.slice(1)) ? "mm-active" : ""}`} >
+                     <Link to="pause" className="ai-icon" aria-expanded="false" >
+                        <i className="fa fa-calendar-o"></i> <span className="nav-text">Pause Requests</span>
                      </Link>
                   </li>
                   <li className={`${about.includes(path.slice(1)) ? "mm-active" : ""}`} >
