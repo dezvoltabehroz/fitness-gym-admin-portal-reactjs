@@ -8,8 +8,15 @@ class Login extends React.Component {
       super(props);
       this.state = {
          email: '',
-         password: ''
+         password: '',
+         token: localStorage.getItem("token")
       }
+   }
+
+   componentDidMount = () => {
+      const { token } = this.state;
+      if (token != null)
+         this.tokenRefresh("1")
    }
 
    submitHandler = () => {

@@ -429,7 +429,7 @@ class Bookings extends React.Component {
             <Nav />
             <div className="content-body">
                <div className="container-fluid">
-                  <React.Fragment>
+                  <>
                      {
                         isLoading ?
                            <Column span={24}>
@@ -567,7 +567,7 @@ class Bookings extends React.Component {
                            </Container>
                         </Modal.Body>
                      </Modal>
-                  </React.Fragment>
+                  </>
                </div>
             </div>
             <Footer />
