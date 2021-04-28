@@ -1,4 +1,5 @@
 import React from "react";
+import { api_base_url, requestOptions } from './components/EducoGym/config'
 
 /// React router dom
 import { BrowserRouter as Router, Switch, Route, Redirect } from "react-router-dom";
@@ -22,13 +23,7 @@ import Schedules from "./components/EducoGym/Schedules";
 class Markup extends React.Component {
    constructor(props) {
       super(props);
-      this.state = {
-         token: localStorage.getItem("token")
-      }
-   }
-
-   componentDidMount = () => {
-
+      this.state = {}
    }
 
    render() {

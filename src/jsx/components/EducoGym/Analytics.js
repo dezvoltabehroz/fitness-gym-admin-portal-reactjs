@@ -12,6 +12,10 @@ import loadable from "@loadable/component";
 import { Row, Col, Card } from "react-bootstrap";
 import pMinDelay from "p-min-delay";
 
+/// Layout
+import Nav from "../../layouts/nav";
+import Footer from "../../layouts/Footer";
+
 import { Col as Column, message, Spin } from "antd";
 import { LoadingOutlined } from '@ant-design/icons';
 import { api_base_url, requestOptions } from './config'
@@ -68,126 +72,134 @@ class Analytics extends React.Component {
         const { analytics_detail, isLoading, value } = this.state;
         const antIcon = <LoadingOutlined style={{ fontSize: 24 }} spin />
         return (
-            <React.Fragment>
-                {
-                    isLoading ?
-                        <Column span={24}>
-                            <Spin indicator={antIcon} />
-                        </Column>
-                        :
-                        <div className="row">
-
-                            <>
-                                <div className="col-xl-3 col-xxl-4">
+            <div id="main-wrapper" className="show">
+                <Nav />
+                <div className="content-body">
+                    <div className="container-fluid">
+                        <>
+                            {
+                                isLoading ?
+                                    <Column span={24}>
+                                        <Spin indicator={antIcon} />
+                                    </Column>
+                                    :
                                     <div className="row">
-                                        <div className="col-xl-12">
-                                            <div className="card flex-xl-column flex-sm-row flex-column">
-                                                <div className="card-body border-bottom pb-4 p-2 event-calender col-md-6 col-lg-6 col-lg-12">
-                                                    <Calendar onChange={(value) => this.handleDate(value)} value={value} />
+
+                                        <>
+                                            <div className="col-xl-3 col-xxl-4">
+                                                <div className="row">
+                                                    <div className="col-xl-12">
+                                                        <div className="card flex-xl-column flex-sm-row flex-column">
+                                                            <div className="card-body border-bottom pb-4 p-2 event-calender col-md-6 col-lg-6 col-lg-12">
+                                                                <Calendar onChange={(value) => this.handleDate(value)} value={value} />
+                                                            </div>
+                                                            {
+                                                                analytics_detail.all_slots == undefined ?
+                                                                    <div className="card-body border-bottom pb-4 p-2 event-calender col-md-6 col-lg-6 col-lg-12">
+                                                                        <h2 className="text-primary mb-0" style={new_style.top_margin}> No record found </h2>
+                                                                    </div>
+                                                                    :
+                                                                    <div className="card-body col-md-6 col-lg-6 col-lg-12">
+                                                                        <h6 className="fs-16 text-black mb-4"> Total Count </h6>
+                                                                        <div className="d-flex mb-4 align-items-center">
+                                                                            <span className="date-icon mr-3">{analytics_detail.all_slots}</span>
+                                                                            <div>
+                                                                                <h6 className="fs-16">
+                                                                                    <Link to="/workout-statistic" className="text-black"> All Slots </Link>
+                                                                                </h6>
+                                                                            </div>
+                                                                        </div>
+                                                                        <div className="d-flex mb-4 align-items-center">
+                                                                            <span className="date-icon mr-3">{analytics_detail.booked_slots}</span>
+                                                                            <div>
+                                                                                <h6 className="fs-16">
+                                                                                    <Link to="/workout-statistic" className="text-black"> Booked Slots </Link>
+                                                                                </h6>
+                                                                            </div>
+                                                                        </div>
+                                                                        <div className="d-flex mb-4 align-items-center">
+                                                                            <span className="date-icon mr-3">{analytics_detail.full_slots}</span>
+                                                                            <div>
+                                                                                <h6 className="fs-16">
+                                                                                    <Link to="/workout-statistic" className="text-black"> Full Slots </Link>
+                                                                                </h6>
+                                                                            </div>
+                                                                        </div>
+                                                                        <div className="d-flex mb-4 align-items-center">
+                                                                            <span className="date-icon mr-3">{analytics_detail.empty_slots}</span>
+                                                                            <div>
+                                                                                <h6 className="fs-16">
+                                                                                    <Link to="/workout-statistic" className="text-black"> Empty Slots </Link>
+                                                                                </h6>
+                                                                            </div>
+                                                                        </div>
+                                                                        <div className="d-flex mb-4 align-items-center">
+                                                                            <span className="date-icon mr-3">{analytics_detail.booked_slots}</span>
+                                                                            <div>
+                                                                                <h6 className="fs-16">
+                                                                                    <Link to="/workout-statistic" className="text-black"> Blocked Slots </Link>
+                                                                                </h6>
+                                                                            </div>
+                                                                        </div>
+
+                                                                    </div>
+                                                            }
+
+                                                        </div>
+                                                    </div>
                                                 </div>
-                                                {
-                                                    analytics_detail.all_slots == undefined ?
-                                                        <div className="card-body border-bottom pb-4 p-2 event-calender col-md-6 col-lg-6 col-lg-12">
-                                                            <h2 className="text-primary mb-0" style={new_style.top_margin}> No record found </h2>
-                                                        </div>
-                                                        :
-                                                        <div className="card-body col-md-6 col-lg-6 col-lg-12">
-                                                            <h6 className="fs-16 text-black mb-4"> Total Count </h6>
-                                                            <div className="d-flex mb-4 align-items-center">
-                                                                <span className="date-icon mr-3">{analytics_detail.all_slots}</span>
-                                                                <div>
-                                                                    <h6 className="fs-16">
-                                                                        <Link to="/workout-statistic" className="text-black"> All Slots </Link>
-                                                                    </h6>
-                                                                </div>
-                                                            </div>
-                                                            <div className="d-flex mb-4 align-items-center">
-                                                                <span className="date-icon mr-3">{analytics_detail.booked_slots}</span>
-                                                                <div>
-                                                                    <h6 className="fs-16">
-                                                                        <Link to="/workout-statistic" className="text-black"> Booked Slots </Link>
-                                                                    </h6>
-                                                                </div>
-                                                            </div>
-                                                            <div className="d-flex mb-4 align-items-center">
-                                                                <span className="date-icon mr-3">{analytics_detail.full_slots}</span>
-                                                                <div>
-                                                                    <h6 className="fs-16">
-                                                                        <Link to="/workout-statistic" className="text-black"> Full Slots </Link>
-                                                                    </h6>
-                                                                </div>
-                                                            </div>
-                                                            <div className="d-flex mb-4 align-items-center">
-                                                                <span className="date-icon mr-3">{analytics_detail.empty_slots}</span>
-                                                                <div>
-                                                                    <h6 className="fs-16">
-                                                                        <Link to="/workout-statistic" className="text-black"> Empty Slots </Link>
-                                                                    </h6>
-                                                                </div>
-                                                            </div>
-                                                            <div className="d-flex mb-4 align-items-center">
-                                                                <span className="date-icon mr-3">{analytics_detail.booked_slots}</span>
-                                                                <div>
-                                                                    <h6 className="fs-16">
-                                                                        <Link to="/workout-statistic" className="text-black"> Blocked Slots </Link>
-                                                                    </h6>
-                                                                </div>
-                                                            </div>
-
-                                                        </div>
-                                                }
-
                                             </div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div className="col-xl-9 col-xxl-8">
-                                    <div className="row">
-                                        <div className="col-xl-12">
-                                            <div className="card plan-list">
-                                                <div className="card-header d-sm-flex d-block pb-0 border-0">
-                                                    <div className="mr-auto pr-3">
-                                                        <div className="d-flex mb-4 align-items-center">
-                                                            <span className="date-icon mr-3"><FontAwesomeIcon icon={faDumbbell} /></span>
-                                                            <div>
-                                                                <h1 className="text-black fs-20">Booking Details</h1>
+                                            <div className="col-xl-9 col-xxl-8">
+                                                <div className="row">
+                                                    <div className="col-xl-12">
+                                                        <div className="card plan-list">
+                                                            <div className="card-header d-sm-flex d-block pb-0 border-0">
+                                                                <div className="mr-auto pr-3">
+                                                                    <div className="d-flex mb-4 align-items-center">
+                                                                        <span className="date-icon mr-3"><FontAwesomeIcon icon={faDumbbell} /></span>
+                                                                        <div>
+                                                                            <h1 className="text-black fs-20">Booking Details</h1>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                                <Dropdown className="mt-sm-0 mt-3">
+                                                                    <Dropdown.Toggle
+                                                                        variant=""
+                                                                        as="button"
+                                                                        className="btn rounded border text-black border-light dropdown-toggle">
+                                                                        Today
+                                    </Dropdown.Toggle>
+                                                                    <Dropdown.Menu className="dropdown-menu-right">
+                                                                        <Dropdown.Item>Today</Dropdown.Item>
+                                                                        <Dropdown.Item>Weekly</Dropdown.Item>
+                                                                        <Dropdown.Item>Monthly</Dropdown.Item>
+                                                                    </Dropdown.Menu>
+                                                                </Dropdown>
+                                                            </div>
+                                                            <div className="card-body">
+                                                                <Row>
+                                                                    <Col xl={12}>
+                                                                        <Card>
+                                                                            <Card.Body>
+                                                                                <ApexLine3 />
+                                                                            </Card.Body>
+                                                                        </Card>
+                                                                    </Col>
+                                                                </Row>
                                                             </div>
                                                         </div>
                                                     </div>
-                                                    <Dropdown className="mt-sm-0 mt-3">
-                                                        <Dropdown.Toggle
-                                                            variant=""
-                                                            as="button"
-                                                            className="btn rounded border text-black border-light dropdown-toggle">
-                                                            Today
-                                    </Dropdown.Toggle>
-                                                        <Dropdown.Menu className="dropdown-menu-right">
-                                                            <Dropdown.Item>Today</Dropdown.Item>
-                                                            <Dropdown.Item>Weekly</Dropdown.Item>
-                                                            <Dropdown.Item>Monthly</Dropdown.Item>
-                                                        </Dropdown.Menu>
-                                                    </Dropdown>
-                                                </div>
-                                                <div className="card-body">
-                                                    <Row>
-                                                        <Col xl={12}>
-                                                            <Card>
-                                                                <Card.Body>
-                                                                    <ApexLine3 />
-                                                                </Card.Body>
-                                                            </Card>
-                                                        </Col>
-                                                    </Row>
                                                 </div>
                                             </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </>
+                                        </>
 
-                        </div>
-                }
-            </React.Fragment>
+                                    </div>
+                            }
+                        </>
+                    </div>
+                </div>
+                <Footer />
+            </div>
         )
     }
 };

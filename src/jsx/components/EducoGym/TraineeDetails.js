@@ -1,7 +1,11 @@
-import React, { Fragment } from "react";
+import React, { } from "react";
 import { useHistory } from "react-router-dom";
 import MaterialTable from 'material-table';
 import { Row, Card, Col, Button, Modal, Container } from "react-bootstrap";
+
+/// Layout
+import Nav from "../../layouts/nav";
+import Footer from "../../layouts/Footer";
 
 import PageTitle from "../../layouts/PageTitle";
 import data from "./data";
@@ -50,7 +54,7 @@ class TraineeDetails extends React.Component {
                      ...array[index],
                      membership_start_date: moment(item.membership_start_date).format('YYYY-MM-DD'),
                      membership_end_date: moment(item.membership_end_date).format('YYYY-MM-DD'),
-                     key : (index + 1)
+                     key: (index + 1)
                   }
                })
                this.setState({ members: array, isLoading: false, viewProfileModal: false })
@@ -60,7 +64,7 @@ class TraineeDetails extends React.Component {
                this.setState({ members: [], isLoading: false })
             }
          })
-         .catch((error) => { 
+         .catch((error) => {
             // alert(error) 
          })
    }
@@ -215,247 +219,255 @@ class TraineeDetails extends React.Component {
       const antIcon = <LoadingOutlined style={{ fontSize: 24 }} spin />
       const { viewPauseMembershipModal, isPauseLoading, viewProfileModal, members, isLoading, memberDetail, week1, week2, week3 } = this.state;
       return (
-         <Fragment>
-            <PageTitle activeMenu="Trainee Details" motherMenu="Trainee" />
-            {
-               isLoading ?
-                  <Column span={24}>
-                     <Spin indicator={antIcon} />
-                  </Column>
-                  :
-                  <Row>
-                     <Col>
-                        <Card>
-                           <Card.Body>
-                              <MaterialTable
-                                 title=""
-                                 columns={columns}
-                                 data={members}
-                                 options={{
-                                    exportButton: true,
-                                    search: true,
-                                    actionsColumnIndex: -1
-                                 }}
-                                 editable={{
-                                    // onRowUpdate: (newData, oldData) =>
-                                    //    new Promise(resolve => { }),
-
-                                    onRowDelete: oldData =>
-                                       new Promise(resolve => { this.handleDeleteUser(oldData.user_id, resolve) }),
-                                 }}
-                                 actions={[
-                                    {
-                                       icon: 'remove_red_eye',
-                                       tooltip: 'View Detail',
-                                       onClick: (event, rowData) => this.fetchMemberDetail(rowData.user_id)
-                                    },
-                                    {
-                                       icon: "add_box",
-                                       tooltip: "Add Trainee",
-                                       position: "toolbar",
-                                       onClick: () => { this.props.history.push("/add-trainee"); }
-                                    }
-                                 ]}
-                              />
-
-                           </Card.Body>
-                        </Card>
-                     </Col>
-                  </Row>
-            }
-
-
-            {/* Modal Of View Profile Detail */}
-            <Modal show={viewProfileModal} size="lg" >
-               <Modal.Header>
-                  <Button variant="" className="close" onClick={() => this.fetchMemberList()} > <span>&times;</span> </Button>
-                  <br />
-               </Modal.Header>
-               <Modal.Body>
-                  <Container>
-                     <Row>
-                        <Col md="6" className="ml-auto">
-                           <Row>
-                              <Col className="d-flex justify-content-center">
-                                 <img src={uploadimage} data-holder-rendered="true" />
-                              </Col>
-                           </Row>
-
-                           <Row>
-                              <Col>
-                                 <h6 className="text-primary mb-0" style={new_style.top_margin}> About </h6><br />
-
-                                 <div className="form-row d-flex justify-content-center">
-                                    <div className="form-group col-md-6">
-                                       <input type="text" value={memberDetail.first_name}
-                                          onChange={(e) => this.setState({ memberDetail: { ...memberDetail, first_name: e.target.value } })}
-                                          className="form-control border-bottom" placeholder="First Name" />
-                                    </div>
-                                    <div className="form-group col-md-6">
-                                       <input type="text" value={memberDetail.last_name}
-                                          onChange={(e) => this.setState({ memberDetail: { ...memberDetail, last_name: e.target.value } })}
-                                          className="form-control" placeholder="Last Name" />
-                                    </div>
-                                    <div className="form-group col-md-6">
-                                       <input type="tel" value={memberDetail.age}
-                                          onChange={(e) => this.setState({ memberDetail: { ...memberDetail, age: e.target.value } })}
-                                          className="form-control" placeholder="Age" />
-                                    </div>
-                                    <div className="form-group col-md-6">
-                                       <input type="tel" value={memberDetail.phone}
-                                          onChange={(e) => this.setState({ memberDetail: { ...memberDetail, phone: e.target.value } })}
-                                          className="form-control" placeholder="Number" />
-                                    </div>
-                                    <div className="form-group col-md-12">
-                                       <input type="email" value={memberDetail.email}
-                                          onChange={(e) => this.setState({ memberDetail: { ...memberDetail, email: e.target.value } })}
-                                          className="form-control" placeholder="Email" />
-                                    </div>
-                                    <div className="form-group col-md-12">
-                                       <input type="text" value={memberDetail.address}
-                                          onChange={(e) => { this.setState({ memberDetail: { ...memberDetail, address: e.target.value } }) }}
-                                          className="form-control" placeholder="Address" />
-                                    </div>
-                                 </div>
-                              </Col>
-                           </Row>
-                        </Col>
-
-                        <Col md="6" className="ml-auto">
-                           <Row>
-                              <Col>
-                                 <Card>
-                                    <Card.Body>
-                                       <div className="form-row">
-                                          <div className="form-group col-md-6">
-                                             <input type="text" value={memberDetail.dob}
-                                                onChange={(e) => this.setState({ memberDetail: { ...memberDetail, dob: e.target.value } })}
-                                                className="form-control border-bottom" placeholder="DOB" />
-                                          </div>
-                                          <div className="form-group col-md-6">
-                                             <input type="text" value={memberDetail.gender}
-                                                onChange={(e) => this.setState({ memberDetail: { ...memberDetail, gender: e.target.value } })}
-                                                className="form-control" placeholder="Gender" />
-                                          </div>
-                                          <div className="form-group col-md-6">
-                                             <input type="text" value={memberDetail.emergency_num}
-                                                onChange={(e) => this.setState({ memberDetail: { ...memberDetail, emergency_num: e.target.value } })}
-                                                className="form-control" placeholder="Emergency Number" />
-                                          </div>
-                                          <div className="form-group col-md-6">
-                                             <input type="text" value={memberDetail.is_pause == 0 ? "Availed is 0" : `Availed is ${memberDetail.is_pause}`}
-                                                disabled={true}
-                                                onChange={(e) => this.setState({ memberDetail: { ...memberDetail, is_pause: e.target.value } })}
-                                                className="form-control" placeholder="Pauses Availed" />
-                                          </div>
-                                       </div>
-                                    </Card.Body>
-                                 </Card>
-                              </Col>
-                           </Row>
-
-                           <Row>
-                              <Col>
-                                 <Card>
-                                    <Card.Body>
-                                       <h4 className="text-primary mb-0" style={new_style.top_margin}> Membership Details </h4><br />
-
-                                       <div className="form-row">
-                                          <div className="form-group col-md-6">
-                                             <input type="text" value={memberDetail.membership_type}
-                                                onChange={(e) => this.setState({ memberDetail: { ...memberDetail, membership_type: e.target.value } })}
-                                                className="form-control border-bottom" placeholder="membership Type" />
-                                          </div>
-                                          <div className="form-group col-md-6">
-                                             <input type="tel" value={memberDetail.member_id}
-                                                disabled={true}
-                                                onChange={(e) => this.setState({ memberDetail: { ...memberDetail, member_id: e.target.value } })}
-                                                className="form-control" placeholder="Member ID" />
-                                          </div>
-                                          <div className="form-group col-md-6">
-                                             <input type="date" value={memberDetail.membership_start_date}
-                                                onChange={(e) => this.setState({ memberDetail: { ...memberDetail, membership_start_date: e.target.value } })}
-                                                className="form-control" placeholder="Valid From" />
-                                          </div>
-                                          <div className="form-group col-md-6">
-                                             <input type="date" value={memberDetail.membership_end_date}
-                                                onChange={(e) => this.setState({ memberDetail: { ...memberDetail, membership_end_date: e.target.value } })}
-                                                className="form-control" placeholder="Valid Till" />
-                                          </div>
-                                       </div>
-
-                                       <Button variant="primary" onClick={() => this.handleUpdateProfile()} className="float-right btn-xs">Update</Button>
-                                       <Button variant="light" onClick={() => this.setState({ viewPauseMembershipModal: true })} className="float-right mr-3 btn-xs"> Pause Membership </Button>
-                                    </Card.Body>
-                                 </Card>
-                              </Col>
-                           </Row>
-
-                        </Col>
-                     </Row>
-                  </Container>
-               </Modal.Body>
-            </Modal>
-
-            {/* Modal Of Pause Membership */}
-            <Modal show={viewPauseMembershipModal} size="md" >
-               {
-                  isPauseLoading ?
-                     <Card>
-                        <Card.Body style={{ height: 300, width: 300, justifyContent: "center", justifyItems: "center" }}>
-                           <Column span={100}>
+         <div id="main-wrapper" className="show">
+            <Nav />
+            <div className="content-body">
+               <div className="container-fluid">
+                  <>
+                     <PageTitle activeMenu="Trainee Details" motherMenu="Trainee" />
+                     {
+                        isLoading ?
+                           <Column span={24}>
                               <Spin indicator={antIcon} />
                            </Column>
-                        </Card.Body>
-                     </Card>
-                     :
-                     <>
+                           :
+                           <Row>
+                              <Col>
+                                 <Card>
+                                    <Card.Body>
+                                       <MaterialTable
+                                          title=""
+                                          columns={columns}
+                                          data={members}
+                                          options={{
+                                             exportButton: true,
+                                             search: true,
+                                             actionsColumnIndex: -1
+                                          }}
+                                          editable={{
+                                             // onRowUpdate: (newData, oldData) =>
+                                             //    new Promise(resolve => { }),
+
+                                             onRowDelete: oldData =>
+                                                new Promise(resolve => { this.handleDeleteUser(oldData.user_id, resolve) }),
+                                          }}
+                                          actions={[
+                                             {
+                                                icon: 'remove_red_eye',
+                                                tooltip: 'View Detail',
+                                                onClick: (event, rowData) => this.fetchMemberDetail(rowData.user_id)
+                                             },
+                                             {
+                                                icon: "add_box",
+                                                tooltip: "Add Trainee",
+                                                position: "toolbar",
+                                                onClick: () => { this.props.history.push("/add-trainee"); }
+                                             }
+                                          ]}
+                                       />
+
+                                    </Card.Body>
+                                 </Card>
+                              </Col>
+                           </Row>
+                     }
+
+
+                     {/* Modal Of View Profile Detail */}
+                     <Modal show={viewProfileModal} size="lg" >
                         <Modal.Header>
-                           <Button variant="" className="close" onClick={() => this.setState({ viewPauseMembershipModal: false })} > <span>&times;</span> </Button>
+                           <Button variant="" className="close" onClick={() => this.fetchMemberList()} > <span>&times;</span> </Button>
                            <br />
                         </Modal.Header>
                         <Modal.Body>
                            <Container>
+                              <Row>
+                                 <Col md="6" className="ml-auto">
+                                    <Row>
+                                       <Col className="d-flex justify-content-center">
+                                          <img src={uploadimage} data-holder-rendered="true" />
+                                       </Col>
+                                    </Row>
 
+                                    <Row>
+                                       <Col>
+                                          <h6 className="text-primary mb-0" style={new_style.top_margin}> About </h6><br />
 
-                              <Card>
-                                 <Card.Header style={new_style.card_header_color}>
-                                    <Card.Title style={{ margin: "auto" }}>
-                                       <img src={pause_image} width="58" height="50" style={new_style.center_align} />
-                                       <h4 style={new_style.header_heading}>Pause Membership</h4>
-                                    </Card.Title>
-                                 </Card.Header>
-                                 <Card.Body>
-                                    <div className="form-group col-md-12">
-                                       <div className="col-sm-12">
-                                          <div className="form-check">
-                                             <input className="form-check-input" onClick={() => this.setState({ week2: false, week1: true, week3: false })} type="radio" name="gridRadios" value="week1" checked={week1} />
-                                             <label className="form-check-label"> 1 Week </label>
+                                          <div className="form-row d-flex justify-content-center">
+                                             <div className="form-group col-md-6">
+                                                <input type="text" value={memberDetail.first_name}
+                                                   onChange={(e) => this.setState({ memberDetail: { ...memberDetail, first_name: e.target.value } })}
+                                                   className="form-control border-bottom" placeholder="First Name" />
+                                             </div>
+                                             <div className="form-group col-md-6">
+                                                <input type="text" value={memberDetail.last_name}
+                                                   onChange={(e) => this.setState({ memberDetail: { ...memberDetail, last_name: e.target.value } })}
+                                                   className="form-control" placeholder="Last Name" />
+                                             </div>
+                                             <div className="form-group col-md-6">
+                                                <input type="tel" value={memberDetail.age}
+                                                   onChange={(e) => this.setState({ memberDetail: { ...memberDetail, age: e.target.value } })}
+                                                   className="form-control" placeholder="Age" />
+                                             </div>
+                                             <div className="form-group col-md-6">
+                                                <input type="tel" value={memberDetail.phone}
+                                                   onChange={(e) => this.setState({ memberDetail: { ...memberDetail, phone: e.target.value } })}
+                                                   className="form-control" placeholder="Number" />
+                                             </div>
+                                             <div className="form-group col-md-12">
+                                                <input type="email" value={memberDetail.email}
+                                                   onChange={(e) => this.setState({ memberDetail: { ...memberDetail, email: e.target.value } })}
+                                                   className="form-control" placeholder="Email" />
+                                             </div>
+                                             <div className="form-group col-md-12">
+                                                <input type="text" value={memberDetail.address}
+                                                   onChange={(e) => { this.setState({ memberDetail: { ...memberDetail, address: e.target.value } }) }}
+                                                   className="form-control" placeholder="Address" />
+                                             </div>
                                           </div>
-                                          <div className="form-check">
-                                             <input className="form-check-input" onClick={() => this.setState({ week2: true, week1: false, week3: false })} type="radio" name="gridRadios" value="week2" checked={week2} />
-                                             <label className="form-check-label"> 2 Week</label>
-                                          </div>
-                                          <div className="form-check">
-                                             <input className="form-check-input" onClick={() => this.setState({ week2: false, week1: false, week3: true })} type="radio" name="gridRadios" value="week3" checked={week3} />
-                                             <label className="form-check-label"> 3 Week</label>
-                                          </div>
-                                       </div>
-                                    </div>
-                                 </Card.Body>
-                              </Card>
+                                       </Col>
+                                    </Row>
+                                 </Col>
 
+                                 <Col md="6" className="ml-auto">
+                                    <Row>
+                                       <Col>
+                                          <Card>
+                                             <Card.Body>
+                                                <div className="form-row">
+                                                   <div className="form-group col-md-6">
+                                                      <input type="text" value={memberDetail.dob}
+                                                         onChange={(e) => this.setState({ memberDetail: { ...memberDetail, dob: e.target.value } })}
+                                                         className="form-control border-bottom" placeholder="DOB" />
+                                                   </div>
+                                                   <div className="form-group col-md-6">
+                                                      <input type="text" value={memberDetail.gender}
+                                                         onChange={(e) => this.setState({ memberDetail: { ...memberDetail, gender: e.target.value } })}
+                                                         className="form-control" placeholder="Gender" />
+                                                   </div>
+                                                   <div className="form-group col-md-6">
+                                                      <input type="text" value={memberDetail.emergency_num}
+                                                         onChange={(e) => this.setState({ memberDetail: { ...memberDetail, emergency_num: e.target.value } })}
+                                                         className="form-control" placeholder="Emergency Number" />
+                                                   </div>
+                                                   <div className="form-group col-md-6">
+                                                      <input type="text" value={memberDetail.is_pause == 0 ? "Availed is 0" : `Availed is ${memberDetail.is_pause}`}
+                                                         disabled={true}
+                                                         onChange={(e) => this.setState({ memberDetail: { ...memberDetail, is_pause: e.target.value } })}
+                                                         className="form-control" placeholder="Pauses Availed" />
+                                                   </div>
+                                                </div>
+                                             </Card.Body>
+                                          </Card>
+                                       </Col>
+                                    </Row>
 
-                              <div className="row justify-content-md-center">
-                                 <Button variant="light" onClick={() => this.handlePauseMemberShip()} className="align-self-center mr-3 btn-md"> Pause Membership </Button>
-                              </div>
+                                    <Row>
+                                       <Col>
+                                          <Card>
+                                             <Card.Body>
+                                                <h4 className="text-primary mb-0" style={new_style.top_margin}> Membership Details </h4><br />
 
+                                                <div className="form-row">
+                                                   <div className="form-group col-md-6">
+                                                      <input type="text" value={memberDetail.membership_type}
+                                                         onChange={(e) => this.setState({ memberDetail: { ...memberDetail, membership_type: e.target.value } })}
+                                                         className="form-control border-bottom" placeholder="membership Type" />
+                                                   </div>
+                                                   <div className="form-group col-md-6">
+                                                      <input type="tel" value={memberDetail.member_id}
+                                                         disabled={true}
+                                                         onChange={(e) => this.setState({ memberDetail: { ...memberDetail, member_id: e.target.value } })}
+                                                         className="form-control" placeholder="Member ID" />
+                                                   </div>
+                                                   <div className="form-group col-md-6">
+                                                      <input type="date" value={memberDetail.membership_start_date}
+                                                         onChange={(e) => this.setState({ memberDetail: { ...memberDetail, membership_start_date: e.target.value } })}
+                                                         className="form-control" placeholder="Valid From" />
+                                                   </div>
+                                                   <div className="form-group col-md-6">
+                                                      <input type="date" value={memberDetail.membership_end_date}
+                                                         onChange={(e) => this.setState({ memberDetail: { ...memberDetail, membership_end_date: e.target.value } })}
+                                                         className="form-control" placeholder="Valid Till" />
+                                                   </div>
+                                                </div>
+
+                                                <Button variant="primary" onClick={() => this.handleUpdateProfile()} className="float-right btn-xs">Update</Button>
+                                                <Button variant="light" onClick={() => this.setState({ viewPauseMembershipModal: true })} className="float-right mr-3 btn-xs"> Pause Membership </Button>
+                                             </Card.Body>
+                                          </Card>
+                                       </Col>
+                                    </Row>
+
+                                 </Col>
+                              </Row>
                            </Container>
                         </Modal.Body>
-                     </>}
-            </Modal>
+                     </Modal>
 
-         </Fragment>
+                     {/* Modal Of Pause Membership */}
+                     <Modal show={viewPauseMembershipModal} size="md" >
+                        {
+                           isPauseLoading ?
+                              <Card>
+                                 <Card.Body style={{ height: 300, width: 300, justifyContent: "center", justifyItems: "center" }}>
+                                    <Column span={100}>
+                                       <Spin indicator={antIcon} />
+                                    </Column>
+                                 </Card.Body>
+                              </Card>
+                              :
+                              <>
+                                 <Modal.Header>
+                                    <Button variant="" className="close" onClick={() => this.setState({ viewPauseMembershipModal: false })} > <span>&times;</span> </Button>
+                                    <br />
+                                 </Modal.Header>
+                                 <Modal.Body>
+                                    <Container>
+
+
+                                       <Card>
+                                          <Card.Header style={new_style.card_header_color}>
+                                             <Card.Title style={{ margin: "auto" }}>
+                                                <img src={pause_image} width="58" height="50" style={new_style.center_align} />
+                                                <h4 style={new_style.header_heading}>Pause Membership</h4>
+                                             </Card.Title>
+                                          </Card.Header>
+                                          <Card.Body>
+                                             <div className="form-group col-md-12">
+                                                <div className="col-sm-12">
+                                                   <div className="form-check">
+                                                      <input className="form-check-input" onClick={() => this.setState({ week2: false, week1: true, week3: false })} type="radio" name="gridRadios" value="week1" checked={week1} />
+                                                      <label className="form-check-label"> 1 Week </label>
+                                                   </div>
+                                                   <div className="form-check">
+                                                      <input className="form-check-input" onClick={() => this.setState({ week2: true, week1: false, week3: false })} type="radio" name="gridRadios" value="week2" checked={week2} />
+                                                      <label className="form-check-label"> 2 Week</label>
+                                                   </div>
+                                                   <div className="form-check">
+                                                      <input className="form-check-input" onClick={() => this.setState({ week2: false, week1: false, week3: true })} type="radio" name="gridRadios" value="week3" checked={week3} />
+                                                      <label className="form-check-label"> 3 Week</label>
+                                                   </div>
+                                                </div>
+                                             </div>
+                                          </Card.Body>
+                                       </Card>
+
+
+                                       <div className="row justify-content-md-center">
+                                          <Button variant="light" onClick={() => this.handlePauseMemberShip()} className="align-self-center mr-3 btn-md"> Pause Membership </Button>
+                                       </div>
+
+                                    </Container>
+                                 </Modal.Body>
+                              </>}
+                     </Modal>
+
+                  </>
+               </div>
+            </div>
+            <Footer />
+         </div>
       );
    }
 };

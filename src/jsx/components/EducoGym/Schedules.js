@@ -1,7 +1,11 @@
-import React, { Fragment } from "react";
+import React, { } from "react";
 import { useHistory } from "react-router-dom";
 import MaterialTable from 'material-table';
 import { Row, Card, Col, Button, Modal } from "react-bootstrap";
+
+/// Layout
+import Nav from "../../layouts/nav";
+import Footer from "../../layouts/Footer";
 
 import PageTitle from "../../layouts/PageTitle";
 import data from "./data";
@@ -171,104 +175,112 @@ class Schedules extends React.Component {
         const antIcon = <LoadingOutlined style={{ fontSize: 24 }} spin />
         const { schedules, isLoading, viewAddModal, schedule_date } = this.state;
         return (
-            <Fragment>
-                {
-                    isLoading ?
-                        <Column span={24}>
-                            <Spin indicator={antIcon} />
-                        </Column>
-                        :
-                        <Row>
-                            <Col>
-                                <Card>
-                                    <Card.Body>
-                                        <MaterialTable
-                                            title=""
-                                            columns={columns}
-                                            data={schedules}
-                                            options={{
-                                                exportButton: true,
-                                                search: true,
-                                                actionsColumnIndex: -1
-                                            }}
-                                            editable={{
-                                                onRowUpdate: (newData, oldData) =>
-                                                    new Promise(resolve => { this.handleEditSchedule(newData, resolve) }),
+            <div id="main-wrapper" className="show">
+                <Nav />
+                <div className="content-body">
+                    <div className="container-fluid">
+                        <>
+                            {
+                                isLoading ?
+                                    <Column span={24}>
+                                        <Spin indicator={antIcon} />
+                                    </Column>
+                                    :
+                                    <Row>
+                                        <Col>
+                                            <Card>
+                                                <Card.Body>
+                                                    <MaterialTable
+                                                        title=""
+                                                        columns={columns}
+                                                        data={schedules}
+                                                        options={{
+                                                            exportButton: true,
+                                                            search: true,
+                                                            actionsColumnIndex: -1
+                                                        }}
+                                                        editable={{
+                                                            onRowUpdate: (newData, oldData) =>
+                                                                new Promise(resolve => { this.handleEditSchedule(newData, resolve) }),
 
-                                                onRowDelete: oldData =>
-                                                    new Promise(resolve => { this.handleDeleteSchedule(oldData.id, resolve) }),
-                                            }}
-                                            actions={[
-                                                {
-                                                    icon: "add_box",
-                                                    tooltip: "Add Schedule",
-                                                    position: "toolbar",
-                                                    onClick: () => { this.setState({ viewAddModal: true }) }
-                                                }
-                                            ]}
-                                        />
+                                                            onRowDelete: oldData =>
+                                                                new Promise(resolve => { this.handleDeleteSchedule(oldData.id, resolve) }),
+                                                        }}
+                                                        actions={[
+                                                            {
+                                                                icon: "add_box",
+                                                                tooltip: "Add Schedule",
+                                                                position: "toolbar",
+                                                                onClick: () => { this.setState({ viewAddModal: true }) }
+                                                            }
+                                                        ]}
+                                                    />
 
-                                    </Card.Body>
-                                </Card>
-                            </Col>
-                        </Row>
-                }
+                                                </Card.Body>
+                                            </Card>
+                                        </Col>
+                                    </Row>
+                            }
 
-                {/* Add New Schedule */}
-                <Modal show={viewAddModal} size="lg">
-                    <Modal.Header closeButton>
-                        <Modal.Title>Add New Schedule</Modal.Title>
-                    </Modal.Header>
+                            {/* Add New Schedule */}
+                            <Modal show={viewAddModal} size="lg">
+                                <Modal.Header closeButton>
+                                    <Modal.Title>Add New Schedule</Modal.Title>
+                                </Modal.Header>
 
-                    <Modal.Body>
-                        <div className="row">
-                            <div className="col-md-6">
-                                <div className="form-group col-md-12">
-                                    <label> Date </label>
-                                    <input type="date" value={schedule_date}
-                                        onChange={this.handleDayAndDateChange}
-                                        className="form-control" placeholder="Select Date" />
-                                </div>
+                                <Modal.Body>
+                                    <div className="row">
+                                        <div className="col-md-6">
+                                            <div className="form-group col-md-12">
+                                                <label> Date </label>
+                                                <input type="date" value={schedule_date}
+                                                    onChange={this.handleDayAndDateChange}
+                                                    className="form-control" placeholder="Select Date" />
+                                            </div>
 
-                                <div className="form-group col-md-12">
-                                    <label> Day Start Time </label>
-                                    <input type="time"
-                                        onChange={(time) => this.setState({ start_time: time.target.value })}
-                                        className="form-control" placeholder="Start Time" />
-                                </div>
+                                            <div className="form-group col-md-12">
+                                                <label> Day Start Time </label>
+                                                <input type="time"
+                                                    onChange={(time) => this.setState({ start_time: time.target.value })}
+                                                    className="form-control" placeholder="Start Time" />
+                                            </div>
 
-                                <div className="form-group col-md-12">
-                                    <label> Day End Time </label>
-                                    <input type="time"
-                                        onChange={(time) => this.setState({ end_time: time.target.value })}
-                                        className="form-control" placeholder="End Time" />
-                                </div>
-                            </div>
-                            <div className="col-md-6">
-                                <div className="form-group col-md-12">
-                                    <label> Break Start Time </label>
-                                    <input type="time"
-                                        onChange={(time) => this.setState({ break_start_time: time.target.value })}
-                                        className="form-control" placeholder="Start Time" />
-                                </div>
+                                            <div className="form-group col-md-12">
+                                                <label> Day End Time </label>
+                                                <input type="time"
+                                                    onChange={(time) => this.setState({ end_time: time.target.value })}
+                                                    className="form-control" placeholder="End Time" />
+                                            </div>
+                                        </div>
+                                        <div className="col-md-6">
+                                            <div className="form-group col-md-12">
+                                                <label> Break Start Time </label>
+                                                <input type="time"
+                                                    onChange={(time) => this.setState({ break_start_time: time.target.value })}
+                                                    className="form-control" placeholder="Start Time" />
+                                            </div>
 
-                                <div className="form-group col-md-12">
-                                    <label> Break End Time </label>
-                                    <input type="time"
-                                        onChange={(time) => this.setState({ break_end_time: time.target.value })}
-                                        className="form-control" placeholder="End Time" />
-                                </div>
-                            </div>
-                        </div>
-                    </Modal.Body>
+                                            <div className="form-group col-md-12">
+                                                <label> Break End Time </label>
+                                                <input type="time"
+                                                    onChange={(time) => this.setState({ break_end_time: time.target.value })}
+                                                    className="form-control" placeholder="End Time" />
+                                            </div>
+                                        </div>
+                                    </div>
+                                </Modal.Body>
 
-                    <Modal.Footer>
-                        <Button variant="danger" onClick={() => this.setState({ viewAddModal: false })}>Close</Button>
-                        <Button onClick={this.handleAddSchedule}>Add</Button>
-                    </Modal.Footer>
-                </Modal>
+                                <Modal.Footer>
+                                    <Button variant="danger" onClick={() => this.setState({ viewAddModal: false })}>Close</Button>
+                                    <Button onClick={this.handleAddSchedule}>Add</Button>
+                                </Modal.Footer>
+                            </Modal>
 
-            </Fragment>
+                        </>
+                    </div>
+                </div>
+                <Footer />
+            </div>
         );
     }
 };
