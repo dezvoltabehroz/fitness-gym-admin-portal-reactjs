@@ -104,13 +104,10 @@ class AddTrainee extends React.Component {
             .then(response => response.json())
             .then((res) => {
                 if (res.success) {
-                    console.log(res)
-                    // message.success(res.message)
                     this.props.history.push("/trainee-details");
                 }
                 else {
-                    console.log(res)
-                    // alert(res.message)
+                    alert(res.message)
                 }
             })
             .catch((error) => {
