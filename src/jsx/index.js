@@ -41,7 +41,7 @@ class Markup extends React.Component {
       ];
 
       return (
-         <Router basename="">
+         <Router basename="admin">
             <Switch>
                {routes.map((data, i) => (
                   <Route

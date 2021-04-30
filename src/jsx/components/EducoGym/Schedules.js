@@ -145,7 +145,7 @@ class Schedules extends React.Component {
                     this.fetchScheduleList()
                 }
                 else {
-                    console.log(res)
+                    alert(res.message)
                 }
             })
             .catch((error) => { })
