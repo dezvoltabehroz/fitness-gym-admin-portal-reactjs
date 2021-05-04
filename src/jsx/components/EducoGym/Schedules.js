@@ -27,6 +27,7 @@ class Schedules extends React.Component {
             viewAddModal: false,
             day: "Select Day",
             schedule_date: moment(new Date()).format('YYYY-MM-DD'),
+            end_schedule_date: moment(new Date()).format('YYYY-MM-DD'),
             start_time: "08:00",
             end_time: "18:00"
         }
@@ -119,9 +120,15 @@ class Schedules extends React.Component {
         this.setState({ day: days[d.getDay()], schedule_date: e.target.value })
     }
 
+    handleEndDayAndDateChange = (e) => {
+        var d = new Date(e.target.value);
+        var days = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"];
+        this.setState({ end_day: days[d.getDay()], end_schedule_date: e.target.value })
+    }
+
     handleAddSchedule = () => {
         this.setState({ viewAddModal: false })
-        const { day, schedule_date, start_time, end_time, break_start_time, break_end_time } = this.state;
+        const { day, schedule_date, end_schedule_date, start_time, end_time, break_start_time, break_end_time } = this.state;
 
         var d = new Date(schedule_date);
         var days = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"];
@@ -129,6 +136,7 @@ class Schedules extends React.Component {
         let obj_body = {
             day: days[d.getDay()],
             schedule_date: schedule_date,
+            end_schedule_date: end_schedule_date,
             start_time: start_time,
             end_time: end_time,
             break_start_time: break_start_time,
@@ -173,7 +181,7 @@ class Schedules extends React.Component {
             header_heading: { color: "#FFF", display: "block", marginLeft: "auto", marginRight: "auto" }
         };
         const antIcon = <LoadingOutlined style={{ fontSize: 24 }} spin />
-        const { schedules, isLoading, viewAddModal, schedule_date } = this.state;
+        const { schedules, isLoading, viewAddModal, schedule_date, end_schedule_date } = this.state;
         return (
             <div id="main-wrapper" className="show">
                 <Nav />
@@ -232,7 +240,7 @@ class Schedules extends React.Component {
                                     <div className="row">
                                         <div className="col-md-6">
                                             <div className="form-group col-md-12">
-                                                <label> Date </label>
+                                                <label> Start Date </label>
                                                 <input type="date" value={schedule_date}
                                                     onChange={this.handleDayAndDateChange}
                                                     className="form-control" placeholder="Select Date" />
@@ -252,7 +260,15 @@ class Schedules extends React.Component {
                                                     className="form-control" placeholder="End Time" />
                                             </div>
                                         </div>
+                                        
                                         <div className="col-md-6">
+                                            <div className="form-group col-md-12">
+                                                <label> End Date </label>
+                                                <input type="date" value={end_schedule_date}
+                                                    onChange={this.handleEndDayAndDateChange}
+                                                    className="form-control" placeholder="Select End Date" />
+                                            </div>
+
                                             <div className="form-group col-md-12">
                                                 <label> Break Start Time </label>
                                                 <input type="time"
