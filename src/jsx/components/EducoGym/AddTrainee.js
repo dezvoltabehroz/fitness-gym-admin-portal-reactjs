@@ -24,7 +24,7 @@ class AddTrainee extends React.Component {
             isBack: false,
             gender: 'Male',
             answers_list: [
-                { "question_id": "1", "answer": "" },
+                { "question_id": "1", "answer": "Returning Client" },
                 { "question_id": "2", "answer": "Yes" },
                 { "question_id": "3", "answer": "Yes" },
                 { "question_id": "4", "answer": "Yes" },
@@ -40,22 +40,22 @@ class AddTrainee extends React.Component {
                 { "question_id": "14", "answer": "Yes" },
                 { "question_id": "15", "answer": "Yes" },
                 { "question_id": "16", "answer": "Yes" },
-                { "question_id": "17", "answer": "Yes" },
+                { "question_id": "17", "answer": "Fat loss" },
                 { "question_id": "18", "answer": "" },
                 { "question_id": "19", "answer": "" },
                 { "question_id": "20", "answer": "" },
                 { "question_id": "21", "answer": "" },
                 { "question_id": "22", "answer": "" },
                 { "question_id": "23", "answer": "" },
-                { "question_id": "24", "answer": "yes" },
-                { "question_id": "25", "answer": "yes" },
-                { "question_id": "26", "answer": "" },
-                { "question_id": "27", "answer": "" },
-                { "question_id": "28", "answer": "" },
+                { "question_id": "24", "answer": "Yes" },
+                { "question_id": "25", "answer": "Yes" },
+                { "question_id": "26", "answer": "Dry" },
+                { "question_id": "27", "answer": "Strong" },
+                { "question_id": "28", "answer": "Very little" },
                 { "question_id": "29", "answer": "Yes" },
-                { "question_id": "30", "answer": "" },
-                { "question_id": "31", "answer": "" },
-                { "question_id": "32", "answer": "" }
+                { "question_id": "30", "answer": "Pain free but heavy" },
+                { "question_id": "31", "answer": "Yes" },
+                { "question_id": "32", "answer": "My energy is really high" }
             ],
             first_name: "",
             last_name: "",
@@ -71,49 +71,49 @@ class AddTrainee extends React.Component {
 
     handleAddTrainee = () => {
         const { first_name, last_name, age, email, dob, contact_numner, emergency_number, address, memberShip_type, gender, answers_list } = this.state;
-        console.log({
-            "first_name": first_name,
-            "last_name": last_name,
-            "age": age,
-            "dob": moment(dob).format('YYYY-MM-DD'),
-            "phone": contact_numner,
-            "emergency_num": emergency_number,
-            "email": email,
-            "address": address,
-            "gender": gender,
-            "membership_type": memberShip_type,
-            "answers_list": answers_list
-        })
-        const options = {
-            ...requestOptions,
-            body: JSON.stringify({
-                "first_name": first_name,
-                "last_name": last_name,
-                "age": age,
-                "dob": moment(dob).format('YYYY-MM-DD'),
-                "phone": contact_numner,
-                "emergency_num": emergency_number,
-                "email": email,
-                "address": address,
-                "gender": gender,
-                "membership_type": memberShip_type,
-                "answers_list": answers_list
+        
+        if (first_name.length && last_name.length && age.length && dob.length && contact_numner.length && emergency_number.length && memberShip_type.length && gender.length && address.length) {
+            this.setState({
+                step1: true,
+                step2: false,
+                step3: false,
+                step4: false,
+                isBack: false,
+
             })
-        };
-        fetch(api_base_url + 'admin/addUser', options)
-            .then(response => response.json())
-            .then((res) => {
-                if (res.success) {
-                    this.props.history.push("/trainee-details");
-                }
-                else {
-                    alert(res.message)
-                }
-            })
-            .catch((error) => {
-                console.log(error)
-                // alert(error)
-            })
+            const options = {
+                ...requestOptions,
+                body: JSON.stringify({
+                    "first_name": first_name,
+                    "last_name": last_name,
+                    "age": age,
+                    "dob": moment(dob).format('YYYY-MM-DD'),
+                    "phone": contact_numner,
+                    "emergency_num": emergency_number,
+                    "email": email,
+                    "address": address,
+                    "gender": gender,
+                    "membership_type": memberShip_type,
+                    "answers_list": answers_list
+                })
+            };
+            fetch(api_base_url + 'admin/addUser', options)
+                .then(response => response.json())
+                .then((res) => {
+                    if (res.success) {
+                        this.props.history.push("/trainee-details");
+                    }
+                    else {
+                        alert(res.message)
+                    }
+                })
+                .catch((error) => {
+                    console.log(error)
+                    // alert(error)
+                })
+        } else {
+            alert("Please fill all the fields")
+        }
     }
 
     completedStep1 = () => {
@@ -634,7 +634,8 @@ class AddTrainee extends React.Component {
                                                     </div>
 
                                                     <hr />
-                                                    <Button variant="primary" className="float-right" onClick={() => this.completedStep1()} >Next</Button>
+                                                    <Button variant="primary" className="float-right" onClick={() => this.handleAddTrainee()} >Add Trainee</Button>
+                                                    <Button variant="primary" className="float-right mr-3" onClick={() => this.completedStep1()} >Next</Button>
                                                 </div>
                                             </div>
                                         </div>
