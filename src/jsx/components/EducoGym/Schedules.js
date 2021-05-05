@@ -141,7 +141,7 @@ class Schedules extends React.Component {
 
     handleDeleteAllSchedule = () => {
         if (window.confirm('Are you sure you want to delete all Schedules?')) {
-            const options = { ...requestOptions, body: {} };
+            const options = { ...requestOptions };
             fetch(api_base_url + 'admin/deleteAllSchedules', options)
                 .then(response => response.json())
                 .then((res) => {
