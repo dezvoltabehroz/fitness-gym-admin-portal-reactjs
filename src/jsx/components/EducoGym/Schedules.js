@@ -139,6 +139,26 @@ class Schedules extends React.Component {
             .catch((error) => { })
     }
 
+    handleDeleteAllSchedule = () => {
+        if (window.confirm('Are you sure you want to delete all Schedules?')) {
+            const options = { ...requestOptions, body: {} };
+            fetch(api_base_url + 'admin/deleteAllSchedules', options)
+                .then(response => response.json())
+                .then((res) => {
+                    if (res.success) {
+                        this.fetchScheduleList()
+                    }
+                    else {
+                        console.log(res.message)
+                    }
+                })
+                .catch((error) => { })
+        } else {
+            // Do nothing!
+            console.log('Nothing to delete');
+        }
+    }
+
     render() {
 
         const columns = [
@@ -200,6 +220,12 @@ class Schedules extends React.Component {
                                                                 tooltip: "Add Schedule",
                                                                 position: "toolbar",
                                                                 onClick: () => { this.setState({ viewAddModal: true }) }
+                                                            },
+                                                            {
+                                                                icon: "delete_box",
+                                                                tooltip: "Delete All Schedule",
+                                                                position: "toolbar",
+                                                                onClick: () => { this.handleDeleteAllSchedule() }
                                                             }
                                                         ]}
                                                     />
