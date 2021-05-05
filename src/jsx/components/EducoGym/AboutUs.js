@@ -61,7 +61,11 @@ class AboutUs extends React.Component {
                                                 {aboutus_data !== {} ?
                                                     <div className="card-body border-bottom pb-4 p-2 event-calender col-md-6 col-lg-6 col-lg-12">
                                                         <h2 className="text-primary mb-0" style={new_style.top_margin}> How we work? </h2>
-                                                        <p style={new_style.top_margin}> {aboutus_data.content} </p>
+                                                        <p style={new_style.top_margin}> 
+                                                        The dedicated trainers in Educogym Eccles Street know the mind and body are deeply connected and must be trained together. We teach you how to sculpt the body you always wanted while increasing your health, wellbeing and mental health too.  
+                                                        <br/>
+                                                        Get your workout effectively done with us in under 20 minutes! Your dedicated trainer will look after your individual goal, design the right program, the best diet and make sure you train with correct form as you work out in a dynamic and inspiring small group setting. We help you keep track of your progress and goal with regular assessments.
+                                                        </p>
                                                         <h2 className="text-primary mb-0" style={new_style.top_margin}> Contact Us </h2>
                                                         <p style={new_style.top_margin}>
                                                             <ul>
