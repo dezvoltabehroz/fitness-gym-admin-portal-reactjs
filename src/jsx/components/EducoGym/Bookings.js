@@ -231,6 +231,9 @@ class Bookings extends React.Component {
                   <div className="d-flex mb-1 align-items-center">
                      <Button onClick={() => this.setState({ showCustomerList: true, assignItem: item })} variant="outline-light btn-xs w-100">Empty</Button>
                   </div>
+                  <div className="d-flex mb-1 align-items-center">
+                     <Button onClick={() => this.setState({ showCustomerList: true, assignItem: item })} variant="outline-light btn-xs w-100">Empty</Button>
+                  </div>
                </>
             )
             break;
@@ -243,6 +246,9 @@ class Bookings extends React.Component {
                   </div>
                   <div className="d-flex mb-1 align-items-center">
                      <Button variant="primary light btn-xs w-100">{`${userAdded[1].full_name}`}</Button>
+                  </div>
+                  <div className="d-flex mb-1 align-items-center">
+                     <Button onClick={() => this.setState({ showCustomerList: true, assignItem: item })} variant="outline-light btn-xs w-100">Empty</Button>
                   </div>
                   <div className="d-flex mb-1 align-items-center">
                      <Button onClick={() => this.setState({ showCustomerList: true, assignItem: item })} variant="outline-light btn-xs w-100">Empty</Button>
@@ -269,6 +275,9 @@ class Bookings extends React.Component {
                   <div className="d-flex mb-1 align-items-center">
                      <Button onClick={() => this.setState({ showCustomerList: true, assignItem: item })} variant="outline-light btn-xs w-100">Empty</Button>
                   </div>
+                  <div className="d-flex mb-1 align-items-center">
+                     <Button onClick={() => this.setState({ showCustomerList: true, assignItem: item })} variant="outline-light btn-xs w-100">Empty</Button>
+                  </div>
                </>
             )
             break;
@@ -288,6 +297,31 @@ class Bookings extends React.Component {
                   <div className="d-flex mb-1 align-items-center">
                      <Button variant="primary light btn-xs w-100">{`${userAdded[3].full_name}`}</Button>
                   </div>
+                  <div className="d-flex mb-1 align-items-center">
+                     <Button onClick={() => this.setState({ showCustomerList: true, assignItem: item })} variant="outline-light btn-xs w-100">Empty</Button>
+                  </div>
+               </>
+            )
+            break;
+
+         case 4:
+            return (
+               <>
+                  <div className="d-flex mb-1 align-items-center">
+                     <Button variant="primary light btn-xs w-100">{`${userAdded[0].full_name}`}</Button>
+                  </div>
+                  <div className="d-flex mb-1 align-items-center">
+                     <Button variant="primary light btn-xs w-100">{`${userAdded[1].full_name}`}</Button>
+                  </div>
+                  <div className="d-flex mb-1 align-items-center">
+                     <Button variant="primary light btn-xs w-100">{`${userAdded[2].full_name}`}</Button>
+                  </div>
+                  <div className="d-flex mb-1 align-items-center">
+                     <Button variant="primary light btn-xs w-100">{`${userAdded[3].full_name}`}</Button>
+                  </div>
+                  <div className="d-flex mb-1 align-items-center">
+                     <Button variant="primary light btn-xs w-100">{`${userAdded[4].full_name}`}</Button>
+                  </div>
                </>
             )
             break;
@@ -295,6 +329,9 @@ class Bookings extends React.Component {
          default:
             return (
                <>
+                  <div className="d-flex mb-1 align-items-center">
+                     <Button onClick={() => this.setState({ showCustomerList: true, assignItem: item })} variant="outline-light btn-xs w-100">Empty</Button>
+                  </div>
                   <div className="d-flex mb-1 align-items-center">
                      <Button onClick={() => this.setState({ showCustomerList: true, assignItem: item })} variant="outline-light btn-xs w-100">Empty</Button>
                   </div>
@@ -377,7 +414,7 @@ class Bookings extends React.Component {
                                  <div className="booking-slot flex-grow-1">
                                     <div className="d-flex align-items-center">
                                        <div className="list-icon mr-3 d-flex align-items-center justify-content-center">
-                                          <p className="fs-24 text-primary mb-0">{item.booked_slots}/4</p>
+                                          <p className="fs-24 text-primary mb-0">{item.booked_slots}/5</p>
                                        </div>
                                        <div className="info">
                                           <span className="fs-20">{moment(`${time} ${item.booking_start_time}`).format("hh:mm A")}<br /> GMT +01:00 am</span>
