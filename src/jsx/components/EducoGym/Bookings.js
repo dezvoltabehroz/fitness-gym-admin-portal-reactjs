@@ -304,7 +304,7 @@ class Bookings extends React.Component {
             )
             break;
 
-         case 4:
+         case 5:
             return (
                <>
                   <div className="d-flex mb-1 align-items-center">
