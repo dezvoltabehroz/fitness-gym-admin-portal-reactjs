@@ -13,13 +13,13 @@ class SideBar extends Component {
       const path = window.location.pathname;
 
       /// Active menu
-      let booking = ["booking"],
-         trainee = ["trainee-details", "add-trainee"],
-         analytics = ["analytics"],
-         user_profile = ["user-profile"],
-         schedules = ["schedules"],
-         pause = ["pause"],
-         about = ["about"];
+      let booking = ["admin/booking"],
+         trainee = ["admin/trainee-details", "admin/add-trainee"],
+         analytics = ["admin/analytics"],
+         user_profile = ["admin/user-profile"],
+         schedules = ["admin/schedules"],
+         pause = ["admin/pause"],
+         about = ["admin/about"];
 
       return (
          <div className="deznav">
