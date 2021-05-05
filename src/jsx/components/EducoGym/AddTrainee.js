@@ -65,13 +65,14 @@ class AddTrainee extends React.Component {
             emergency_number: "",
             email: "",
             address: "",
-            memberShip_type: "Basic"
+            memberShip_type: "Basic",
+            profile_picture: "https://www.gravatar.com/avatar/00000000000000000000000000000000?d=mp&f=y"
         }
     }
 
     handleAddTrainee = () => {
-        const { first_name, last_name, age, email, dob, contact_numner, emergency_number, address, memberShip_type, gender, answers_list } = this.state;
-        
+        const { first_name, last_name, age, email, dob, contact_numner, emergency_number, address, memberShip_type, gender, profile_picture, answers_list } = this.state;
+
         if (first_name.length && last_name.length && age.length && dob.length && contact_numner.length && emergency_number.length && memberShip_type.length && gender.length && address.length) {
             this.setState({
                 step1: true,
@@ -94,6 +95,7 @@ class AddTrainee extends React.Component {
                     "address": address,
                     "gender": gender,
                     "membership_type": memberShip_type,
+                    "profile_picture": profile_picture,
                     "answers_list": answers_list
                 })
             };
@@ -244,8 +246,28 @@ class AddTrainee extends React.Component {
         })
     }
 
-    handleUploadImgae = () => {
-        console.log("=========== Button Pressed ===========")
+    handleUploadImgae = (selectedFile) => {
+        const formData = new FormData();
+        formData.append("image", selectedFile);
+
+        const options = {
+            method: 'POST',
+            body: formData
+        };
+        fetch(api_base_url + 'admin/uploadPicture', options)
+            .then(response => response.json())
+            .then((res) => {
+                if (res.success) {
+                    this.setState({ profile_picture: res.data })
+                }
+                else {
+                    alert(res.message)
+                }
+            })
+            .catch((error) => {
+                console.log(error)
+                // alert(error)
+            })
     }
 
     addValueInArray = (question_id, answer) => {
@@ -263,7 +285,7 @@ class AddTrainee extends React.Component {
     }
 
     render() {
-        const { step1, step2, step3, step4, isBack, gender, memberShip_type, contact_numner, email, address, emergency_number, age, dob, first_name, last_name, answers_list } = this.state;
+        const { step1, step2, step3, step4, isBack, gender, memberShip_type, contact_numner, email, address, emergency_number, age, dob, first_name, last_name, profile_picture, answers_list } = this.state;
         return (
             <div id="main-wrapper" className="show">
                 <Nav />
@@ -284,9 +306,17 @@ class AddTrainee extends React.Component {
                                                             <div className="basic-form">
                                                                 <div className="form-row d-flex justify-content-center">
                                                                     <div className="form-group col-md-6">
-                                                                        <img src={uploadimage} data-holder-rendered="true" onClick={() => this.handleUploadImgae()} />
+
+                                                                        {profile_picture == "https://www.gravatar.com/avatar/00000000000000000000000000000000?d=mp&f=y"
+                                                                            ?
+                                                                            <img src={uploadimage} data-holder-rendered="true" />
+                                                                            :
+                                                                            <img src={profile_picture} width="210" height="208" data-holder-rendered="true" />
+                                                                        }
+
                                                                         <br />
-                                                                        <input type="file" className="filetype" id="group_image" style={new_style.label_top_margin} />
+                                                                        <input type="file"
+                                                                            onChange={(e) => this.handleUploadImgae(e.target.files[0])} />
                                                                     </div>
                                                                 </div>
                                                             </div>

@@ -285,7 +285,7 @@ class TraineeDetails extends React.Component {
                                  <Col md="6" className="ml-auto">
                                     <Row>
                                        <Col className="d-flex justify-content-center">
-                                          <img src={uploadimage} data-holder-rendered="true" />
+                                          <img src={memberDetail.profile_picture} data-holder-rendered="true" width="210" height="208" />
                                        </Col>
                                     </Row>
 
