@@ -114,33 +114,13 @@ class Schedules extends React.Component {
         }
     }
 
-    handleDayAndDateChange = (e) => {
-        var d = new Date(e.target.value);
-        var days = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"];
-        this.setState({ day: days[d.getDay()], schedule_date: e.target.value })
-    }
-
-    handleEndDayAndDateChange = (e) => {
-        var d = new Date(e.target.value);
-        var days = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"];
-        this.setState({ end_day: days[d.getDay()], end_schedule_date: e.target.value })
-    }
-
     handleAddSchedule = () => {
         this.setState({ viewAddModal: false })
-        const { day, schedule_date, end_schedule_date, start_time, end_time, break_start_time, break_end_time } = this.state;
-
-        var d = new Date(schedule_date);
-        var days = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"];
+        const { schedule_date, end_schedule_date } = this.state;
 
         let obj_body = {
-            day: days[d.getDay()],
             schedule_date: schedule_date,
             end_schedule_date: end_schedule_date,
-            start_time: start_time,
-            end_time: end_time,
-            break_start_time: break_start_time,
-            break_end_time: break_end_time
         }
         const options = {
             ...requestOptions,
@@ -242,45 +222,17 @@ class Schedules extends React.Component {
                                             <div className="form-group col-md-12">
                                                 <label> Start Date </label>
                                                 <input type="date" value={schedule_date}
-                                                    onChange={this.handleDayAndDateChange}
+                                                    onChange={(e) => this.setState({ schedule_date: e.target.value })}
                                                     className="form-control" placeholder="Select Date" />
                                             </div>
-
-                                            <div className="form-group col-md-12">
-                                                <label> Day Start Time </label>
-                                                <input type="time"
-                                                    onChange={(time) => this.setState({ start_time: time.target.value })}
-                                                    className="form-control" placeholder="Start Time" />
-                                            </div>
-
-                                            <div className="form-group col-md-12">
-                                                <label> Day End Time </label>
-                                                <input type="time"
-                                                    onChange={(time) => this.setState({ end_time: time.target.value })}
-                                                    className="form-control" placeholder="End Time" />
-                                            </div>
                                         </div>
-                                        
+
                                         <div className="col-md-6">
                                             <div className="form-group col-md-12">
                                                 <label> End Date </label>
                                                 <input type="date" value={end_schedule_date}
-                                                    onChange={this.handleEndDayAndDateChange}
+                                                    onChange={(e) => this.setState({ end_schedule_date: e.target.value })}
                                                     className="form-control" placeholder="Select End Date" />
-                                            </div>
-
-                                            <div className="form-group col-md-12">
-                                                <label> Break Start Time </label>
-                                                <input type="time"
-                                                    onChange={(time) => this.setState({ break_start_time: time.target.value })}
-                                                    className="form-control" placeholder="Start Time" />
-                                            </div>
-
-                                            <div className="form-group col-md-12">
-                                                <label> Break End Time </label>
-                                                <input type="time"
-                                                    onChange={(time) => this.setState({ break_end_time: time.target.value })}
-                                                    className="form-control" placeholder="End Time" />
                                             </div>
                                         </div>
                                     </div>
