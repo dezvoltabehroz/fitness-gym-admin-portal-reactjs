@@ -65,15 +65,16 @@ class AddTrainee extends React.Component {
             emergency_number: "",
             email: "",
             address: "",
-            memberShip_type: "Basic",
+            memberShip_type: "monthly",
+            membership_start_date: moment(new Date()).format('YYYY-MM-DD'),
             profile_picture: "https://www.gravatar.com/avatar/00000000000000000000000000000000?d=mp&f=y"
         }
     }
 
     handleAddTrainee = () => {
-        const { first_name, last_name, age, email, dob, contact_numner, emergency_number, address, memberShip_type, gender, profile_picture, answers_list } = this.state;
+        const { first_name, last_name, age, email, dob, contact_numner, emergency_number, address, memberShip_type, gender, profile_picture, answers_list, membership_start_date } = this.state;
 
-        if (first_name.length && last_name.length && age.length && dob.length && contact_numner.length && emergency_number.length && memberShip_type.length && gender.length && address.length) {
+        if (first_name.length && last_name.length && age.length && dob.length && contact_numner.length && emergency_number.length && memberShip_type.length && gender.length && address.length && membership_start_date.length) {
             this.setState({
                 step1: true,
                 step2: false,
@@ -95,6 +96,7 @@ class AddTrainee extends React.Component {
                     "address": address,
                     "gender": gender,
                     "membership_type": memberShip_type,
+                    "membership_start_date": membership_start_date,
                     "profile_picture": profile_picture,
                     "answers_list": answers_list
                 })
@@ -285,7 +287,7 @@ class AddTrainee extends React.Component {
     }
 
     render() {
-        const { step1, step2, step3, step4, isBack, gender, memberShip_type, contact_numner, email, address, emergency_number, age, dob, first_name, last_name, profile_picture, answers_list } = this.state;
+        const { step1, step2, step3, step4, isBack, gender, memberShip_type, membership_start_date, contact_numner, email, address, emergency_number, age, dob, first_name, last_name, profile_picture, answers_list } = this.state;
         return (
             <div id="main-wrapper" className="show">
                 <Nav />
@@ -365,18 +367,56 @@ class AddTrainee extends React.Component {
                                             <div className="card">
                                                 <div className="card-body">
                                                     <h4 className="text-primary mb-0" style={new_style.top_margin}> Membership Details </h4><br />
-                                                    <div className="form-group col-md-6">
+                                                    <div className="form-group col-md-12">
                                                         <label>Type of membership?</label>
-                                                        <div className="col-sm-9">
-                                                            <div className="form-check">
-                                                                <input className="form-check-input" onChange={event => { this.setState({ memberShip_type: event.target.value }) }} type="radio" name="memberShip_type" value="Basic" checked={memberShip_type == 'Basic' ? true : false} />
-                                                                <label className="form-check-label"> Basic </label>
+                                                        <div className="row">
+                                                            <div className="col-sm-4">
+                                                                <div className="form-check">
+                                                                    <input className="form-check-input" onChange={event => { this.setState({ memberShip_type: event.target.value }) }} type="radio" name="memberShip_type" value="monthly" checked={memberShip_type == 'monthly' ? true : false} />
+                                                                    <label className="form-check-label"> Monthly membership (30 Days) </label>
+                                                                </div>
+                                                                <div className="form-check">
+                                                                    <input className="form-check-input" onChange={event => { this.setState({ memberShip_type: event.target.value }) }} type="radio" name="memberShip_type" value="6weeks" checked={memberShip_type == '6weeks' ? true : false} />
+                                                                    <label className="form-check-label"> 6 week membership (42 days)</label>
+                                                                </div>
                                                             </div>
-                                                            <div className="form-check">
-                                                                <input className="form-check-input" onChange={event => { this.setState({ memberShip_type: event.target.value }) }} type="radio" name="memberShip_type" value="Standard" checked={memberShip_type == 'Standard' ? true : false} />
-                                                                <label className="form-check-label"> Standard</label>
+                                                            <div className="col-sm-4">
+                                                                <div className="form-check">
+                                                                    <input className="form-check-input" onChange={event => { this.setState({ memberShip_type: event.target.value }) }} type="radio" name="memberShip_type" value="3months" checked={memberShip_type == '3months' ? true : false} />
+                                                                    <label className="form-check-label"> 3 month membership (90 days) </label>
+                                                                </div>
+                                                                <div className="form-check">
+                                                                    <input className="form-check-input" onChange={event => { this.setState({ memberShip_type: event.target.value }) }} type="radio" name="memberShip_type" value="8weeks" checked={memberShip_type == '8weeks' ? true : false} />
+                                                                    <label className="form-check-label"> 8 week membership (56 days)</label>
+                                                                </div>
+                                                            </div>
+                                                            <div className="col-sm-4">
+                                                                <div className="form-check">
+                                                                    <input className="form-check-input" onChange={event => { this.setState({ memberShip_type: event.target.value }) }} type="radio" name="memberShip_type" value="1year" checked={memberShip_type == '1year' ? true : false} />
+                                                                    <label className="form-check-label"> 1 year membership (365 days) </label>
+                                                                </div>
+                                                                <div className="form-check">
+                                                                    <input className="form-check-input" onChange={event => { this.setState({ memberShip_type: event.target.value }) }} type="radio" name="memberShip_type" value="12days" checked={memberShip_type == '12days' ? true : false} />
+                                                                    <label className="form-check-label"> 12 day membership</label>
+                                                                </div>
+                                                            </div>
+                                                            <div className="col-sm-4">
+                                                                <div className="form-check">
+                                                                    <input className="form-check-input" onChange={event => { this.setState({ memberShip_type: event.target.value }) }} type="radio" name="memberShip_type" value="3days" checked={memberShip_type == '3days' ? true : false} />
+                                                                    <label className="form-check-label"> 3 Day membership (3 Days) </label>
+                                                                </div>
                                                             </div>
                                                         </div>
+
+                                                        <br />
+                                                        <br />
+                                                        <div className="row">
+                                                            <div className="form-group col-md-6">
+                                                                <label><b>Membership Start Date</b></label>
+                                                                <input type="date" onChange={(e) => this.setState({ membership_start_date: e.target.value })} value={membership_start_date} className="form-control" placeholder="Membership Starting Date" />
+                                                            </div>
+                                                        </div>
+
                                                     </div>
                                                 </div>
                                             </div>
