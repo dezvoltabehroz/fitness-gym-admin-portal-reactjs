@@ -55,7 +55,8 @@ class AddTrainee extends React.Component {
                 { "question_id": "29", "answer": "Yes" },
                 { "question_id": "30", "answer": "Pain free but heavy" },
                 { "question_id": "31", "answer": "Yes" },
-                { "question_id": "32", "answer": "My energy is really high" }
+                { "question_id": "32", "answer": "My energy is really high" },
+                { "question_id": "33", "answer": "" }
             ],
             first_name: "",
             last_name: "",
@@ -428,24 +429,10 @@ class AddTrainee extends React.Component {
                                             <div className="card">
                                                 <div className="card-body">
                                                     <h4 className="text-primary mb-0" style={new_style.top_margin}> General Info </h4>
-                                                    <h6 className="" style={new_style.top_margin}> Please can you fill in the detail below: </h6><br />
+                                                    <h6 className="" style={new_style.top_margin}> Please answer the questions below: </h6><br />
 
                                                     <div className="row">
                                                         <div className="col-md-6">
-                                                            <div className="form-group">
-                                                                <label>What is your Sex?</label>
-                                                                <div className="col-sm-9">
-                                                                    <div className="form-check">
-                                                                        <input className="form-check-input" onChange={event => { this.setState({ gender: event.target.value }) }} type="radio" name="gridRadiosgender" value='Male' checked={gender == 'Male' ? true : false} />
-                                                                        <label className="form-check-label"> Male </label>
-                                                                    </div>
-                                                                    <div className="form-check">
-                                                                        <input className="form-check-input" onChange={event => { this.setState({ gender: event.target.value }) }} type="radio" name="gridRadiosgender" value='Female' checked={gender == 'Female' ? true : false} />
-                                                                        <label className="form-check-label"> Female</label>
-                                                                    </div>
-                                                                </div>
-                                                            </div>
-
                                                             <div className="form-group">
                                                                 <label>Where did you hear about us?</label>
                                                                 <div className="col-sm-9">
@@ -481,7 +468,7 @@ class AddTrainee extends React.Component {
                                                             </div>
 
                                                             <div className="form-group">
-                                                                <label>Have you explained chest pain on exercise recently?</label>
+                                                                <label>Have you experienced chest pain on exercise recently?</label>
                                                                 <div className="col-sm-9">
                                                                     <div className="form-check">
                                                                         <input className="form-check-input" onChange={event => { this.addValueInArray("2", event.target.value) }} type="radio" name="gridRadios2" value="Yes" checked={answers_list[1].answer == "Yes" ? true : false} />
@@ -549,8 +536,7 @@ class AddTrainee extends React.Component {
                                                                     </div>
                                                                 </div>
                                                             </div>
-                                                        </div>
-                                                        <div className="col-md-6">
+
                                                             <div className="form-group">
                                                                 <label>Do you have a heart condition?</label>
                                                                 <div className="col-sm-9">
@@ -564,7 +550,8 @@ class AddTrainee extends React.Component {
                                                                     </div>
                                                                 </div>
                                                             </div>
-
+                                                        </div>
+                                                        <div className="col-md-6">
                                                             <div className="form-group">
                                                                 <label>Do you have asthma?</label>
                                                                 <div className="col-sm-9">
@@ -662,6 +649,27 @@ class AddTrainee extends React.Component {
                                                                     </div>
                                                                 </div>
                                                             </div>
+
+                                                            <div className="form-group">
+                                                                <label>What is your Sex?</label>
+                                                                <div className="col-sm-9">
+                                                                    <div className="form-check">
+                                                                        <input className="form-check-input" onChange={event => { this.setState({ gender: event.target.value }) }} type="radio" name="gridRadiosgender" value='Male' checked={gender == 'Male' ? true : false} />
+                                                                        <label className="form-check-label"> Male </label>
+                                                                    </div>
+                                                                    <div className="form-check">
+                                                                        <input className="form-check-input" onChange={event => { this.setState({ gender: event.target.value }) }} type="radio" name="gridRadiosgender" value='Female' checked={gender == 'Female' ? true : false} />
+                                                                        <label className="form-check-label"> Female</label>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+
+                                                    <div className="row">
+                                                        <div className="col-lg-12 " style={new_style.label_top_margin}>
+                                                            <label>If your answer to any of the above questions were yes, please provide more details.</label>
+                                                            <input type="text" onChange={(e) => this.addValueInArray("33", e.target.value)} className="form-control border-bottom" placeholder="" value={answers_list[32].answer} />
                                                         </div>
                                                     </div>
 
@@ -694,12 +702,6 @@ class AddTrainee extends React.Component {
                                                                     <label className="form-check-label"> No</label>
                                                                 </div>
                                                             </div>
-                                                        </div>
-                                                    </div>
-
-                                                    <div className="row">
-                                                        <div className="col-lg-12 " style={new_style.label_top_margin}>
-                                                            <label>If your answer to any of the above questions were yes, please provide more details.</label>
                                                         </div>
                                                     </div>
 
