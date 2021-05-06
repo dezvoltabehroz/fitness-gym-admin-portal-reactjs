@@ -60,7 +60,7 @@ class AddTrainee extends React.Component {
             first_name: "",
             last_name: "",
             age: "",
-            dob: "",
+            dob: moment('1900-01-01').format('YYYY-MM-DD'),
             contact_numner: "",
             emergency_number: "",
             email: "",
@@ -338,7 +338,7 @@ class AddTrainee extends React.Component {
                                                                             <input type="tel" onChange={(e) => this.setState({ age: e.target.value })} value={age} className="form-control" placeholder="Age" />
                                                                         </div>
                                                                         <div className="form-group col-md-6">
-                                                                            <input type="date" onChange={(e) => this.setState({ dob: e.target.value })} value={dob} className="form-control" placeholder="DOB" />
+                                                                            <input type="date" max={membership_start_date} onChange={(e) => this.setState({ dob: e.target.value })} value={dob} className="form-control" placeholder="DOB" />
                                                                         </div>
                                                                         <div className="form-group col-md-6">
                                                                             <input type="tel" onChange={(e) => this.setState({ contact_numner: e.target.value })} value={contact_numner} className="form-control" placeholder="Contact Number" />
@@ -413,7 +413,7 @@ class AddTrainee extends React.Component {
                                                         <div className="row">
                                                             <div className="form-group col-md-6">
                                                                 <label><b>Membership Start Date</b></label>
-                                                                <input type="date" onChange={(e) => this.setState({ membership_start_date: e.target.value })} value={membership_start_date} className="form-control" placeholder="Membership Starting Date" />
+                                                                <input type="date" min="2021-01-01" onChange={(e) => this.setState({ membership_start_date: e.target.value })} value={membership_start_date} className="form-control" placeholder="Membership Starting Date" />
                                                             </div>
                                                         </div>
 
