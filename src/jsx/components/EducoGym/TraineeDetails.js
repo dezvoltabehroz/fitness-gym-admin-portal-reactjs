@@ -99,11 +99,11 @@ class TraineeDetails extends React.Component {
    }
 
    handleUpdateProfile = () => {
-      this.setState({ viewProfileModal: false, isLoading: true })
       const { memberDetail } = this.state;
       if (moment(memberDetail.membership_start_date).format('YYYY-MM-DD') > moment(memberDetail.membership_end_date).format('YYYY-MM-DD')) {
          alert("Membership start date should be greater that end date")
       } else {
+         this.setState({ viewProfileModal: false, isLoading: true })
          const options = {
             ...requestOptions,
             body: JSON.stringify({
