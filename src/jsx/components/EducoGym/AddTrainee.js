@@ -66,7 +66,7 @@ class AddTrainee extends React.Component {
             emergency_number: "",
             email: "",
             address: "",
-            memberShip_type: "monthly",
+            memberShip_type: "Monthly",
             membership_start_date: moment(new Date()).format('YYYY-MM-DD'),
             profile_picture: "https://www.gravatar.com/avatar/00000000000000000000000000000000?d=mp&f=y"
         }
