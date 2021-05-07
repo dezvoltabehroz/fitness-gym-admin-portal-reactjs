@@ -373,37 +373,37 @@ class AddTrainee extends React.Component {
                                                         <div className="row">
                                                             <div className="col-sm-4">
                                                                 <div className="form-check">
-                                                                    <input className="form-check-input" onChange={event => { this.setState({ memberShip_type: event.target.value }) }} type="radio" name="memberShip_type" value="monthly" checked={memberShip_type == 'monthly' ? true : false} />
+                                                                    <input className="form-check-input" onChange={event => { this.setState({ memberShip_type: event.target.value }) }} type="radio" name="memberShip_type" value="Monthly" checked={memberShip_type == 'Monthly' ? true : false} />
                                                                     <label className="form-check-label"> Monthly membership (30 Days) </label>
                                                                 </div>
                                                                 <div className="form-check">
-                                                                    <input className="form-check-input" onChange={event => { this.setState({ memberShip_type: event.target.value }) }} type="radio" name="memberShip_type" value="6weeks" checked={memberShip_type == '6weeks' ? true : false} />
+                                                                    <input className="form-check-input" onChange={event => { this.setState({ memberShip_type: event.target.value }) }} type="radio" name="memberShip_type" value="6 Weeks" checked={memberShip_type == '6 Weeks' ? true : false} />
                                                                     <label className="form-check-label"> 6 week membership (42 days)</label>
                                                                 </div>
                                                             </div>
                                                             <div className="col-sm-4">
                                                                 <div className="form-check">
-                                                                    <input className="form-check-input" onChange={event => { this.setState({ memberShip_type: event.target.value }) }} type="radio" name="memberShip_type" value="3months" checked={memberShip_type == '3months' ? true : false} />
+                                                                    <input className="form-check-input" onChange={event => { this.setState({ memberShip_type: event.target.value }) }} type="radio" name="memberShip_type" value="3 Months" checked={memberShip_type == '3 Months' ? true : false} />
                                                                     <label className="form-check-label"> 3 month membership (90 days) </label>
                                                                 </div>
                                                                 <div className="form-check">
-                                                                    <input className="form-check-input" onChange={event => { this.setState({ memberShip_type: event.target.value }) }} type="radio" name="memberShip_type" value="8weeks" checked={memberShip_type == '8weeks' ? true : false} />
+                                                                    <input className="form-check-input" onChange={event => { this.setState({ memberShip_type: event.target.value }) }} type="radio" name="memberShip_type" value="8 Weeks" checked={memberShip_type == '8 Weeks' ? true : false} />
                                                                     <label className="form-check-label"> 8 week membership (56 days)</label>
                                                                 </div>
                                                             </div>
                                                             <div className="col-sm-4">
                                                                 <div className="form-check">
-                                                                    <input className="form-check-input" onChange={event => { this.setState({ memberShip_type: event.target.value }) }} type="radio" name="memberShip_type" value="1year" checked={memberShip_type == '1year' ? true : false} />
+                                                                    <input className="form-check-input" onChange={event => { this.setState({ memberShip_type: event.target.value }) }} type="radio" name="memberShip_type" value="1 Year" checked={memberShip_type == '1 Year' ? true : false} />
                                                                     <label className="form-check-label"> 1 year membership (365 days) </label>
                                                                 </div>
                                                                 <div className="form-check">
-                                                                    <input className="form-check-input" onChange={event => { this.setState({ memberShip_type: event.target.value }) }} type="radio" name="memberShip_type" value="12days" checked={memberShip_type == '12days' ? true : false} />
+                                                                    <input className="form-check-input" onChange={event => { this.setState({ memberShip_type: event.target.value }) }} type="radio" name="memberShip_type" value="12 Days" checked={memberShip_type == '12 Days' ? true : false} />
                                                                     <label className="form-check-label"> 12 day membership</label>
                                                                 </div>
                                                             </div>
                                                             <div className="col-sm-4">
                                                                 <div className="form-check">
-                                                                    <input className="form-check-input" onChange={event => { this.setState({ memberShip_type: event.target.value }) }} type="radio" name="memberShip_type" value="3days" checked={memberShip_type == '3days' ? true : false} />
+                                                                    <input className="form-check-input" onChange={event => { this.setState({ memberShip_type: event.target.value }) }} type="radio" name="memberShip_type" value="3 Days" checked={memberShip_type == '3 Days' ? true : false} />
                                                                     <label className="form-check-label"> 3 Day membership (3 Days) </label>
                                                                 </div>
                                                             </div>

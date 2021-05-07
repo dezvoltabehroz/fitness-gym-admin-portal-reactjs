@@ -101,39 +101,43 @@ class TraineeDetails extends React.Component {
    handleUpdateProfile = () => {
       this.setState({ viewProfileModal: false, isLoading: true })
       const { memberDetail } = this.state;
-      const options = {
-         ...requestOptions,
-         body: JSON.stringify({
-            user_id: memberDetail.user_id,
-            first_name: memberDetail.first_name,
-            last_name: memberDetail.last_name,
-            age: memberDetail.age,
-            phone: memberDetail.phone,
-            email: memberDetail.email,
-            address: memberDetail.address,
-            dob: moment(memberDetail.dob).format('YYYY-MM-DD'),
-            gender: memberDetail.gender,
-            emergency_num: memberDetail.emergency_num,
-            membership_type: memberDetail.membership_type,
-            membership_start_date: moment(memberDetail.membership_start_date).format('YYYY-MM-DD'),
-            membership_end_date: moment(memberDetail.membership_end_date).format('YYYY-MM-DD')
-         })
-      };
-      fetch(api_base_url + 'admin/updateUser', options)
-         .then(response => response.json())
-         .then(async (res) => {
-            if (res.success) {
-               // message.success(res.message)
-               await this.fetchMemberList()
-            }
-            else {
-               // alert(res.message)
-               this.setState({ memberDetail: {}, isLoading: false })
-            }
-         })
-         .catch((error) => {
-            // alert(error)
-         })
+      if (moment(memberDetail.membership_start_date).format('YYYY-MM-DD') > moment(memberDetail.membership_end_date).format('YYYY-MM-DD')) {
+         alert("Membership start date should be greater that end date")
+      } else {
+         const options = {
+            ...requestOptions,
+            body: JSON.stringify({
+               user_id: memberDetail.user_id,
+               first_name: memberDetail.first_name,
+               last_name: memberDetail.last_name,
+               age: memberDetail.age,
+               phone: memberDetail.phone,
+               email: memberDetail.email,
+               address: memberDetail.address,
+               dob: moment(memberDetail.dob).format('YYYY-MM-DD'),
+               gender: memberDetail.gender,
+               emergency_num: memberDetail.emergency_num,
+               membership_type: memberDetail.membership_type,
+               membership_start_date: moment(memberDetail.membership_start_date).format('YYYY-MM-DD'),
+               membership_end_date: moment(memberDetail.membership_end_date).format('YYYY-MM-DD')
+            })
+         };
+         fetch(api_base_url + 'admin/updateUser', options)
+            .then(response => response.json())
+            .then(async (res) => {
+               if (res.success) {
+                  // message.success(res.message)
+                  await this.fetchMemberList()
+               }
+               else {
+                  // alert(res.message)
+                  this.setState({ memberDetail: {}, isLoading: false })
+               }
+            })
+            .catch((error) => {
+               // alert(error)
+            })
+      }
    }
 
    handlePauseMemberShip = () => {
@@ -274,7 +278,7 @@ class TraineeDetails extends React.Component {
 
 
                      {/* Modal Of View Profile Detail */}
-                     <Modal show={viewProfileModal} size="lg" >
+                     <Modal show={viewProfileModal} size="xl" >
                         <Modal.Header>
                            <Button variant="" className="close" onClick={() => this.fetchMemberList()} > <span>&times;</span> </Button>
                            <br />
@@ -371,6 +375,7 @@ class TraineeDetails extends React.Component {
                                                 <div className="form-row">
                                                    <div className="form-group col-md-6">
                                                       <input type="text" value={memberDetail.membership_type}
+                                                         disabled={true}
                                                          onChange={(e) => this.setState({ memberDetail: { ...memberDetail, membership_type: e.target.value } })}
                                                          className="form-control border-bottom" placeholder="membership Type" />
                                                    </div>
@@ -381,12 +386,12 @@ class TraineeDetails extends React.Component {
                                                          className="form-control" placeholder="Member ID" />
                                                    </div>
                                                    <div className="form-group col-md-6">
-                                                      <input type="date" value={memberDetail.membership_start_date}
+                                                      <input type="date" max={new Date()} value={memberDetail.membership_start_date}
                                                          onChange={(e) => this.setState({ memberDetail: { ...memberDetail, membership_start_date: e.target.value } })}
                                                          className="form-control" placeholder="Valid From" />
                                                    </div>
                                                    <div className="form-group col-md-6">
-                                                      <input type="date" value={memberDetail.membership_end_date}
+                                                      <input type="date" max={new Date()} value={memberDetail.membership_end_date}
                                                          onChange={(e) => this.setState({ memberDetail: { ...memberDetail, membership_end_date: e.target.value } })}
                                                          className="form-control" placeholder="Valid Till" />
                                                    </div>
