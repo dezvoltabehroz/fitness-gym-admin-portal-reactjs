@@ -65,7 +65,7 @@ const Header = ({ onNote, toggle, onProfile, onNotification, onBox }) => {
                               toggle === "profile" ? "show" : ""
                            }`}
                         >
-                           <Link
+                           {/* <Link
                               to="/user-profile"
                               className="dropdown-item ai-icon"
                            >
@@ -86,7 +86,7 @@ const Header = ({ onNote, toggle, onProfile, onNotification, onBox }) => {
                                  <circle cx={12} cy={7} r={4} />
                               </svg>
                               <span className="ml-2">Profile </span>
-                           </Link>
+                           </Link> */}
                            {/* <Link
                               to="/email-inbox"
                               className="dropdown-item ai-icon"
