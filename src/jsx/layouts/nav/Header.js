@@ -5,7 +5,7 @@ import { Link } from "react-router-dom";
 import PerfectScrollbar from "react-perfect-scrollbar";
 
 /// Image
-import profile from "../../../images/profile/17.jpg";
+import profile from "../../../images/profile/avatar.png";
 import avatar from "../../../images/avatar/1.jpg";
 
 const Header = ({ onNote, toggle, onProfile, onNotification, onBox }) => {

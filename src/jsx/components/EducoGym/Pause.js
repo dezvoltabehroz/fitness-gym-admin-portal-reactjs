@@ -94,7 +94,7 @@ class Pause extends React.Component {
                                                                             <Card.Title> {data.full_name} </Card.Title>
                                                                             <Card.Text> <b>Start : </b>{moment(data.pause_start).format('yyyy/MM/DD')} </Card.Text>
                                                                             <Card.Text> <b>End : </b>{moment(data.pause_end).format('yyyy/MM/DD')} </Card.Text>
-                                                                            <Button size="sm" variant="primary" onClick={() => this.approveRequest(data.pause_id)}>Approved</Button>
+                                                                            <Button size="sm" variant="primary" onClick={() => this.approveRequest(data.pause_id)}>Approve</Button>
                                                                             <Button size="sm" variant="danger" onClick={() => this.cancelRequest(data.pause_id)}>Cancel</Button>
                                                                         </Card.Body>
                                                                     </Card>

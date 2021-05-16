@@ -43,11 +43,11 @@ class SideBar extends Component {
                         <i className="fa fa-bar-chart"></i> <span className="nav-text">Analytics</span>
                      </Link>
                   </li>
-                  <li className={`${user_profile.includes(path.slice(1)) ? "mm-active" : ""}`} >
+                  {/* <li className={`${user_profile.includes(path.slice(1)) ? "mm-active" : ""}`} >
                      <Link to="user-profile" className="ai-icon" aria-expanded="false" >
                         <i className="fa fa-user-o"></i> <span className="nav-text">User Profile</span>
                      </Link>
-                  </li>
+                  </li> */}
                   <li className={`${schedules.includes(path.slice(1)) ? "mm-active" : ""}`} >
                      <Link to="schedules" className="ai-icon" aria-expanded="false" >
                         <i className="fa fa-calendar-o"></i> <span className="nav-text">Schedules</span>
