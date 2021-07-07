@@ -9,11 +9,12 @@ class Login extends React.Component {
       this.state = {
          email: '',
          password: '',
-         token: localStorage.getItem("token")
+         // token: localStorage.getItem("token")
       }
    }
 
    componentDidMount = () => {
+      localStorage.removeItem("token")
       // const { token } = this.state;
       // if (token != null)
       //    this.tokenRefresh("1")
