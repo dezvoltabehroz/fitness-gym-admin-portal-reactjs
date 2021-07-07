@@ -14,9 +14,9 @@ class Login extends React.Component {
    }
 
    componentDidMount = () => {
-      const { token } = this.state;
-      if (token != null)
-         this.tokenRefresh("1")
+      // const { token } = this.state;
+      // if (token != null)
+      //    this.tokenRefresh("1")
    }
 
    submitHandler = () => {
